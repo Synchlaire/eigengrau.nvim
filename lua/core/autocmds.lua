@@ -1,0 +1,71 @@
+local cmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
+
+-----------------------------------
+--            BUILTIN            --
+-----------------------------------
+--
+--
+-- Disable autocommenting
+-- Who likes autocommenting anyways?
+cmd("FileType", {
+    -- desc = "Disable autocommenting in new lines",
+    callback = function()
+        vim.opt.formatoptions = vim.opt.formatoptions
+            + "r" -- continue comments after return
+            + "c" -- wrap comments using textwidth
+            + "q" -- allow to format comments w/ gq
+            + "j" -- remove comment leader when joining lines when possible
+            - "t" -- don't autoformat
+            - "a" -- no autoformatting
+            - "o" -- don't continue comments after o/O
+            - "2" -- don't use indent of second line for rest of paragraph
+    end,
+    desc = "Set formatoptions",
+})
+
+augroup("_buffer", {})
+
+-- Highlight while yanking
+cmd("TextYankPost", {
+    pattern = "*",
+    desc = "Highlight while yanking",
+    group = "_buffer",
+    callback = function()
+        vim.highlight.on_yank({ higroup = "IncSearch", timeout = 180 })
+    end,
+})
+
+
+-- Quickfix mappings
+cmd("FileType", {
+    desc = "Quit with q in this filetypes",
+    group = "_buffer",
+    pattern = "qf",
+    callback = function()
+        vim.keymap.set("n", ";j", "<CMD>cn<CR>")
+        vim.keymap.set("n", ";k", "<CMD>cp<CR>")
+    end,
+})
+
+-----------------------------------
+--             PLUGINS           --
+-----------------------------------
+augroup("_lsp", {})
+
+cmd("LspAttach", {
+    callback = function(args)
+        local bufnr = args.buf
+        -- vim.lsp.semantic_tokens.stop(bufnr, args.data.client_id)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        client.server_capabilities.semanticTokensProvider = nil
+    end,
+})
+
+cmd("CursorHold", {
+    group = vim.api.nvim_create_augroup("lsp_float", {}),
+    callback = function()
+        vim.diagnostic.open_float()
+    end,
+})
+
