@@ -16,9 +16,9 @@ keymap('i', 'jk', '<Esc>', opts)
 keymap('n', '<TAB>', '==', opts)
 keymap('v', '<TAB>', '=', opts)
 
--- search using _ instead of /
-
+-- keyboard substitutions for my sanity
 keymap('n', '_', '/', opts)
+keymap('n', 'ñ', '~', opts)
 
 -- navigate within insert mode
 keymap('i', '<C-k>', '<Up>', opts)
@@ -48,14 +48,14 @@ keymap('n', '<A-2>', '<cmd>LualineBuffersJump 2<CR>', opts)
 keymap('n', '<A-3>', '<cmd>LualineBuffersJump 3<CR>', opts)
 keymap('n', '<A-4>', '<cmd>LualineBuffersJump 4<CR>', opts)
 keymap('n', '<A-5>', '<cmd>LualineBuffersJump 5<CR>', opts)
-keymap('n', '<A-,>', '<cmd>bp<CR>', opts)
-keymap('n', '<A-.>', '<cmd>bn<CR>', opts)
-keymap('n', '<A-x>', '<cmd>bd<CR>', opts)
+keymap('n', '<A-,>', '<cmd>bp| lua require("notify")("buffer 󰒮- ")<CR>', opts)
+keymap('n', '<A-.>', '<cmd>bn| lua require("notify")("buffer -󰒭 ")<CR>', opts)
+keymap('n', '<A-x>', '<cmd>bd| lua require("notify")("buffer 󰚌 ")<CR>', opts)
 
 -- Splits
-keymap('n', '<leader>sv', '<cmd>vs<CR>', { desc = 'vert split'})
-keymap('n', '<leader>sh', '<cmd>split<CR>', { desc = 'horiz split'})
-keymap('n', '<leader>sx', '<cmd>close<CR>', { desc = 'close split'})
+keymap('n', '<leader>sv', '<cmd>vs| lua require("notify")("split | ")<CR>', { desc = 'vert split'})
+keymap('n', '<leader>sh', '<cmd>split | lua require("notify")("split ̣-- ")<CR>', { desc = 'horiz split'})
+keymap('n', '<leader>sx', '<cmd>close| lua require("notify")("window 󰚌 ")<CR>', { desc = 'close split'})
 
 -- clear search highlight
 keymap('n', '<leader>nh', '<cmd>nohl<CR>', { desc= 'clear search highlights' })
@@ -104,6 +104,7 @@ keymap("n", "<leader>ab",  "<plug>(comment_toggle_blockwise_current)", opts)
 
 -- toggle background workaround, kinda janky if you ask me
 keymap("n", "|", ':exec &bg=="light"? "set bg=dark" : "set bg=light"<CR>', {noremap = true, silent = true})
+keymap("n", "<leader>|", '<cmd>TransparentToggle| lua require("notify")("Transparency Toggle")<cr>', { desc = 'toggle transparency'})
 
 
 
