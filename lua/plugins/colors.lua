@@ -10,12 +10,6 @@ require("poimandres").setup {
     disable_italics = false,       -- disable italics
 }
 
---- boo
-require("boo-colorscheme").setup({
-    italic = true, -- toggle italics
-    theme = "boo"
-})
-
 -- Load the colorschemes
 
 

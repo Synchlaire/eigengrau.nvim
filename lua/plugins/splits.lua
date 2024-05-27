@@ -15,7 +15,7 @@ require('smart-splits').setup({
   -- 'split' => Create a new split in the desired direction
   -- 'stop' => Do nothing
   -- function => You handle the behavior yourself
-  -- NOTE: If using a function, the function will be called with
+  -- If using a function, the function will be called with
   -- a context object with the following fields:
   -- {
   --    mux = {
@@ -33,7 +33,7 @@ require('smart-splits').setup({
   --    split(), -- utility function to split current Neovim pane in the current direction
   --    wrap(), -- utility function to wrap to opposite Neovim pane
   -- }
-  -- NOTE: `at_edge = 'wrap'` is not supported on Kitty terminal
+  -- `at_edge = 'wrap'` is not supported on Kitty terminal
   -- multiplexer, as there is no way to determine layout via the CLI
   --  at_edge = 'wrap',
   -- when moving cursor between splits left or right,

@@ -30,12 +30,12 @@ require("lazy").setup({
   { 'kylechui/nvim-surround' },
   { 'godlygeek/tabular' },
   { 'tmillr/sos.nvim' },
-  { 'ap/vim-css-color' },
+  { 'ap/vim-css-color', VeryLazy = true },
   { 'typicode/bg.nvim' },
   { 'reedes/vim-pencil' },
   { 'ecthelionvi/NeoComposer.nvim' },
   { 'konfekt/vim-office' },
-
+  {  "folke/persistence.nvim", event = "BufReadPre"},
   -- Navigation and search
   { 'ggandor/leap.nvim' },
   { 'ggandor/flit.nvim' },
@@ -55,7 +55,6 @@ require("lazy").setup({
   { '2kabhishek/nerdy.nvim' },
   { 'keyvchan/telescope-find-pickers.nvim' },
   { 'ghassan0/telescope-glyph.nvim' },
-
 
   -- Git integration
   { 'airblade/vim-gitgutter' },
@@ -88,8 +87,11 @@ require("lazy").setup({
   -- Better UI
   { 'folke/noice.nvim', dependencies = {
     'MunifTanjim/nui.nvim',
-    'rcarriga/nvim-notify',
-  }},
+    'rcarriga/nvim-notify', }
+ },
+
+  { 'lukas-reineke/indent-blankline.nvim', main = "ibl"},
+  { 'folke/todo-comments.nvim'},
   { 'anuvyklack/windows.nvim', dependencies = {
     'anuvyklack/middleclass',
     'anuvyklack/animation.nvim',
@@ -108,25 +110,19 @@ require("lazy").setup({
   { 'akinsho/toggleterm.nvim', config = function() require("toggleterm").setup() end},
 
   -- Colorschemes
-  { 'uZer/pywal16.nvim', branch = 'newcolors', name = 'pywal16' },
+--  { 'uZer/pywal16.nvim', branch = 'newcolors', name = 'pywal16' },
   { 'erdivartanovich/pywal.nvim', name ='wal' },
   { 'nyoom-engineering/oxocarbon.nvim' },
   { 'fxn/vim-monochrome' },
   { 'olivercederborg/poimandres.nvim' },
-  { 'danishprakash/vim-yami' },
+--  { 'danishprakash/vim-yami' },
   { 'andreypopp/vim-colors-plain' },
-  { 'kvrohit/substrata.nvim' },
-  { 'rockerBOO/boo-colorscheme-nvim' },
   { 'lamartire/hg.vim' },
   { 'sts10/vim-pink-moon' },
-  { 'kartikp10/noctis.nvim' },
   { 'fynnfluegge/monet.nvim' },
-  { 'mcchrish/zenbones.nvim', dependencies = 'rktjmp/lush.nvim' },
   { 'craftzdog/solarized-osaka.nvim' },
-  { 'sainnhe/everforest' },
   { 'relastle/bluewery.vim' },
   { 'haishanh/night-owl.vim' },
   { 'bluz71/vim-nightfly-colors', name = 'nightfly' },
   { 'lunarvim/templeos.nvim' },
-
 })
