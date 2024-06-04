@@ -35,19 +35,20 @@ require("lazy").setup({
   { 'reedes/vim-pencil' },
   { 'ecthelionvi/NeoComposer.nvim' },
   { 'konfekt/vim-office' },
-  {  "folke/persistence.nvim", event = "BufReadPre"},
   -- Navigation and search
   { 'ggandor/leap.nvim' },
   { 'ggandor/flit.nvim' },
   { 'sidebar-nvim/sidebar.nvim' },
   { 'folke/which-key.nvim' },
 
+
   -- Obsidian and markdown plugins
 
   { 'epwalsh/obsidian.nvim' },
   { 'meanderingprogrammer/markdown.nvim', name = 'render-markdown'},
   { "tadmccorkle/markdown.nvim", ft = "markdown"},
-  { 'oflisback/obsidian-bridge.nvim'},
+  { 'oflisback/obsidian-bridge.nvim' },
+  {'dhruvasagar/vim-table-mode'},
 
   -- Telescope plugins
   { 'nvim-telescope/telescope.nvim' },
@@ -55,6 +56,7 @@ require("lazy").setup({
   { '2kabhishek/nerdy.nvim' },
   { 'keyvchan/telescope-find-pickers.nvim' },
   { 'ghassan0/telescope-glyph.nvim' },
+
 
   -- Git integration
   { 'airblade/vim-gitgutter' },
@@ -105,9 +107,7 @@ require("lazy").setup({
   -- Modes
 --  { 'mvllow/modes.nvim' },
   { 'gen740/SmoothCursor.nvim' }, --better cursor
-
-  -- Terminal integration
-  { 'akinsho/toggleterm.nvim', config = function() require("toggleterm").setup() end},
+  {'folke/zen-mode.nvim'}, --zen mode
 
   -- Colorschemes
 --  { 'uZer/pywal16.nvim', branch = 'newcolors', name = 'pywal16' },

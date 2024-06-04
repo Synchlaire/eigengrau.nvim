@@ -2,9 +2,10 @@
 
 require 'telescope'.setup {
     defaults = {
---     prompt_prefix = "󰼛 ",
-     selection_caret = "  ",
+     prompt_prefix = " ",
+     selection_caret = " 󰼛 ",
 },
+
   extensions = {
       frecency = {
         auto_validate = true,
@@ -46,8 +47,6 @@ require('telescope').load_extension('glyph')
 
 --- meta-menu
 require('telescope').load_extension('find_pickers')
-
-
 vim.keymap.set('n', '<A-o>', '<cmd>Telescope find_pickers<CR>', {desc = 'telescope menu'})
 
 

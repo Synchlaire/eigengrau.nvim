@@ -36,17 +36,14 @@ cmd("TextYankPost", {
     end,
 })
 
+-- remove trailing whitespace from all lines before saving a file)
+local CleanOnSave = vim.api.nvim_create_augroup('CleanOnSave', {})
+vim.api.nvim_create_autocmd({"BufWritePre"}, {
+  group = CleanOnSave,
+  pattern = "*",
+  command = [[%s/\s\+$//e]],
+}) 
 
--- Quickfix mappings
-cmd("FileType", {
-    desc = "Quit with q in this filetypes",
-    group = "_buffer",
-    pattern = "qf",
-    callback = function()
-        vim.keymap.set("n", ";j", "<CMD>cn<CR>")
-        vim.keymap.set("n", ";k", "<CMD>cp<CR>")
-    end,
-})
 
 -----------------------------------
 --             PLUGINS           --

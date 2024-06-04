@@ -89,7 +89,7 @@ opt.fillchars = {
     g.timeout            = true
     g.timeoutlen         = 700          -- time to wait for a mapped sequence to complete (in milliseconds)
 
-    opt.updatetime = 300          -- faster completion (4000ms default)
+    opt.updatetime = 300          -- faster completion (4000ms default, 300 is comfy)
 
     -- files
 

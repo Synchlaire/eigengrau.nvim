@@ -30,6 +30,14 @@ keymap('i', '<C-l>', '<Right>', opts)
 keymap('n', '<S-l>', '$', { desc = 'jump to end of line'})
 keymap('n', '<S-h>', '0', { desc = 'jump to beginning of line'})
 
+-- move a blocks of text up/down with K/J in visual mode
+keymap("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
+keymap("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
+
+-- search and replace the word under cursor in the file with <leader>s
+-- keymap("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+
+
 
 -- Splits, Tabs, Buffers
 ----------------------------
@@ -69,7 +77,8 @@ keymap('n', '<A-k>', '<C-w>k', { desc= 'focus window up'})
 keymap('n', '<A-l>', '<C-w>l', { desc= 'focus window right'})
 
 -- Tab navigation
-keymap("n", "<leader>tt", "<cmd>tabnew<CR>", { desc = "Open new tab" }) 
+keymap("n", "<leader>tt", "<cmd>tabnew<CR>", { desc = "Open new tab" })
+keymap("n", "<leader>tT", "<cmd>tab split<CR>", { desc = "make tab a split" })
 keymap("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "Close current tab" })
 keymap("n", "<leader>t.", "<cmd>tabn<CR>", { desc = "Go to next tab" })
 keymap("n", "<leader>t,", "<cmd>tabp<CR>", { desc = "Go to previous tab" })
@@ -82,11 +91,6 @@ keymap('n', '<leader>ss', '<c-o><cmd>set spell!<CR>', {desc = "toggle spellcheck
 -- toggle autosave
 keymap("n", "<F2>", "<cmd>SosToggle<CR>", {})
 
---- terminal commands
-
---keymap("n", "<leader>t", "<cmd>ToggleTerm direction=vertical<CR>", {})
-keymap("n", "<F1>", "<cmd>ToggleTermSendCurrentLine<CR>", {})
-keymap("v", "<F1>", "<cmd>ToggleTermSendVisualSelection<CR>", {})
 
 -- zen mode
 --keymap("n", "<leader>zf", "<cmd>TZFocus<CR>", {})
@@ -95,6 +99,7 @@ keymap("v", "<F1>", "<cmd>ToggleTermSendVisualSelection<CR>", {})
 --keymap("n", "<leader>zn", "<cmd>TZNarrow<CR>", {})
 --keymap("v", "<leader>zn", "<cmd>'<,'>TZNarrow<CR>", {})
 
+keymap("n", "<leader>zm", "<cmd>ZenMode<CR>", { desc = 'toggle Zen Mode'})
 
 -- comments
 keymap("n", "<leader>ac", "<plug>(comment_toggle_linewise_current)", opts)
@@ -124,6 +129,24 @@ keymap("v", "<leader>oL", "<cmd>ObsidianLinkNew<cr>", { desc = 'Create new Obsid
 keymap("n", "<leader>ow", "<cmd>ObsidianWorkspace<cr>", { desc = 'change current obsidian Workspace'})
 
 
+--- useful stuff for obsidian
 
--- Lazy 
+-- convert note to template and remove leading white space
+--keymap("n", "<leader>on", "<cmd>ObsidianTemplate note<cr> :lua vim.cmd([[1,/^\\S/s/^\\n\\{1,}//]])<cr>")
+
+-- strip date from note title and replace dashes with spaces
+-- must have cursor on title
+keymap("n", "<leader>oc", ":s/\\(# \\)[^_]*_/\\1/ | s/-/ /g<cr>", opts)
+--
+-- for review workflow
+-- move file in current buffer to zettelkasten folder
+--keymap("n", "<leader>ok", ":!mv '%:p' /Users/alex/library/Mobile\\ Documents/iCloud~md~obsidian/Documents/ZazenCodes/zettelkasten<cr>:bd<cr>")
+-- delete file in current buffer
+--keymap("n", "<leader>odd", ":!rm '%:p'<cr>:bd<cr>")
+
+
+
+
+
+-- Lazy
 keymap("n", "<leader>lz", "<cmd>Lazy<cr>", { desc = 'open lazy plugin manager'})

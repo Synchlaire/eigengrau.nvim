@@ -51,7 +51,7 @@ require('render-markdown').setup({
     -- Character to use for the horizontal break
     dash = '—',
     -- Character to use for the bullet points in lists
-    bullets = { '', '○', '◆', '◇' },
+    bullets = { '', 'ﱤ', '◆', '◇' },
     checkbox = {
         -- Character that will replace the [ ] in unchecked checkboxes
         unchecked = '󰄱 ',
@@ -73,7 +73,7 @@ require('render-markdown').setup({
     highlights = {
         heading = {
             -- Background of heading line
-            backgrounds = {},
+            backgrounds = { },
             -- Foreground of heading character only
             foregrounds = {
                 'markdownH1',
