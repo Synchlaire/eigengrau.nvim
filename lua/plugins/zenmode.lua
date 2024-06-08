@@ -11,7 +11,7 @@ require("zen-mode").setup({
     -- uncomment any of the options below, or add other vim.wo options you want to apply
     options = {
        signcolumn = "yes", -- disable signcolumn
-       number = true, -- disable number column
+       number = false, -- disable number column
        relativenumber = false, -- disable relative numbers
        cursorline = false, -- disable cursorline
        cursorcolumn = false, -- disable cursor column

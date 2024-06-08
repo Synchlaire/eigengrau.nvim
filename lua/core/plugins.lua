@@ -30,7 +30,7 @@ require("lazy").setup({
   { 'kylechui/nvim-surround' },
   { 'godlygeek/tabular' },
   { 'tmillr/sos.nvim' },
-  { 'ap/vim-css-color', VeryLazy = true },
+--  { 'ap/vim-css-color', VeryLazy = true },
   { 'typicode/bg.nvim' },
   { 'reedes/vim-pencil' },
   { 'ecthelionvi/NeoComposer.nvim' },
