@@ -50,6 +50,7 @@ require('render-markdown').setup({
     headings = { '󰲡 ', '󰲣 ', '󰲥 ', '󰲧 ', '󰲩 ', '󰲫 ' },
     -- Character to use for the horizontal break
     dash = '—',
+
     -- Character to use for the bullet points in lists
     bullets = { '', 'ﱤ', '◆', '◇' },
     checkbox = {
@@ -73,7 +74,7 @@ require('render-markdown').setup({
     highlights = {
         heading = {
             -- Background of heading line
-            backgrounds = { },
+            backgrounds = {},
             -- Foreground of heading character only
             foregrounds = {
                 'markdownH1',

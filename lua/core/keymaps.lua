@@ -7,7 +7,6 @@ vim.g.mapleader = " "
 
 -- This is only to make sure the spacebar doesn't have any mapping beforehand
 keymap('n', '<SPACE>', '<Nop>', opts)
-
 -- exit insert mode using k j
 keymap('i', 'kj', '<Esc>', opts)
 keymap('i', 'jk', '<Esc>', opts)
@@ -35,7 +34,7 @@ keymap("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
 keymap("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
 
 -- search and replace the word under cursor in the file with <leader>s
--- keymap("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+keymap("n", "<C-s>", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], opts)
 
 
 
@@ -56,14 +55,15 @@ keymap('n', '<A-2>', '<cmd>LualineBuffersJump 2<CR>', opts)
 keymap('n', '<A-3>', '<cmd>LualineBuffersJump 3<CR>', opts)
 keymap('n', '<A-4>', '<cmd>LualineBuffersJump 4<CR>', opts)
 keymap('n', '<A-5>', '<cmd>LualineBuffersJump 5<CR>', opts)
-keymap('n', '<A-,>', '<cmd>bp| lua require("notify")("buffer 󰒮- ")<CR>', opts)
-keymap('n', '<A-.>', '<cmd>bn| lua require("notify")("buffer -󰒭 ")<CR>', opts)
-keymap('n', '<A-x>', '<cmd>bd| lua require("notify")("buffer 󰚌 ")<CR>', opts)
+keymap('n', '<A-,>', '<cmd>bp|echo "buffer 󰒮- "<CR>', opts)
+keymap('n', '<A-.>', '<cmd>bn|echo "buffer -󰒭 "<CR>', opts)
+keymap('n', '<A-x>', '<cmd>bd|echo "buffer 󰚌  "<CR>', opts)
+keymap('n', '<A-q>', '<cmd>bd|echo "buffer 󰚌  "<CR>', opts)
 
 -- Splits
-keymap('n', '<leader>sv', '<cmd>vs| lua require("notify")("split | ")<CR>', { desc = 'vert split'})
-keymap('n', '<leader>sh', '<cmd>split | lua require("notify")("split ̣-- ")<CR>', { desc = 'horiz split'})
-keymap('n', '<leader>sx', '<cmd>close| lua require("notify")("window 󰚌 ")<CR>', { desc = 'close split'})
+keymap('n', '<leader>sv', '<cmd>vs| echo "split |  "<CR>',     { desc = 'vert split'})
+keymap('n', '<leader>sh', '<cmd>split | echo "split ̣-- "<CR>', { desc = 'horiz split'})
+keymap('n', '<leader>sx', '<cmd>close| echo "window 󰚌 "<CR>',  { desc = 'close split'})
 
 -- clear search highlight
 keymap('n', '<leader>nh', '<cmd>nohl<CR>', { desc= 'clear search highlights' })
@@ -77,16 +77,15 @@ keymap('n', '<A-k>', '<C-w>k', { desc= 'focus window up'})
 keymap('n', '<A-l>', '<C-w>l', { desc= 'focus window right'})
 
 -- Tab navigation
-keymap("n", "<leader>tt", "<cmd>tabnew<CR>", { desc = "Open new tab" })
+keymap("n", "<leader>tt", "<cmd>tabnew<CR>",    { desc = "Open new tab" })
 keymap("n", "<leader>tT", "<cmd>tab split<CR>", { desc = "make tab a split" })
-keymap("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "Close current tab" })
-keymap("n", "<leader>t.", "<cmd>tabn<CR>", { desc = "Go to next tab" })
-keymap("n", "<leader>t,", "<cmd>tabp<CR>", { desc = "Go to previous tab" })
-keymap("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" })
+keymap("n", "<leader>tx", "<cmd>tabclose<CR>",  { desc = "Close current tab" })
+keymap("n", "<leader>t.", "<cmd>tabn<CR>",      { desc = "Go to next tab" })
+keymap("n", "<leader>t,", "<cmd>tabp<CR>",      { desc = "Go to previous tab" })
+keymap("n", "<leader>tf", "<cmd>tabnew %<CR>",  { desc = "Open current buffer in new tab" })
 -----
 -- toggle spell
-keymap('n', '<leader>ss', '<cmd>set spell!<CR>', { desc = "toggle spellcheck"})
-keymap('n', '<leader>ss', '<c-o><cmd>set spell!<CR>', {desc = "toggle spellcheck"})
+keymap('n', '<leader>ss', '<cmd>set spell! | echo "spellcheck toggle"<CR>', { desc = "toggle spellcheck"})
 
 -- toggle autosave
 keymap("n", "<F2>", "<cmd>SosToggle<CR>", {})
@@ -99,7 +98,7 @@ keymap("n", "<F2>", "<cmd>SosToggle<CR>", {})
 --keymap("n", "<leader>zn", "<cmd>TZNarrow<CR>", {})
 --keymap("v", "<leader>zn", "<cmd>'<,'>TZNarrow<CR>", {})
 
-keymap("n", "<leader>zm", "<cmd>ZenMode<CR>", { desc = 'toggle Zen Mode'})
+keymap("n", "<leader>zm", '<cmd>ZenMode|echo "zen mode" <CR>', { desc = 'toggle Zen Mode'})
 
 -- comments
 keymap("n", "<leader>ac", "<plug>(comment_toggle_linewise_current)", opts)
@@ -120,13 +119,13 @@ keymap("n", "<leader>cd", "<cmd>cd %:p:h<cr>:pwd<cr>", { desc = 'switch cwd'})
 keymap("n", "<leader><TAB>", "<cmd>SidebarNvimToggle<cr>", { desc = 'toggle sidebar'})
 
 -- obsidian
-keymap("n", "<leader>oo", "<cmd>ObsidianQuickSwitch<cr>", { desc = 'Obsidian Quick-Switch'})
-keymap("n", "<leader>ot", "<cmd>ObsidianTags<cr>", { desc = 'Search obsidian tags'})
-keymap("n", "<leader>oT", "<cmd>ObsidianTemplates<cr>", { desc = 'insert Obsidian Template'})
-keymap("n", "<leader>of", "<cmd>ObsidianSearch<cr>", { desc = 'search Obsidian notes'})
-keymap("v", "<leader>ol", "<cmd>ObsidianLink<cr>", { desc = 'Create new Obsidian Link'})
-keymap("v", "<leader>oL", "<cmd>ObsidianLinkNew<cr>", { desc = 'Create new Obsidian Link'})
-keymap("n", "<leader>ow", "<cmd>ObsidianWorkspace<cr>", { desc = 'change current obsidian Workspace'})
+keymap("n" , "<leader>oo" , "<cmd>ObsidianQuickSwitch<cr>" , { desc = 'Obsidian Quick-Switch'})
+keymap("n" , "<leader>ot" , "<cmd>ObsidianTags<cr>"        , { desc = 'Search obsidian tags'})
+keymap("n" , "<leader>oT" , "<cmd>ObsidianTemplates<cr>"   , { desc = 'insert Obsidian Template'})
+keymap("n" , "<leader>of" , "<cmd>ObsidianSearch<cr>"      , { desc = 'search Obsidian notes'})
+keymap("v" , "<leader>ol" , "<cmd>ObsidianLink<cr>"        , { desc = 'Create new Obsidian Link'})
+keymap("v" , "<leader>oL" , "<cmd>ObsidianLinkNew<cr>"     , { desc = 'Create new Obsidian Link'})
+keymap("n" , "<leader>ow" , "<cmd>ObsidianWorkspace<cr>"   , { desc = 'change current obsidian Workspace'})
 
 
 --- useful stuff for obsidian
@@ -136,17 +135,13 @@ keymap("n", "<leader>ow", "<cmd>ObsidianWorkspace<cr>", { desc = 'change current
 
 -- strip date from note title and replace dashes with spaces
 -- must have cursor on title
-keymap("n", "<leader>oc", ":s/\\(# \\)[^_]*_/\\1/ | s/-/ /g<cr>", opts)
+--keymap("n", "<leader>oc", ":s/\\(# \\)[^_]*_/\\1/ | s/-/ /g<cr>", opts)
 --
 -- for review workflow
 -- move file in current buffer to zettelkasten folder
 --keymap("n", "<leader>ok", ":!mv '%:p' /Users/alex/library/Mobile\\ Documents/iCloud~md~obsidian/Documents/ZazenCodes/zettelkasten<cr>:bd<cr>")
 -- delete file in current buffer
 --keymap("n", "<leader>odd", ":!rm '%:p'<cr>:bd<cr>")
-
-
-
-
 
 -- Lazy
 keymap("n", "<leader>lz", "<cmd>Lazy<cr>", { desc = 'open lazy plugin manager'})

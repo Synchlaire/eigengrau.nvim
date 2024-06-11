@@ -1,4 +1,4 @@
---- settings
+-- settings
 
 require 'telescope'.setup {
     defaults = {
@@ -9,11 +9,12 @@ require 'telescope'.setup {
   extensions = {
       frecency = {
         auto_validate = true,
+        matcher = "default",
         db_safe_mode = true,
         show_filter_column = { "LSP", "CWD", "FOO" },
         show_unindexed = true,
         show_scores = true,
-        ignore_patterns = { "*.git/*", "*/tmp/*" },
+        ignore_patterns = { "*.git/*", "*/tmp/*", "*cache*", "*.pdf" },
                disable_devicons = false,
 --        path_display = {"shorten"},
 

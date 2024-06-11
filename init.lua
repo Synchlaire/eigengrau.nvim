@@ -1,18 +1,17 @@
 ------------------------------------------
 --- CORE
 ------------------------------------------
-vim.loader.enable()  -- better startup
+vim.loader.enable()  -- faster startup i guess
 require "core.options"
-require "core.aliases"
-require "core.autocmds"
 require "core.keymaps"
+require "core.autocmds"
 require "core.plugins"
-
+require "plugins.colors"               -- colorschemes
+require "core.aliases"
 ------------------------------------------
 --- PLUGINS
 ------------------------------------------
 require "plugins.treesitter"
-require "plugins.colors"               -- colorschemes
 require "plugins.notify"
 require "plugins.noice"                -- ui stuff
 require "plugins.telescope"            -- my beloved
@@ -38,11 +37,15 @@ require "plugins.windows" -- smarter windows
 require "plugins.obsidian"
 require "plugins.md-render"
 require "plugins.md-keys"
+
 --- language servers
 require "plugins.lsp-cmp.cmp"
 require "plugins.lsp-cmp.lsp"
 require "plugins.lsp-cmp.mason"
 require "plugins.lsp-cmp.mason-lspconfig"
+
+
+
 
 
 -- TODO:

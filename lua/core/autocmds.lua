@@ -37,19 +37,29 @@ cmd("TextYankPost", {
 })
 
 -- remove trailing whitespace from all lines before saving a file)
-local CleanOnSave = vim.api.nvim_create_augroup('CleanOnSave', {})
-vim.api.nvim_create_autocmd({"BufWritePre"}, {
+local CleanOnSave = augroup('CleanOnSave', {})
+cmd({"BufWritePre"}, {
   group = CleanOnSave,
   pattern = "*",
   command = [[%s/\s\+$//e]],
-}) 
+})
 
+
+
+-- Term behaviour
+cmd({ "TermOpen" }, {
+  pattern = { "*" },
+  callback = function()
+    vim.o.relativenumber = false
+    vim.o.number = false
+  end,
+})
 
 -----------------------------------
 --             PLUGINS           --
 -----------------------------------
 augroup("_lsp", {})
-
+augroup("prose", {})
 cmd("LspAttach", {
     callback = function(args)
         local bufnr = args.buf
@@ -65,4 +75,3 @@ cmd("CursorHold", {
         vim.diagnostic.open_float()
     end,
 })
-

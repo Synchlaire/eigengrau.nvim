@@ -1,34 +1,8 @@
 require("obsidian").setup{
     workspaces = {
         {
-            name = "codex",
-            path = "~/codex/"
-        },
-        {
-            name = "exámen de grado",
-            path = "~/codex/00-Areas/exámen de grado/"
-        },
-
-        {
-            name = "neuro",
-            path = "~/codex/00-Areas/neuro/",
-        },
-        {
-            name = "edu",
-            path = "~/codex/00-Areas/educacion/",
-        },
-        {
-            name = "calidad y eva",
-            path = "~/codex/00-Areas/calidad y evaluación educativa/",
-        },
-        {
-        {
-            name = "colmena",
-            path = "~/codex/00-Areas/organizacional/Colmena/",
-        },
-
-            name = "orga",
-            path = "~/codex/00-Areas/organizacional/",
+            name = "examen",
+            path = "~/projects/grado/"
         },
     },
 
@@ -37,7 +11,7 @@ require("obsidian").setup{
     -- dir = "~/vaults/work",
 
     -- Optional, if you keep notes in a specific subdirectory of your vault.
-    notes_subdir = "~/codex/01-Inbox/",
+    notes_subdir = "Inbox/",
 
     -- Optional, set the log level for obsidian.nvim. This is an integer corresponding to one of the log
     -- levels defined by "vim.log.levels.*".
@@ -48,7 +22,7 @@ require("obsidian").setup{
         -- Set to false to disable completion.
         nvim_cmp = true,
         -- Trigger completion at 2 chars.
-        min_chars = 2,
+        min_chars = 3,
     },
 
     -- Optional, configure key mappings. These are the defaults. If you don't want to set any keymappings this
@@ -175,8 +149,8 @@ require("obsidian").setup{
     ---@param url string
     follow_url_func = function(url)
         -- Open the URL in the default web browser.
-        vim.fn.jobstart({"open", url})  -- Mac OS
-        -- vim.fn.jobstart({"xdg-open", url})  -- linux
+        -- vim.fn.jobstart({"open", url})  -- Mac OS
+         vim.fn.jobstart({"xdg-open", url})  -- linux
     end,
 
     -- Optional, set to true if you use the Obsidian Advanced URI plugin.
@@ -241,15 +215,15 @@ require("obsidian").setup{
     -- Optional, configure additional syntax highlighting / extmarks.
     -- This requires you have `conceallevel` set to 1 or 2. See `:help conceallevel` for more details.
     ui = {
-        enable = true,  -- set to false to disable all additional syntax features
+        enable = false,  -- set to false to disable all additional syntax features
         update_debounce = 200,  -- update delay after a text change (in milliseconds)
         -- Define how various check-boxes are displayed
         checkboxes = {
             -- the 'char' value has to be a single character, and the highlight groups are defined below.
-            [" "] = { char = "󰄱", hl_group = "ObsidianTodo" },
-            ["x"] = { char = "", hl_group = "ObsidianDone" },
-            [">"] = { char = "", hl_group = "ObsidianRightArrow" },
-            ["~"] = { char = "󰰱", hl_group = "ObsidianTilde" },
+            [" "] = { char = "󰄱 ", hl_group = "ObsidianTodo" },
+            ["x"] = { char = " ", hl_group = "ObsidianDone" },
+            [">"] = { char = " ", hl_group = "ObsidianRightArrow" },
+            ["~"] = { char = "󰰱 ", hl_group = "ObsidianTilde" },
             -- Replace the above with this if you don't have a patched font:
             -- [" "] = { char = "☐", hl_group = "ObsidianTodo" },
             -- ["x"] = { char = "✔", hl_group = "ObsidianDone" },
@@ -257,8 +231,8 @@ require("obsidian").setup{
             -- You can also add more custom ones...
         },
         -- Use bullet marks for non-checkbox lists.
-        bullets = { char = "•", hl_group = "ObsidianBullet" },
-        external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
+--        bullets = { char = "• ", hl_group = "ObsidianBullet" },
+        external_link_icon = { char = " ", hl_group = "ObsidianExtLinkIcon" },
         -- Replace the above with this if you don't have a patched font:
         -- external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
         reference_text = { hl_group = "ObsidianRefText" },
