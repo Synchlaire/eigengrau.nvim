@@ -69,7 +69,7 @@ require("pywal").setup()
   vim.g.nightflyItalics = true
   vim.g.nightflyNormalFloat = false
   vim.g.nightflyTerminalColors = true
-  vim.g.nightflyTransparent = true
+  vim.g.nightflyTransparent = false
   vim.g.nightflyUndercurls = true
   vim.g.nightflyUnderlineMatchParen = true
   vim.g.nightflyWinSeparator = 2
