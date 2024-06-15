@@ -36,12 +36,14 @@ require('render-markdown').setup({
     -- Capture groups that get pulled from inline markdown
     inline_query = [[
         (code_span) @code
+
+        (shortcut_link) @callout
     ]],
     -- The level of logs to write to file: vim.fn.stdpath('state') .. '/render-markdown.log'
     -- Only intended to be used for plugin development / debugging
     log_level = 'error',
     -- Filetypes this plugin will run on
-    file_types = { 'markdown', 'txt' },
+--    file_types = { 'markdown', 'txt' },
     -- Vim modes that will show a rendered view of the markdown file
     -- All other modes will be uneffected by this plugin
     render_modes = { 'n', 'c' },
@@ -62,14 +64,14 @@ require('render-markdown').setup({
     -- Character that will replace the > at the start of block quotes
     quote = '┃',
     -- See :h 'conceallevel' for more information about meaning of values
-    conceal = {
-        -- conceallevel used for buffer when not being rendered, get user setting
-        default = vim.opt.conceallevel:get(),
-        -- conceallevel used for buffer when being rendered
-        rendered = 3,
-    },
+--    conceal = {
+--        -- conceallevel used for buffer when not being rendered, get user setting
+--        default = vim.opt.conceallevel:get(),
+--        -- conceallevel used for buffer when being rendered
+--        rendered = 3,
+--    },
     -- Add a line above and below tables to complete look, ends up like a window
-    fat_tables = true,
+--    fat_tables = true,
     -- Define the highlight groups to use when rendering various components
     highlights = {
         heading = {

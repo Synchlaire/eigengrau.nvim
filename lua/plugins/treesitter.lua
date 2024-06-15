@@ -9,7 +9,7 @@ require'nvim-treesitter.configs'.setup {
 		"python",
 		"vim",
 		"vimdoc",
-        "r",
+--        "r",
 	},
 
   -- Install parsers synchronously (only applied to `ensure_installed`)

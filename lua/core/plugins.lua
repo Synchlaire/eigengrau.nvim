@@ -18,38 +18,35 @@ require("lazy").setup({
   -- Utility plugins
   { 'nvim-lua/plenary.nvim' },
   { 'nvim-tree/nvim-web-devicons' },
-  { 'nacro90/numb.nvim' },
-  { 'm4xshen/autoclose.nvim' },
+  { 'nacro90/numb.nvim', event = "CmdlineEnter" },
+  { 'm4xshen/autoclose.nvim', event = "InsertEnter"},
   { 'stevearc/oil.nvim', event = "VeryLazy"},
-  { 'xiyaowong/transparent.nvim' },
+  { 'xiyaowong/transparent.nvim', event = "VeryLazy" },
   { 'kkharji/sqlite.lua', event = "VeryLazy" },
   { 'sindrets/winshift.nvim', event = "VeryLazy" },
-  { 'tpope/vim-repeat' },
-  { 'tpope/vim-sensible' },
   { 'numToStr/comment.nvim', event = "VeryLazy"},
   { 'kylechui/nvim-surround' },
-  { 'godlygeek/tabular', event = "VeryLazy" },
+  { 'godlygeek/tabular', cmd = "Tabularize" },
   { 'tmillr/sos.nvim' },
   { 'typicode/bg.nvim' },
-  { 'ecthelionvi/NeoComposer.nvim' },
-  { 'konfekt/vim-office', event = "VeryLazy"},
-
+  { 'ecthelionvi/NeoComposer.nvim', event = "VeryLazy" },
+  { 'konfekt/vim-office', ft = "markdown"},
+  { 'folke/which-key.nvim', event = "VeryLazy"},
   -- Navigation and search
-  { 'ggandor/leap.nvim' },
-  { 'ggandor/flit.nvim' },
-  { 'sidebar-nvim/sidebar.nvim', event = "VeryLazy"},
-  { 'folke/which-key.nvim' },
+--  { 'ggandor/leap.nvim' },
+--  { 'ggandor/flit.nvim' },
   { 'folke/flash.nvim' },
+  { 'brenoprata10/nvim-highlight-colors', lazy = "true" },
 
   -- Obsidian and markdown plugins
 
   { 'epwalsh/obsidian.nvim', event = "VeryLazy"},
-  { 'meanderingprogrammer/markdown.nvim', ft = "markdown", name = 'render-markdown', event = "VeryLazy"},
-  { "tadmccorkle/markdown.nvim", ft = "markdown", event = "VeryLazy"},
-  { 'oflisback/obsidian-bridge.nvim', ft = "markdown", event = "VeryLazy" },
-  {'dhruvasagar/vim-table-mode', ft = "markdown", event = "VeryLazy"},
-  { 'reedes/vim-pencil', ft = "markdown", event = "VeryLazy",
-    },
+  { 'meanderingprogrammer/markdown.nvim', ft = "markdown", name = 'render-markdown',},
+  { "tadmccorkle/markdown.nvim", ft = "markdown"},
+  { 'oflisback/obsidian-bridge.nvim', cmd = "ObsidianQuickSwitch" },
+  { 'dhruvasagar/vim-table-mode', ft = "markdown" },
+  { 'reedes/vim-pencil', ft = "markdown"},
+
   -- Telescope plugins
   { 'nvim-telescope/telescope.nvim' },
   { 'nvim-telescope/telescope-frecency.nvim' },
@@ -65,8 +62,8 @@ require("lazy").setup({
   { 'nvim-treesitter/nvim-treesitter' },
 
   -- LSP and Autocompletion
-  { 'onsails/lspkind.nvim' },
-  { 'VonHeikemen/lsp-zero.nvim', branch = 'v1.x', event = "VeryLazy", dependencies = {
+  { 'onsails/lspkind.nvim', event = "InsertEnter" },
+  { 'VonHeikemen/lsp-zero.nvim', branch = 'v1.x', event = "InsertEnter", dependencies = {
     'neovim/nvim-lspconfig',
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
@@ -83,18 +80,18 @@ require("lazy").setup({
   }},
 
   -- Debugging and diagnostics
-  { 'mfussenegger/nvim-dap', event = "VeryLazy" },
-  { 'folke/trouble.nvim', dependencies = 'nvim-tree/nvim-web-devicons' },
+  { 'mfussenegger/nvim-dap', event = "InsertEnter" },
+  { 'folke/trouble.nvim', cmd = "Trouble", dependencies = 'nvim-tree/nvim-web-devicons' },
 
   -- Better UI
-  { 'folke/noice.nvim', dependencies = {
+  { 'folke/noice.nvim', event = "VeryLazy", dependencies = {
     'MunifTanjim/nui.nvim',
     'rcarriga/nvim-notify', }
  },
 
   { 'lukas-reineke/indent-blankline.nvim', main = "ibl"},
   { 'folke/todo-comments.nvim'},
-  { 'anuvyklack/windows.nvim', event = "VeryLazy", dependencies = {
+  { 'anuvyklack/windows.nvim', event = "WinNew", dependencies = {
     'anuvyklack/middleclass',
     'anuvyklack/animation.nvim',
   }},
@@ -106,25 +103,25 @@ require("lazy").setup({
 
   -- Modes
 --  { 'mvllow/modes.nvim' },
-  { 'gen740/SmoothCursor.nvim' }, --better cursor
-  {'folke/zen-mode.nvim', event = "VeryLazy"}, --zen mode
+  { 'gen740/SmoothCursor.nvim', event = "VeryLazy" }, --better cursor
+  {'folke/zen-mode.nvim', lazy = true}, --zen mode
+
 
   -- Colorschemes
 --  { 'uZer/pywal16.nvim', branch = 'newcolors', name = 'pywal16' },
   { 'erdivartanovich/pywal.nvim', name ='wal' },
-  { 'nyoom-engineering/oxocarbon.nvim', event = "VeryLazy" },
-  { 'olivercederborg/poimandres.nvim', event = "VeryLazy" },
-  { 'andreypopp/vim-colors-plain', event = "VeryLazy" },
-  { 'lamartire/hg.vim', event = "VeryLazy" },
-  { 'sts10/vim-pink-moon', event = "VeryLazy" },
-  { 'fynnfluegge/monet.nvim', event = "VeryLazy" },
-  { 'craftzdog/solarized-osaka.nvim', event = "VeryLazy" },
-  { 'relastle/bluewery.vim', event = "VeryLazy" },
-  { 'haishanh/night-owl.vim', event = "VeryLazy" },
+--  { 'nyoom-engineering/oxocarbon.nvim', event = "Colorscheme" },
+--  { 'olivercederborg/poimandres.nvim', event = "Colorscheme" },
+  { 'andreypopp/vim-colors-plain', event = "Colorscheme" },
+--  { 'lamartire/hg.vim', event = "Colorscheme" },
+--  { 'sts10/vim-pink-moon', event = "Colorscheme" },
+--  { 'fynnfluegge/monet.nvim', event = "Colorscheme" },
+--  { 'craftzdog/solarized-osaka.nvim', event = "Colorscheme" },
+--  { 'relastle/bluewery.vim', event = "Colorscheme" },
+--  { 'haishanh/night-owl.vim', event = "Colorscheme" },
   { 'bluz71/vim-nightfly-colors', name = 'nightfly', },
 --  { 'lunarvim/templeos.nvim', event = "VeryLazy"},
-  { 'talha-akram/noctis.nvim', event = "VeryLazy"},
+--  { 'talha-akram/noctis.nvim', event = "Colorscheme"},
 
 })
-
 

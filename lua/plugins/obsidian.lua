@@ -2,7 +2,15 @@ require("obsidian").setup{
     workspaces = {
         {
             name = "examen",
-            path = "~/projects/grado/"
+            path = "~/Vaults/grado/"
+        },
+        {
+            name = "neuro",
+            path = "~/Vaults/neuro/"
+        },
+        {
+            name = "codex",
+            path = "~/Vaults/codex/"
         },
     },
 
@@ -11,11 +19,7 @@ require("obsidian").setup{
     -- dir = "~/vaults/work",
 
     -- Optional, if you keep notes in a specific subdirectory of your vault.
-    notes_subdir = "Inbox/",
-
-    -- Optional, set the log level for obsidian.nvim. This is an integer corresponding to one of the log
-    -- levels defined by "vim.log.levels.*".
-    -- log_level = vim.log.levels.INFO,
+--    notes_subdir = "Inbox/",
 
     -- Optional, completion of wiki links, local markdown links, and tags using nvim-cmp.
     completion = {
@@ -36,12 +40,13 @@ require("obsidian").setup{
             opts = { noremap = false, expr = true, buffer = true },
         },
         -- Toggle check-boxes.
-        ["<leader>ch"] = {
-            action = function()
-                return require("obsidian").util.toggle_checkbox()
-            end,
-            opts = { buffer = true },
-        },
+        --        ["<leader>ch"] = {
+        --            action = function()
+        --                return require("obsidian").util.toggle_checkbox()
+        --            end,
+        --            opts = { buffer = true },
+        --        },
+
         -- Smart action depending on context, either follow link or toggle checkbox.
         ["<cr>"] = {
             action = function()
@@ -57,24 +62,13 @@ require("obsidian").setup{
     new_notes_location = "current_dir",
 
     -- Optional, customize how note IDs are generated given an optional title.
-    ---@param title string|?
-    ---@return string
-    note_id_func = function(title)
-        -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
-        -- In this case a note with the title 'My new note' will be given an ID that looks
-        -- like '1657296016-my-new-note', and therefore the file name '1657296016-my-new-note.md'
-        local suffix = ""
-        if title ~= nil then
-            -- If title is given, transform it into valid file name.
-            suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
-        else
-            -- If title is nil, just add 4 random uppercase letters to the suffix.
-            for _ = 1, 4 do
-                suffix = suffix .. string.char(math.random(65, 90))
-            end
+      note_id_func = function(title)
+        -- Default behaviour: return something like "124351678905-XYZX"
+        if title then
+          return title
         end
-        return tostring(os.time()) .. "-" .. suffix
-    end,
+        return "Untitled-" .. tostring(os.time())
+      end,
 
     -- Optional, customize how note file names are generated given the ID, target directory, and title.
     --@param spec { id: string, dir: obsidian.Path, title: string|? }
@@ -91,14 +85,27 @@ require("obsidian").setup{
     --  * "prepend_note_path", e.g. '[[foo-bar.md|Foo Bar]]'
     --  * "use_path_only", e.g. '[[foo-bar.md]]'
     -- Or you can set it to a function that takes a table of options and returns a string, like this:
-    wiki_link_func = function(opts)
-        return require("obsidian.util").wiki_link_id_prefix(opts)
-    end,
-
-    -- Optional, customize how markdown links are formatted.
     markdown_link_func = function(opts)
         return require("obsidian.util").markdown_link(opts)
     end,
+
+    wiki_link_func = function(opts)
+        -- default: wiki_link_id_prefix (`[[id|title]]`)
+        local link = require("obsidian.util").wiki_link_id_prefix(opts)
+        -- remove suffix (`[[id|title]]` -> `[[id]]`)
+        local output = string.gsub(link, "|[^]]+", "")
+        return output
+      end,
+
+      note_id_func = function(title)
+        -- Default behaviour: return something like "124351678905-XYZX"
+        if title then
+          return title
+        end
+
+        return "Untitled-" .. tostring(os.time())
+      end,
+
 
     -- Either 'wiki' or 'markdown'.
     preferred_link_style = "wiki",
@@ -112,28 +119,50 @@ require("obsidian").setup{
 
     -- Optional, boolean or a function that takes a filename and returns a boolean.
     -- `true` indicates that you don't want obsidian.nvim to manage frontmatter.
-    disable_frontmatter = true,
+    disable_frontmatter = false,
 
     -- Optional, alternatively you can customize the frontmatter data.
     ---@return table
     note_frontmatter_func = function(note)
-        -- Add the title of the note as an alias.
-        if note.title then
-            note:add_alias(note.title)
-        end
-
-        local out = { id = note.id, aliases = note.aliases, tags = note.tags }
-
-        -- `note.metadata` contains any manually added fields in the frontmatter.
-        -- So here we just make sure those fields are kept in the frontmatter.
+        -- Add createdAt: in the frontmatter
+        local out = {}
         if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
             for k, v in pairs(note.metadata) do
                 out[k] = v
             end
         end
 
+--        if out.createdAt == nil then
+--            -- "2405 Page" -> 2024-05-01
+--            local datestamp = os.date("!%Y%m")
+--            ---@cast datestamp string
+--            if string.match(note.id, "^%d%d%d%d ") and string.sub(note.id, 1, 4) ~= string.sub(datestamp, 3, 9) then
+--                local year = "20" .. string.sub(note.id, 1, 2)
+--                local month = string.sub(note.id, 3, 4)
+--                local ymd = "" .. year .. "-" .. month .. "-01T00:00:00Z"
+--                out.createdAt = ymd
+--            else
+--                out.createdAt = os.date("!%Y-%m-%dT%TZ")
+--            end
+--        end
+
+        -- Only save aliases if they're not the same as [self]
+        if note.aliases and next(note.aliases) ~= nil and (#note.aliases ~= 1 or note.aliases[1] ~= note.id) then
+          out.aliases = note.aliases
+        end
+
+        if note.tags and next(note.tags) ~= nil then
+          out.tags = note.tags
+        end
+
+        if string.match(note.id, "(index)") then
+          out["BC-link-note"] = "down"
+        end
         return out
-    end,
+      end,
+
+
+
 
     -- Optional, for templates (see below).
     templates = {
@@ -183,7 +212,7 @@ require("obsidian").setup{
     -- 1. "current" (the default) - to always open in the current window
     -- 2. "vsplit" - to open in a vertical split if there's not already a vertical split
     -- 3. "hsplit" - to open in a horizontal split if there's not already a horizontal split
-    open_notes_in = "current",
+    open_notes_in = "vsplit",
 
     -- Optional, define your own callbacks to further customize behavior.
     callbacks = {
@@ -231,7 +260,7 @@ require("obsidian").setup{
             -- You can also add more custom ones...
         },
         -- Use bullet marks for non-checkbox lists.
---        bullets = { char = "• ", hl_group = "ObsidianBullet" },
+        bullets = { char = "•", hl_group = "ObsidianBullet" },
         external_link_icon = { char = " ", hl_group = "ObsidianExtLinkIcon" },
         -- Replace the above with this if you don't have a patched font:
         -- external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
@@ -240,7 +269,7 @@ require("obsidian").setup{
         tags = { hl_group = "ObsidianTag" },
         block_ids = { hl_group = "ObsidianBlockID" },
         hl_groups = {
-            -- The options are passed directly to `vim.api.nvim_set_hl()`. See `:help nvim_set_hl`.
+--            -- The options are passed directly to `vim.api.nvim_set_hl()`. See `:help nvim_set_hl`.
             ObsidianTodo = { bold = true, fg = "#f78c6c" },
             ObsidianDone = { bold = true, fg = "#89ddff" },
             ObsidianRightArrow = { bold = true, fg = "#f78c6c" },

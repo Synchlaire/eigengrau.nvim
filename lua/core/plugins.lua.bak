@@ -167,23 +167,23 @@ use { "akinsho/toggleterm.nvim", tag = '*', config = function() require("togglet
 
 use { 'uZer/pywal16.nvim', branch='newcolors', as = 'pywal' }
 use 'nyoom-engineering/oxocarbon.nvim'
-use 'fxn/vim-monochrome'
-use 'olivercederborg/poimandres.nvim'
-use 'danishprakash/vim-yami'
+--use 'fxn/vim-monochrome'
+--use 'olivercederborg/poimandres.nvim'
+--use 'danishprakash/vim-yami'
 use 'andreypopp/vim-colors-plain'
-use 'kvrohit/substrata.nvim'
-use 'rockerBOO/boo-colorscheme-nvim'
-use 'lamartire/hg.vim'
-use 'sts10/vim-pink-moon'
-use 'kartikp10/noctis.nvim'
-use 'fynnfluegge/monet.nvim'
-use { "mcchrish/zenbones.nvim", requires = "rktjmp/lush.nvim" }
-use 'craftzdog/solarized-osaka.nvim'
-use 'sainnhe/everforest'
-use 'relastle/bluewery.vim'
-use 'haishanh/night-owl.vim'
+--use 'kvrohit/substrata.nvim'
+--use 'rockerBOO/boo-colorscheme-nvim'
+--use 'lamartire/hg.vim'
+--use 'sts10/vim-pink-moon'
+--use 'kartikp10/noctis.nvim'
+--use 'fynnfluegge/monet.nvim'
+--use { "mcchrish/zenbones.nvim", requires = "rktjmp/lush.nvim" }
+--use 'craftzdog/solarized-osaka.nvim'
+--use 'sainnhe/everforest'
+--use 'relastle/bluewery.vim'
+--use 'haishanh/night-owl.vim'
 use { 'bluz71/vim-nightfly-colors', as = 'nightfly' }
-use 'lunarvim/templeos.nvim' --based mode
+--use 'lunarvim/templeos.nvim' --based sigma male mode
 
 -- Automatically set up your configuration after cloning packer.nvim
 -- Put this at the end after all plugins

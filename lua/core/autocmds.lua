@@ -46,14 +46,29 @@ cmd({"BufWritePre"}, {
 
 
 
--- Term behaviour
+-- make the terminal fucking behave
 cmd({ "TermOpen" }, {
   pattern = { "*" },
   callback = function()
     vim.o.relativenumber = false
     vim.o.number = false
+    vim.o.cursorline = false
+--    vim.cmd("startinsert")
   end,
 })
+
+-- Create a dir when saving a file if it doesnt exist
+cmd("BufWritePre", {
+  group = augroup("auto_create_dir", { clear = true }),
+  callback = function(args)
+    if args.match:match("^%w%w+://") then
+      return
+    end
+    local file = vim.uv.fs_realpath(args.match) or args.match
+    vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+  end,
+})
+
 
 -----------------------------------
 --             PLUGINS           --

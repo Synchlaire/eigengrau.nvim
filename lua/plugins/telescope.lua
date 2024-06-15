@@ -10,7 +10,7 @@ require 'telescope'.setup {
       frecency = {
         auto_validate = true,
         matcher = "default",
-        db_safe_mode = true,
+        db_safe_mode = false,
         show_filter_column = { "LSP", "CWD", "FOO" },
         show_unindexed = true,
         show_scores = true,

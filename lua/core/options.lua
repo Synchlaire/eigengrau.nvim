@@ -8,17 +8,17 @@ local g              = vim.o
 local opt            = vim.opt
 
 -- visual
-g.conceallevel       = 2 -- hide quotes in markdown
+g.conceallevel       = 2 -- hide quotes in markdown ffs
 g.cmdheight          = 1
 g.pumblend           = 0         -- Popup blend
-g.showcmd            = false -- show/hide cmd in statusline
-g.showmode           = false
+g.showcmd            = true -- show/hide cmd in statusline
+g.showmode           = true
 g.termguicolors      = true
 g.number             = true --show line numbers
 g.relativenumber     = true -- show relative numbers
 g.cursorline         = true
 g.title              = true
-g.signcolumn         = "yes" -- gutter i think
+g.signcolumn         = "yes" -- gutter
 g.guicursor          = ""
 g.textwidth          = 80
 --g.modelines          = true
@@ -47,21 +47,21 @@ opt.pumheight = 10        -- Maximum number of items to show in the popup menu
     --trail = '·'
     --}
 
-opt.fillchars = {
-    foldopen = '󰅀', -- 󰅀 
-    foldclose = '', -- 󰅂 
-    fold = ' ', -- ⸱
-    foldsep = ' ',
-    diff = '╱',
-    eob = ' ',
-    horiz = '━',
-    horizup = '┻',
-    horizdown = '┳',
-    vert = '┃',
-    vertleft = '┫',
-    vertright = '┣',
-    verthoriz = '╋',
-}
+--opt.fillchars = {
+--    foldopen = '󰅀', -- 󰅀 
+--    foldclose = '', -- 󰅂 
+--    fold = ' ', -- ⸱
+--    foldsep = ' ',
+--    diff = '╱',
+--    eob = ' ',
+--    horiz = '━',
+--    horizup = '┻',
+--    horizdown = '┳',
+--    vert = '┃',
+--    vertleft = '┫',
+--    vertright = '┣',
+--    verthoriz = '╋',
+--}
 
 -- editor
 g.completeopt        = 'menu,menuone,noselect'

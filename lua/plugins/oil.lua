@@ -15,7 +15,7 @@ require("oil").setup({
   -- Window-local options to use for oil buffers
   win_options = {
     wrap = true,
-    signcolumn = "yes",
+    signcolumn = "no",
     cursorcolumn = false,
     foldcolumn = "0",
     spell = false,
@@ -51,7 +51,7 @@ require("oil").setup({
     ["<C-c>"] = "actions.close",
     ["<C-l>"] = "actions.refresh",
     ["-"] = "actions.parent",
-    ["_"] = "actions.open_cwd",
+    ["<a-->"] = "actions.open_cwd",
     ["`"] = "actions.cd",
     ["~"] = "actions.tcd",
     ["g."] = "actions.toggle_hidden",
