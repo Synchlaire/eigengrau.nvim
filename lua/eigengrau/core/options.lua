@@ -2,7 +2,6 @@
 local g          = vim.o
 local opt        = vim.opt
 --local cmd            = vim.cmd
-
 -- visual
 g.conceallevel   = 2 -- hide quotes in markdown
 g.cmdheight      = 0
@@ -43,7 +42,6 @@ opt.formatoptions:remove('o');
 
 -- editor
 g.completeopt    = 'menu,menuone,noselect'
---g.autoformat         = false --enable lazy autoformat
 g.clipboard      = "unnamedplus" --yank to system clipboard by default
 g.tabstop        = 4
 g.autochdir      = true          -- change current cwd to wherever the active file is
@@ -91,13 +89,13 @@ opt.fillchars = {
     foldsep = ' ',
     diff = '╱',
     eob = ' ',
-    horiz = '━',
-    horizup = '┻',
-    horizdown = '┳',
-    vert = '┃',
-    vertleft = '┫',
-    vertright = '┣',
-    verthoriz = '╋',
+--    horiz = '━',
+--    horizup = '┻',
+--    horizdown = '┳',
+--    vert = '┃',
+--    vertleft = '┫',
+--    vertright = '┣',
+--    verthoriz = '╋',
 }
 
 

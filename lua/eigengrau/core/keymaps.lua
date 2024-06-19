@@ -110,9 +110,9 @@ keymap("n", "<leader>|", '<cmd>TransparentToggle| lua require("notify")("Transpa
     { desc = 'toggle transparency' })
 
 
+-- file navigation
 
--- switch cwd to the folder of the current buffer
---keymap("n", "<leader>cd", "<cmd>cd %:p:h<cr>:pwd<cr>", { desc = 'switch cwd' })
+keymap("n", "-", "<cmd>lua MiniFiles.open()<cr>", opts)
 
 -- obsidian
 keymap("n", "<leader>oo", "<cmd>ObsidianQuickSwitch<cr>", { desc = 'Obsidian Quick-Switch' })

@@ -10,6 +10,7 @@ return {
         { '2kabhishek/nerdy.nvim' },
         { 'keyvchan/telescope-find-pickers.nvim' },
         { 'ghassan0/telescope-glyph.nvim' },
+        { 'crispgm/telescope-heading.nvim', ft = "Markdown" },
         { 'jvgrootveld/telescope-zoxide' }
     },
     config = function()
@@ -31,6 +32,7 @@ return {
         ext('nerdy')
         ext('glyph')
         ext('find_pickers')
+        ext('heading')
         ext('zoxide')
 
 
@@ -60,6 +62,12 @@ return {
                 },
             },
             extensions = {
+                heading = {
+                    picker_opts = {
+                        layout_config = { width = 0.8, preview_width = 0.5 },
+                        layout_strategy = 'horizontal',
+                    },
+                },
                 zoxide = {
                     prompt_title = "[ Zoxide ]",
                     -- Zoxide list command with score

@@ -25,48 +25,47 @@ require("lazy").setup(plugins,
 {
     checker = {
         enabled = true,
-        notify = false,
+        notify = true,
     },
-        performance = {
-            rtp = {
-                disabled_plugins = {
-                    "python3_provider",
-                    "python_provider",
-                    "node_provider",
-                    "ruby_provider",
-                    "perl_provider",
-                    "2html_plugin",
-                    "getscript",
-                    "getscriptPlugin",
-                    "gzip",
-                    "tar",
-                    "tarPlugin",
-                    "rrhelper",
-                    "vimball",
-                    "vimballPlugin",
-                    "zip",
-                    "zipPlugin",
-                    "tutor",
-                    "rplugin",
-                    "logiPat",
-                    "netrwSettings",
-                    "netrwFileHandlers",
-                    "syntax",
-                    "synmenu",
-                    "optwin",
-                    "compiler",
-                    "bugreport",
-                    "ftplugin",
-                    "load_ftplugin",
-                    "indent_on",
-                    "netrw",                  -- disable builtin file manager
-                    "netrwPlugin",            -- disable builtin file manager
-                },
-            },
+performance = {
+    rtp = {
+        disabled_plugins = {
+            "python_provider",
+            "node_provider",
+            "ruby_provider",
+            "perl_provider",
+            "2html_plugin",
+            "getscript",
+            "getscriptPlugin",
+            "gzip",
+            "tar",
+            "tarPlugin",
+            "rrhelper",
+            "vimball",
+            "vimballPlugin",
+            "zip",
+            "zipPlugin",
+            "tutor",
+            "rplugin",
+            "logiPat",
+            "netrwSettings",
+            "netrwFileHandlers",
+            "syntax",
+            "synmenu",
+            "optwin",
+            "compiler",
+            "bugreport",
+            "ftplugin",
+            "load_ftplugin",
+            "indent_on",
+            "netrw",                  -- disable builtin file manager
+            "netrwPlugin",            -- disable builtin file manager
         },
-    })
+    },
+},
+})
 
 -- core
 require("eigengrau.core")
 vim.cmd[[colorscheme plain]]
--- TODO: fix lsp, go back to lspzero
+-- TODO: gotta add an lsp

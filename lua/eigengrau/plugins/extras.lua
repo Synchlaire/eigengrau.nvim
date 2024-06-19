@@ -10,10 +10,8 @@ return {
     { 'konfekt/vim-office',
         ft = { "doc", "docx", "odt", "ppt", "pptx","xls", "xlsx" }
     },
-    { 'brenoprata10/nvim-highlight-colors', lazy = "true" },
     { 'dhruvasagar/vim-table-mode', ft = "markdown" },
 { 'airblade/vim-gitgutter', event = "BufEnter" },
-{'folke/twilight.nvim', cmd = "ZenMode"},
 
   -- Debugging and diagnostics
   { 'mfussenegger/nvim-dap', event = "InsertEnter" },

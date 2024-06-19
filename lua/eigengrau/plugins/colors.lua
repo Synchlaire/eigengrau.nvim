@@ -32,14 +32,14 @@ return {
     lazy = true,
   config = function()
       local g = vim.g
-      g.nightflyCursorColor = true
+      g.nightflyCursorColor = false
       g.nightflyItalics = true
       g.nightflyNormalFloat = true
       g.nightflyTerminalColors = true
       g.nightflyTransparent = false
       g.nightflyUndercurls = true
       g.nightflyUnderlineMatchParen = false
-      g.nightflyWinSeparator = 2
+      g.nightflyWinSeparator = 0
       g.nightflyVirtualTextColor = true
   end,
 

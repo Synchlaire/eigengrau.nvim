@@ -4,7 +4,7 @@ return {
     'nativerv/lualine-wal.nvim',
   }, event = "InsertEnter",
 config = function ()
-
+require('transparent').clear_prefix('lualine')
 require('lualine').setup {
     options = {
         globalstatus = false,

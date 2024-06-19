@@ -1,7 +1,7 @@
 return {
     { 'jedrzejboczar/possession.nvim', },
     config = function()
-require('possession').setup {
+    require('possession').setup {
     session_dir = (Path:new(vim.fn.stdpath('data')) / 'possession'):absolute(),
     silent = false,
     load_silent = true,

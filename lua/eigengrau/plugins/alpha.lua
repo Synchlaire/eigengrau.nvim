@@ -40,7 +40,7 @@ return {
             dashboard.button("fr", "  Recent", "<cmd>Telescope frecency<CR>"),
             dashboard.button("o", "  Codex", "<cmd>ObsidianQuickSwitch<CR>"),
             dashboard.button("lz", "󰂖  Lazy", ":Lazy<CR>"),
-            dashboard.button("c", "  Config", "<cmd>cd ~/.config/nvim/ | e . | pwd<CR>"),
+            dashboard.button("c", "  Config", "<cmd>cd ~/.config/nvim/|e . | pwd<CR>"),
             dashboard.button("m", "󱌣  Mason", ":Mason<CR>"),
             dashboard.button("qq", "  Quit NVIM", "<cmd>qa<CR>"),
         }
