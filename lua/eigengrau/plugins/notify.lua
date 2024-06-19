@@ -1,0 +1,14 @@
+return{
+    'rcarriga/nvim-notify',
+    config = function ()
+
+require("notify").setup{
+  background_colour = "#000000",
+  -- animation style
+  stages = "fade_in_slide_out",
+  timeout = 5,
+
+}
+end
+}
+

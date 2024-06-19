@@ -1,54 +1,72 @@
-------------------------------------------
---- CORE
-------------------------------------------
-vim.loader.enable()  -- faster startup i guess
+-- Ensure lazy.nvim is installed
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
+end
 
-require "core.options"
-require "core.autocmds"
-require "core.keymaps"
-require "core.plugins"
-require "plugins.colors"               -- colorschemes
-require "core.aliases"
-------------------------------------------
---- PLUGINS
-------------------------------------------
-require "plugins.treesitter"
-require "plugins.notify"
-require "plugins.noice"                -- ui stuff
-require "plugins.telescope"            -- my beloved
-require "plugins.lualine"              -- status bar
-require "nvim-surround".setup()
-require "plugins.flash"
---require "plugins.leap"                 -- better moving motions
---require "flit".setup()                 -- better f motions
-require "plugins.zenmode"              -- focus mode
-require "plugins.smoothcursor"         -- whooosh
---require "plugins.modes"
-require "plugins.numb"
---require "plugins.sidebar"
-require "plugins.blankline"            -- indent lines
-require "plugins.todo-comments"
-require "plugins.oil"                  -- better file browser
-require "plugins.whichkey"             -- keybind helper
-require "plugins.autoclose"            -- autoclose brackets and other pairs
-require "plugins.macros"
-require "plugins.sos"                   -- i'm traumatized
-require "plugins.windows" -- smarter windows
---require "plugins.block"
---require "precognition".setup()
-require "plugins.obsidian"
-require "plugins.md-render"
-require "plugins.md-keys"
+vim.opt.rtp:prepend(lazypath)
+-- leader keys
+vim.g.mapleader = " "
+vim.g.maplocalleader = ";"
 
---- language servers
-require "plugins.lsp-cmp.cmp"
-require "plugins.lsp-cmp.lsp"
-require "plugins.lsp-cmp.mason"
-require "plugins.lsp-cmp.mason-lspconfig"
+-- Lazy.nvim setup
+local plugins = {
+    { import = "eigengrau.plugins"},
+}
 
+require("lazy").setup(plugins,
+{
+    checker = {
+        enabled = true,
+        notify = false,
+    },
+        performance = {
+            rtp = {
+                disabled_plugins = {
+                    "python3_provider",
+                    "python_provider",
+                    "node_provider",
+                    "ruby_provider",
+                    "perl_provider",
+                    "2html_plugin",
+                    "getscript",
+                    "getscriptPlugin",
+                    "gzip",
+                    "tar",
+                    "tarPlugin",
+                    "rrhelper",
+                    "vimball",
+                    "vimballPlugin",
+                    "zip",
+                    "zipPlugin",
+                    "tutor",
+                    "rplugin",
+                    "logiPat",
+                    "netrwSettings",
+                    "netrwFileHandlers",
+                    "syntax",
+                    "synmenu",
+                    "optwin",
+                    "compiler",
+                    "bugreport",
+                    "ftplugin",
+                    "load_ftplugin",
+                    "indent_on",
+                    "netrw",                  -- disable builtin file manager
+                    "netrwPlugin",            -- disable builtin file manager
+                },
+            },
+        },
+    })
 
-
-
-
--- TODO:
--- all of this is useless since apparently lazy can just load a full folder and the loading time will be better but god knows i don't have the frontal lobe for such an endeavor
+-- core
+require("eigengrau.core")
+vim.cmd[[colorscheme plain]]
+-- TODO: fix lsp, go back to lspzero
