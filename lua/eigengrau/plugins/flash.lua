@@ -8,7 +8,7 @@ return {
                 multi_window = true,
                 forward = true,
                 wrap = true,
-                mode = "search", --search , fuzzy
+                mode = "exact", --search , fuzzy, exact
                 incremental = false,
                 exclude = {
                     "notify",
@@ -23,13 +23,14 @@ return {
             },
             jump = {
                 jumplist = true,
+                pos = "start",
                 history = false,
                 register = false,
                 nohlsearch = true,
                 autojump = true,
             },
             label = {
-                uppercase = true,
+                uppercase = false,
                 exclude = "",
                 current = true,
                 distance = true,
@@ -59,9 +60,10 @@ return {
             modes = {
                 search = {
                     enabled = true,
-                    highlight = { backdrop = false },
+                    highlight = { backdrop = true },
                     jump = { history = true, register = true, nohlsearch = true },
                     search = {
+
                     },
                 },
                 char = {

@@ -25,12 +25,12 @@ require("lazy").setup(plugins,
 {
     checker = {
         enabled = true,
-        notify = true,
+        notify = false,
     },
 performance = {
     rtp = {
         disabled_plugins = {
-            "python_provider",
+--            "python_provider",
             "node_provider",
             "ruby_provider",
             "perl_provider",
@@ -55,8 +55,8 @@ performance = {
             "optwin",
             "compiler",
             "bugreport",
-            "ftplugin",
-            "load_ftplugin",
+--           "ftplugin",
+--          "load_ftplugin",
             "indent_on",
             "netrw",                  -- disable builtin file manager
             "netrwPlugin",            -- disable builtin file manager
@@ -66,6 +66,6 @@ performance = {
 })
 
 -- core
-require("eigengrau.core")
 vim.cmd[[colorscheme plain]]
+require("eigengrau.core")
 -- TODO: gotta add an lsp

@@ -41,13 +41,13 @@ require("mini.files").setup({
   -- Customization of explorer windows
   windows = {
     -- Maximum number of windows to show side by side
-    max_number = math.huge,
+    max_number = 2,
     -- Whether to show preview of file/directory under cursor
     preview = false,
     -- Width of focused window
     width_focus = 50,
     -- Width of non-focused window
-    width_nofocus = 55,
+    width_nofocus = 30,
     -- Width of preview window
     width_preview = 35,
   },

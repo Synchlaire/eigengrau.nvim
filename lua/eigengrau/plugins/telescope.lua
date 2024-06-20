@@ -11,6 +11,7 @@ return {
         { 'keyvchan/telescope-find-pickers.nvim' },
         { 'ghassan0/telescope-glyph.nvim' },
         { 'crispgm/telescope-heading.nvim', ft = "Markdown" },
+        {'nvim-telescope/telescope-ui-select.nvim' },
         { 'jvgrootveld/telescope-zoxide' }
     },
     config = function()
@@ -34,6 +35,7 @@ return {
         ext('find_pickers')
         ext('heading')
         ext('zoxide')
+        ext('ui-select')
 
 
         -- setup
@@ -47,28 +49,23 @@ return {
                     i = {
                         ["<a-k>"] = actions.move_selection_previous,
                         ["<a-j>"] = actions.move_selection_next,
-                        ["<a-n>"] = actions.preview_scrolling_down,
-                        ["<a-p>"] = actions.preview_scrolling_up,
                         ["jk"] = actions.close,
                         ["kj"] = actions.close,
+                        ["<a-n>"] = actions.preview_scrolling_down,
+                        ["<a-p>"] = actions.preview_scrolling_up,
                         ["<S-cr>"] = actions.file_vsplit,
-                        ["<TAB>"] = actions.toggle_selection,
-
-
                     },
-                    n = {
-                        ["kj"] = actions.close,
-                    },
+            --        n = {
+            --            ["a-k"] = actions.close,
+            --            ["a-j"] = actions.close,
+            --        },
                 },
             },
             extensions = {
-                heading = {
-                    picker_opts = {
-                        layout_config = { width = 0.8, preview_width = 0.5 },
-                        layout_strategy = 'horizontal',
-                    },
-                },
-                zoxide = {
+                ["ui-select"] = {
+            require("telescope.themes").get_dropdown {},
+        },
+                [ "zoxide" ] = {
                     prompt_title = "[ Zoxide ]",
                     -- Zoxide list command with score
                     list_command = "zoxide query -ls",

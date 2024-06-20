@@ -2,7 +2,7 @@ return {
    'nvim-lualine/lualine.nvim', dependencies = {
     'meuter/lualine-so-fancy.nvim',
     'nativerv/lualine-wal.nvim',
-  }, event = "InsertEnter",
+  }, event = {"BufReadPre", "BufNewFile"},
 config = function ()
 require('transparent').clear_prefix('lualine')
 require('lualine').setup {

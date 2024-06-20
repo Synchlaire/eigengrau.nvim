@@ -17,10 +17,10 @@ keymap('n', '_', '/', opts)
 keymap('n', 'ñ', '~', opts)
 
 -- navigate within insert mode
---keymap('i', '<C-k>', '<Up>', opts)
---keymap('i', '<C-j>', '<Down>', opts)
---keymap('i', '<C-h>', '<Left>', opts) --  TODO: doesn't work i have no idea why, when i source the file it does tho, so yeah
---keymap('i', '<C-l>', '<Right>', opts)
+keymap('i', '<A-k>', '<Up>', opts)
+keymap('i', '<A-j>', '<Down>', opts)
+keymap('i', '<A-h>', '<Left>', opts)
+keymap('i', '<A-l>', '<Right>', opts)
 
 -- Move to beginning/end of line
 keymap('n', '<S-l>', '$', { desc = 'jump to end of line' })
@@ -41,6 +41,22 @@ keymap("v", "X", '"_X', opts)
 
 -- Don't yank on visual paste
 keymap("v", "p", '"_dP', opts)
+
+-- yank whole file
+keymap("n", "<C-y>", "<cmd>%y+<CR>", {
+    desc = "Copy whole file"
+})
+
+-- Paste
+keymap("n", "]p", "o<Esc>p", {
+    desc = "Paste below"
+})
+keymap("n", "[p", "O<Esc>p", {
+    desc = "Paste above"
+})
+keymap("i", "<C-v>", '<ESC>"+p<ESC>a', {
+    desc = "Paste from clipboard"
+})
 
 
 
@@ -95,14 +111,10 @@ keymap("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in 
 keymap('n', '<leader>ss', '<cmd>set spell! | echo "spellcheck toggle"<CR>', { desc = "toggle spellcheck" })
 
 -- toggle autosave
-keymap("n", "<F2>", "<cmd>SosToggle<CR>", {})
+keymap("n", "<F2>", "<cmd>SosToggle<CR>", opts)
 
 --zen mode
 keymap("n", "<leader>zm", '<cmd>ZenMode<CR>', { desc = 'toggle Zen Mode' })
-
--- comments
-keymap("n", "<leader>ac", "<plug>(comment_toggle_linewise_current)", { desc = 'toggle line comment' })
-keymap("n", "<leader>ab", "<plug>(comment_toggle_blockwise_current)", { desc = 'toggle block comment' })
 
 -- toggle background workaround, kinda janky if you ask me
 keymap("n", "|", ':exec &bg=="light"? "set bg=dark" : "set bg=light"<CR>', { noremap = true, silent = true })
@@ -126,15 +138,22 @@ keymap("v", "<leader>on", "<cmd>ObsidianLinkNew<cr>", { desc = 'Create new Obsid
 keymap("v", "<leader>oe", "<cmd>ObsidianExtractNote<cr>", { desc = 'create new note out of visual selection' })
 
 --terminal
-keymap("t", "<Esc>", "<C-\\><C-n>", opts)
-keymap("t", "<Esc><Esc>", "<Esc>", opts)
-keymap("t", "<a-`>", "<C-\\><C-n><cmd>ToggleTerm<cr>", opts)
-keymap("n", "<a-`>", "<cmd>ToggleTerm<cr>", opts)
+--keymap("t", "<Esc>", "<C-\\><C-n>", opts)
+--keymap("t", "<Esc><Esc>", "<Esc>", opts)
+keymap("t", "jk", "<C-\\><C-n>", opts)
+keymap("t", "kj", "<C-\\><C-n>", opts)
+--keymap("t", "<ESC><ESC>", "<C-\\><C-n>")
 
 -- Lazy
 keymap("n", "<leader>lz", "<cmd>Lazy<cr>", { desc = 'open lazy plugin manager' })
 
-
 -- HOMESCREEN
-
 keymap("n", "<leader>hh", "<cmd>Alpha<cr>", { desc = 'open homescreen' })
+
+
+-- flash.nvim
+
+keymap('n', 's', '<cmd>lua require("flash").jump()<CR>', opts)
+
+-- dismiss the goddamn notification spam
+keymap('n', '<Esc>', '<cmd>NoiceDismiss<CR>', opts)

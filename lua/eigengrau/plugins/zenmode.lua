@@ -1,5 +1,7 @@
 return {
     'folke/zen-mode.nvim',
+    dependencies = { 'folke/twilight.nvim' },
+    cmd = { "ZenMode", "Twilight" },
     config = function()
         require("zen-mode").setup({
             window = {
