@@ -34,15 +34,16 @@ return {
         -- menu config
 
         dashboard.section.buttons.val = {
-            dashboard.button("n", "  New file", "<cmd>ene <BAR> startinsert <CR>"),
+            dashboard.button("n",  "  New file", "<cmd>ene <BAR> startinsert <CR>"),
             dashboard.button("ff", "  Find file", "<cmd>cd $HOME | Telescope find_files<CR>"),
-            dashboard.button("fd", " open folder", "<cmd>cd $HOME | Telescope zoxide list<CR>"),
+            dashboard.button("fd", "  Open folder", "<cmd>cd $HOME | Telescope zoxide list<CR>"),
             dashboard.button("fr", "  Recent", "<cmd>Telescope frecency<CR>"),
-            dashboard.button("o", "  Codex", "<cmd>ObsidianQuickSwitch<CR>"),
+            dashboard.button("o",  "  Codex", "<cmd>ObsidianQuickSwitch<CR>"),
             dashboard.button("lz", "󰂖  Lazy", ":Lazy<CR>"),
-            dashboard.button("c", "  Config", "<cmd>cd ~/.config/nvim/|e . | pwd<CR>"),
-            dashboard.button("m", "󱌣  Mason", ":Mason<CR>"),
+            dashboard.button("c",  "  Config", "<cmd>cd ~/.config/nvim/|e . | pwd<CR>"),
+            dashboard.button("m",  "󱌣  Mason", ":Mason<CR>"),
             dashboard.button("qq", "  Quit NVIM", "<cmd>qa<CR>"),
+            dashboard.button("ss", "  Sessions", "<cmd>Telescope possession list theme=dropdown  initial_mode=normal <CR>"),
         }
 
         dashboard.section.footer.val = "Total plugins: " .. require("lazy").stats().count

@@ -19,14 +19,14 @@ return {
           on_quit = true,
         },
         commands = {
-          save = "PossessionSave",
-          load = "PossessionLoad",
-          rename = "PossessionRename",
-          close = "PossessionClose",
-          delete = "PossessionDelete",
-          show = "PossessionShow",
-          list = "PossessionList",
-          migrate = "PossessionMigrate",
+          save = "SSave",
+          load = "SLoad",
+          rename = "SRename",
+          close = "SClose",
+          delete = "SDelete",
+          show = "SShow",
+          list = "SList",
+          migrate = "SMigrate",
         },
         hooks = {
           before_save = function(name)
@@ -80,9 +80,9 @@ return {
           list = {
             default_action = "load",
             mappings = {
-              save = { n = "<c-x>", i = "<c-x>" },
-              load = { n = "<c-v>", i = "<c-v>" },
-              delete = { n = "<c-t>", i = "<c-t>" },
+              save = { n = "<c-s>", i = "<c-s>" },
+              load = { n = "<c-l>", i = "<c-l>" },
+              delete = { n = "<c-d>", i = "<c-d>" },
               rename = { n = "<c-r>", i = "<c-r>" },
             },
           },

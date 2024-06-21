@@ -39,7 +39,7 @@ return {
       g.nightflyItalics = true
       g.nightflyNormalFloat = true
       g.nightflyTerminalColors = true
-      g.nightflyTransparent = false
+      g.nightflyTransparent = true
       g.nightflyUndercurls = true
       g.nightflyUnderlineMatchParen = false
       g.nightflyWinSeparator = 0

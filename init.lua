@@ -24,7 +24,7 @@ local plugins = {
 require("lazy").setup(plugins,
 {
     checker = {
-        enabled = true,
+        enabled = false,
         notify = false,
     },
 performance = {
@@ -66,6 +66,7 @@ performance = {
 })
 
 -- core
+vim.loader.enable()
 vim.cmd[[colorscheme plain]]
 require("eigengrau.core")
 -- TODO: gotta add an lsp

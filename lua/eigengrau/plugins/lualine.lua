@@ -2,15 +2,20 @@ return {
    'nvim-lualine/lualine.nvim', dependencies = {
     'meuter/lualine-so-fancy.nvim',
     'nativerv/lualine-wal.nvim',
-  }, event = {"BufReadPre", "BufNewFile"},
+  }, event = {"BufReadPre", "BufNewFile", "InsertEnter"},
 config = function ()
+-- locals
+local function SessionName()
+    return require('possession.session').get_session_name or ''
+end
+
 require('transparent').clear_prefix('lualine')
 require('lualine').setup {
     options = {
         globalstatus = false,
         icons_enabled = true,
         theme = 'auto',
-        draw_empty = false,
+        draw_empty = true,
         component_separators = { left = '', right = ''},
         section_separators = { left = '', right = ''},
         disabled_filetypes = {
@@ -19,7 +24,7 @@ require('lualine').setup {
 
         },
         ignore_focus = {},
-        always_divide_middle = true,
+        always_divide_middle = false,
         refresh = {
             statusline = 1000,
             tabline = 1000,
@@ -28,7 +33,7 @@ require('lualine').setup {
     },
     sections = {
         lualine_a = { 'mode', 'fancy_macro' },
-        lualine_b = { 'branch', 'fancy_diff', 'fancy_diagnostics' },
+        lualine_b = { 'branch', 'fancy_diagnostics', { 'SessionName'} },
         lualine_c = { '%=',
             { 'buffers',
             show_filename_only = true,

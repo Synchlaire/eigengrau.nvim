@@ -26,6 +26,7 @@ return {
         local builtin = require('telescope.builtin')
         local actions = require("telescope.actions")
         local ext = require("telescope").load_extension
+        local theme = require("telescope.themes")
 
 --- load extensions
         ext('macros')
@@ -36,6 +37,7 @@ return {
         ext('heading')
         ext('zoxide')
         ext('ui-select')
+        ext('possession')
 
 
         -- setup
@@ -63,7 +65,7 @@ return {
             },
             extensions = {
                 ["ui-select"] = {
-            require("telescope.themes").get_dropdown {},
+            theme.get_dropdown {},
         },
                 [ "zoxide" ] = {
                     prompt_title = "[ Zoxide ]",
@@ -128,6 +130,9 @@ return {
         vim.keymap.set('n', '<leader>ff', '<cmd>Telescope frecency<CR>', {desc = 'search files globally'})
         -- zoxide
         vim.keymap.set('n', '<leader>cd', '<cmd>Telescope zoxide list<CR>', {desc = 'search directories'})
+
+        -- session management
+        vim.keymap.set('n', '<leader>fs', '<cmd>Telescope possession list<CR>', { desc = 'session management'})
 
         --- meta-menu
         vim.keymap.set('n', '<A-o>', '<cmd>Telescope find_pickers<CR>', {desc = 'telescope menu'})

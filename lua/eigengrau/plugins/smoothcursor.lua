@@ -1,6 +1,6 @@
 return {
     'gen740/SmoothCursor.nvim',
-    event = "VeryLazy",                           --better cursor
+    event = {"BufReadPre", "BufNewFile", "InsertEnter"},
     config = function()
         require('smoothcursor').setup({
             autostart = true,
