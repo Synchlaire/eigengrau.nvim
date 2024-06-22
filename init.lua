@@ -19,6 +19,8 @@ vim.g.maplocalleader = ";"
 -- Lazy.nvim setup
 local plugins = {
     { import = "eigengrau.plugins"},
+--    { import = "eigengrau.plugins.lsp"},
+--    { import = "eigengrau.plugins.cmp"},
 }
 
 require("lazy").setup(plugins,
@@ -50,10 +52,11 @@ performance = {
             "logiPat",
             "netrwSettings",
             "netrwFileHandlers",
+            "shada",
             "syntax",
             "synmenu",
             "optwin",
-            "compiler",
+--            "compiler",
             "bugreport",
 --           "ftplugin",
 --          "load_ftplugin",
@@ -69,4 +72,3 @@ performance = {
 vim.loader.enable()
 vim.cmd[[colorscheme plain]]
 require("eigengrau.core")
--- TODO: gotta add an lsp
