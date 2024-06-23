@@ -1,7 +1,7 @@
 return {
     'stevearc/oil.nvim',
     lazy = true,
-    event = {"BufAdd"},
+    event = {"BufAdd", "bufReadPre"},
     config = function()
         require("oil").setup({
             constrain_cursor = "editable",
@@ -13,21 +13,21 @@ return {
                 -- "mtime",
             },
             buf_options = {
-                buflisted = false,
+                buflisted = true,
                 bufhidden = "hide",
             },
             win_options = {
                 wrap = false,
                 signcolumn = "yes:2",
                 cursorcolumn = false,
-                foldcolumn = "0",
+                foldcolumn = "1",
                 spell = false,
                 list = false,
-                conceallevel = 3,
+                conceallevel = 0,
                 concealcursor = "nvic",
             },
             default_file_explorer = true,
-            restore_win_options = true,
+            restore_win_options = false,
             -- Skip the confirmation popup for simple operations
             skip_confirm_for_simple_edits = true,
             -- Deleted files will be removed with the trash_command (below).
@@ -56,7 +56,27 @@ return {
                 ["'"] = "actions.cd",
                 ["~"] = "actions.tcd",
                 ["g."] = "actions.toggle_hidden",
+    ["<leader>--"] = {
+            "actions.open_terminal",
+
+            opts = {
+                shorten_path = true,
+                modify = ":h",
             },
+            desc = "Open the command line with the current directory as an argument",
+        },
+        ["<leader>-f"] = {
+            function()
+                require("telescope.builtin").find_files({
+                    cwd = require("oil").get_current_dir()
+                })
+            end,
+            mode = "n",
+            nowait = true,
+            desc = "Find files in the current directory"
+        }
+    },
+
             -- Set to false to disable all of the above keymaps
             use_default_keymaps = false,
             view_options = {

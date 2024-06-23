@@ -7,21 +7,22 @@ return {
     event = {"BufAdd"},
     config = function()
         require("windows").setup({
+            equalalways = false,
             autowidth = {
-                enable = true,
+                enable = false,
                 winwidth = 10,
                 winminwidth = 10,
                 filetype = {
-                    help = 1,
+                    help = 0,
                 },
             },
             ignore = {
-                buftype = { "quickfix", "oil"},
+                buftype = { "quickfix"},
                 filetype = { "NvimTree", "neo-tree", "undotree", "gundo" }
             },
             animation = {
                 enable = true,
-                duration = 100,
+                duration = 400,
                 fps = 60,
                 easing = "in_out_sine"
             }

@@ -1,5 +1,6 @@
 return {
     'tmillr/sos.nvim',
+    event = 'InsertEnter',
     config = function()
         require("sos").setup {
             -- Whether to enable the plugin

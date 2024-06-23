@@ -12,25 +12,23 @@ return {
                 -- * a function that returns the width or the height
                 width = .70, -- width of the Zen window
                 height = 1, -- height of the Zen window
-                -- by default, no options are changed for the Zen window
-                -- uncomment any of the options below, or add other vim.wo options you want to apply
                 options = {
-                    signcolumn = "yes", -- disable signcolumn
-                    number = false, -- disable number column
-                    relativenumber = false, -- disable relative numbers
-                    cursorline = false, -- disable cursorline
-                    cursorcolumn = false, -- disable cursor column
-                    foldcolumn = "0", -- disable fold column
-                    list = true, -- disable whitespace characters
+                    signcolumn = "yes",
+                    number = false,
+                    relativenumber = false,
+                    cursorline = false,
+                    cursorcolumn = false,
+                    foldcolumn = "1",
+                    list = false,
                 },
             },
             plugins = {
                 -- disable some global vim options (vim.o...)
                 -- comment the lines to not apply the options
                 options = {
-                    enabled = false,
-                    ruler = true, -- disables the ruler text in the cmd line area
-                    showcmd = true, -- disables the command in the last line of the screen
+                    enabled = true,
+                    ruler = false, -- disables the ruler text in the cmd line area
+                    showcmd = false, -- disables the command in the last line of the screen
                     -- you may turn on/off statusline in zen mode by setting 'laststatus'
                     -- statusline will be shown only if 'laststatus' == 3
                     laststatus = 0, -- turn off the statusline in zen mode

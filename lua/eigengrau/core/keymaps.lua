@@ -8,6 +8,8 @@ keymap('n', '<SPACE>', '<Nop>', opts)
 keymap('i', 'kj', '<Esc>', opts)
 keymap('i', 'jk', '<Esc>', opts)
 
+keymap('v', 'kj', '<Esc>', opts)
+keymap('v', 'jk', '<Esc>', opts)
 -- press tab to autoindent
 keymap('n', '<TAB>', '==', opts)
 keymap('v', '<TAB>', '=', opts)
@@ -74,14 +76,18 @@ keymap('n', '<C-h>', '<cmd>vertical resize -1<cr>', { desc = 'Decrease window wi
 
 -- buffer navigation
 
-keymap('n', '<A-1>', '<cmd>LualineBuffersJump 1<CR>', opts)
-keymap('n', '<A-2>', '<cmd>LualineBuffersJump 2<CR>', opts)
-keymap('n', '<A-3>', '<cmd>LualineBuffersJump 3<CR>', opts)
-keymap('n', '<A-4>', '<cmd>LualineBuffersJump 4<CR>', opts)
-keymap('n', '<A-5>', '<cmd>LualineBuffersJump 5<CR>', opts)
-keymap('n', '<A-,>', '<cmd>bp|echo "buffer 󰒮- "<CR>', opts)
+keymap('n', '<A-1>', '<cmd>LualineBuffersJump! 1<CR>', opts)
+keymap('n', '<A-2>', '<cmd>LualineBuffersJump! 2<CR>', opts)
+keymap('n', '<A-3>', '<cmd>LualineBuffersJump! 3<CR>', opts)
+keymap('n', '<A-4>', '<cmd>LualineBuffersJump! 4<CR>', opts)
+keymap('n', '<A-5>', '<cmd>LualineBuffersJump! 5<CR>', opts)
+keymap('n', '<A-6>', '<cmd>LualineBuffersJump! 6<CR>', opts)
+keymap('n', '<A-7>', '<cmd>LualineBuffersJump! 7<CR>', opts)
+keymap('n', '<A-8>', '<cmd>LualineBuffersJump! 8<CR>', opts)
+keymap('n', '<A-9>', '<cmd>LualineBuffersJump! 9<CR>', opts)
+keymap('n', '<A-,>', '<cmd>bp|echo "buffer 󰒮-! "<CR>', opts)
 keymap('n', '<A-.>', '<cmd>bn|echo "buffer -󰒭 "<CR>', opts)
-keymap('n', '<leader>dd', '<cmd>bd|echo "buffer 󰚌  "<CR>', opts)
+keymap('n', '<leader>dd', '<cmd>bd!|echo "buffer 󰚌  "<CR>', opts)
 
 -- Splits
 keymap('n', '<leader>sv', '<cmd>vs| echo "split |  "<CR>', { desc = 'vert split' })
@@ -103,8 +109,8 @@ keymap('n', '<A-l>', '<C-w>l', { desc = 'focus window right' })
 keymap("n", "<leader>tt", "<cmd>tabnew<CR>", { desc = "Open new tab" })
 keymap("n", "<leader>tT", "<cmd>tab split<CR>", { desc = "make tab a split" })
 keymap("n", "<leader>dt", "<cmd>tabclose<CR>", { desc = "Close current tab" })
-keymap("n", "<leader>t.", "<cmd>tabn<CR>", { desc = "Go to next tab" })
-keymap("n", "<leader>t,", "<cmd>tabp<CR>", { desc = "Go to previous tab" })
+keymap("n", "<A-n>", "<cmd>tabn<CR>", { desc = "Go to next tab" })
+keymap("n", "<a-b>", "<cmd>tabp<CR>", { desc = "Go to previous tab" })
 keymap("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" })
 -----
 -- toggle spell
@@ -122,9 +128,6 @@ keymap("n", "<leader>|", '<cmd>TransparentToggle| lua require("notify")("Transpa
     { desc = 'toggle transparency' })
 
 
--- file navigation
-
-keymap("n", "-", "<cmd>lua MiniFiles.open()<cr>", opts)
 
 -- obsidian
 keymap("n", "<leader>oo", "<cmd>ObsidianQuickSwitch<cr>", { desc = 'Obsidian Quick-Switch' })

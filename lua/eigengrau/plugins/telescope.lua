@@ -2,7 +2,6 @@ return {
     -- Telescope plugins
  'nvim-telescope/telescope.nvim',
     lazy = true,
-    cmd = {"Telescope", "ObsidianQuickSwitch"},
     keys = {"<leader>ff", "<leader>cd", "<leader>fc", "<leader>q", "<leader>fh"},
 
     dependencies = {
@@ -10,7 +9,7 @@ return {
         { '2kabhishek/nerdy.nvim' },
         { 'keyvchan/telescope-find-pickers.nvim' },
         { 'ghassan0/telescope-glyph.nvim' },
-        { 'crispgm/telescope-heading.nvim', ft = "Markdown" },
+     --   { 'crispgm/telescope-heading.nvim', ft = "Markdown" },
         {'nvim-telescope/telescope-ui-select.nvim' },
         { 'jvgrootveld/telescope-zoxide' }
     },
@@ -34,7 +33,7 @@ return {
         ext('nerdy')
         ext('glyph')
         ext('find_pickers')
-        ext('heading')
+    --    ext('heading')
         ext('zoxide')
         ext('ui-select')
         ext('possession')
@@ -64,6 +63,10 @@ return {
                 },
             },
             extensions = {
+                ["possession"] = {
+            theme.get_dropdown {},
+        },
+
                 ["ui-select"] = {
             theme.get_dropdown {},
         },

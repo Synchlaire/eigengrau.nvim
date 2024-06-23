@@ -1,7 +1,8 @@
 return {
   {
     "jedrzejboczar/possession.nvim",
-    requires = { "nvim-lua/plenary.nvim" },
+    lazy = true,
+    dependencies = { "nvim-lua/plenary.nvim", },
     config = function()
       require("possession").setup {
         -- session_dir = (Path:new(vim.fn.stdpath('data')) / 'possession'):absolute(),
@@ -14,7 +15,7 @@ return {
         autosave = {
           current = true,   -- or fun(name): boolean
           tmp = true,       -- or fun(): boolean
-          tmp_name = "tmp", -- or fun(): string
+          tmp_name = "temp", -- or fun(): string
           on_load = true,
           on_quit = true,
         },

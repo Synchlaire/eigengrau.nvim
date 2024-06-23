@@ -6,7 +6,7 @@ local opt        = vim.opt
 g.conceallevel   = 2 -- hide quotes in markdown
 g.cmdheight      = 0
 g.emoji          = false
-g.pumblend       = 0    -- Popup blend
+g.pumblend       = 10    -- Popup blend
 g.showcmd        = true -- show/hide cmd in statusline
 g.showmode       = false
 g.termguicolors  = true
@@ -58,7 +58,7 @@ g.formatprg      = "fmt"
 g.foldmethod     = "expr"
 g.foldexpr       = "nvim_treesitter#foldexpr()" -- better folding behaviour
 g.wildmenu       = true                         --better autocompletions
-g.wildmode       = 'longest:full,full' --'longest,list,full'
+g.wildmode       = 'longest,list,full' --'longest,list,full'
 g.inccommand     = "split"
 g.spelllang      = 'es,en' -- autocorrections
 g.timeout        = true
@@ -79,7 +79,7 @@ extends = '⟫',
 precedes = '⟪',
 conceal = '',
 nbsp = '␣',
-trail = '·'
+trail = '∘'
 }
 
 opt.fillchars = {
@@ -97,6 +97,17 @@ opt.fillchars = {
 --    vertright = '┣',
 --    verthoriz = '╋',
 }
+-- disable some native plugins entirely
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_2html_plugin = 1
+vim.g.loaded_getscriptPlugin = 1
+vim.g.loaded_gzip = 1
+vim.g.loaded_logipat = 1
+vim.g.loaded_rrhelper = 1
+vim.g.loaded_tarPlugin = 1
+vim.g.loaded_vimballPlugin = 1
+vim.g.loaded_zipPlugin = 1
 
 
 -- files

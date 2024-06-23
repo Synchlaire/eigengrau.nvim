@@ -15,7 +15,6 @@ return {
                 "python",
                 "vim",
                 "vimdoc",
-                "c",
                 --        "r",
             },
 

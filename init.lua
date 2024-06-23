@@ -19,8 +19,10 @@ vim.g.maplocalleader = ";"
 -- Lazy.nvim setup
 local plugins = {
     { import = "eigengrau.plugins"},
---    { import = "eigengrau.plugins.lsp"},
---    { import = "eigengrau.plugins.cmp"},
+    { import = "eigengrau.plugins.colors"},
+    { import = "eigengrau.plugins.markdown"},
+    { import = "eigengrau.plugins.ui"},
+    { import = "eigengrau.plugins.dev"},
 }
 
 require("lazy").setup(plugins,

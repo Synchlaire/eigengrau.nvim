@@ -1,10 +1,18 @@
 return {
     'epwalsh/obsidian.nvim',
-    dependencies = {
-        { 'oflisback/obsidian-bridge.nvim', cmd = "ObsidianQuickSwitch" },
-    },
     ft = "markdown",
-    cmd = "ObsidianQuickSwitch",
+    cmd = { "ObsidianQuickSwitch",
+            "ObsidianTags",
+            "ObsidianTemplate",
+            "ObsidianSearch",
+            "ObsidianLinkNew",
+            "ObsidianWorkspace",
+            "ObsidianLink",
+            "ObsidianLinkNew",
+            "ObsidianExtractNote", },
+    dependencies = {
+        { 'oflisback/obsidian-bridge.nvim'},
+    },
     config = function()
         require("obsidian").setup {
             workspaces = {
