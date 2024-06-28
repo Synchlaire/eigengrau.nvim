@@ -1,12 +1,11 @@
 return {
   {
     "jedrzejboczar/possession.nvim",
-    lazy = true,
     dependencies = { "nvim-lua/plenary.nvim", },
     config = function()
       require("possession").setup {
         -- session_dir = (Path:new(vim.fn.stdpath('data')) / 'possession'):absolute(),
-        session_dir = vim.fn.stdpath "data" .. "/sessions",
+--        session_dir = ".sessions",
         silent = false,
         load_silent = true,
         debug = false,
@@ -20,14 +19,14 @@ return {
           on_quit = true,
         },
         commands = {
-          save = "SSave",
-          load = "SLoad",
-          rename = "SRename",
-          close = "SClose",
-          delete = "SDelete",
-          show = "SShow",
-          list = "SList",
-          migrate = "SMigrate",
+          save = "Ssave",
+          load = "Sload",
+          rename = "Srename",
+          close = "Sclose",
+          delete = "Sdelete",
+          show = "Sshow",
+          list = "Slist",
+          migrate = "Smigrate",
         },
         hooks = {
           before_save = function(name)
@@ -57,15 +56,15 @@ return {
             },
             force = false, -- or fun(buf): boolean
           },
-          nvim_tree = true,
-          neo_tree = true,
+--          nvim_tree = true,
+--          neo_tree = true,
           symbols_outline = true,
-          outline = true,
-          tabby = true,
-          dap = true,
-          dapui = true,
-          neotest = true,
-          delete_buffers = true,
+--          outline = true,
+--          tabby = true,
+--          dap = true,
+--          dapui = true,
+--          neotest = true,
+--          delete_buffers = true,
         },
         telescope = {
           previewer = {
@@ -91,4 +90,5 @@ return {
       }
     end,
   },
+
 }

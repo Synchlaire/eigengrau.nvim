@@ -1,6 +1,6 @@
 return {
 	"folke/flash.nvim",
-	event = "BufEnter",
+	event = { "BufReadPre", "BufNewFile" },
 	config = function()
 		require("flash").setup({
 			labels = "asdfghjklqwertyuiopzxcvbnm",
@@ -15,6 +15,7 @@ return {
 					"cmp_menu",
 					"noice",
 					"flash_prompt",
+
 					function(win)
 						return not vim.api.nvim_win_get_config(win).focusable
 					end,

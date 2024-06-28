@@ -7,7 +7,7 @@ return {
 		require("NeoComposer").setup({
 			notify = true,
 			delay_timer = 100,
-			queue_most_recent = false,
+			queue_most_recent = true,
 			window = {
 				width = 60,
 				height = 10,

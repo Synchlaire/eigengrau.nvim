@@ -4,14 +4,14 @@ return {
         'anuvyklack/middleclass',
         'anuvyklack/animation.nvim' },
     lazy = true,
-    event = {"BufAdd"},
+    event = {"WinNew"},
     config = function()
         require("windows").setup({
             equalalways = false,
             autowidth = {
                 enable = false,
-                winwidth = 10,
-                winminwidth = 10,
+--                winwidth = 10,
+--                winminwidth = 10,
                 filetype = {
                     help = 0,
                 },
@@ -22,7 +22,7 @@ return {
             },
             animation = {
                 enable = true,
-                duration = 400,
+                duration = 200,
                 fps = 60,
                 easing = "in_out_sine"
             }

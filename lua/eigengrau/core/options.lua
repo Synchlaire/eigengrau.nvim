@@ -1,126 +1,120 @@
--- global vars (let g: stuff)
-local g          = vim.o
-local opt        = vim.opt
---local cmd            = vim.cmd
--- visual
-g.conceallevel   = 2 -- hide quotes in markdown
-g.cmdheight      = 0
-g.emoji          = false
-g.pumblend       = 10    -- Popup blend
-g.showcmd        = true -- show/hide cmd in statusline
-g.showmode       = false
-g.termguicolors  = true
-g.number         = true --show line numbers
-g.relativenumber = true -- show relative numbers
-g.cursorline     = true
-g.title          = true
-g.signcolumn     = "yes" -- gutter
-g.guicursor      = ""
-g.textwidth      = 80
-g.splitright = true
-g.splitbelow = true
---g.modelines          = true
-g.syntax         = "on"
-g.pumheight      = 10       -- popup menu height
-g.list           = false    -- Show hidden characters
-opt.laststatus   = 3
-opt.splitkeep    = 'screen' -- New split keep the text on the same screen line
-opt.cmdheight    = 0
---opt.colorcolumn = '+0'    -- Align text at 'textwidth'
-opt.showtabline  = 1  -- Always show the tabs line
-opt.helpheight   = 0  -- Disable help window resizing
-opt.winwidth     = 30 -- Minimum width for active window
-opt.winminwidth  = 0  -- Minimum width for inactive windows
-opt.winheight    = 1  -- Minimum height for active window
-opt.winminheight = 1  -- Minimum height for inactive window
-opt.pumblend     = 10 -- Popup blend
-opt.pumheight    = 10 -- Maximum number of items to show in the popup menu
-opt.shortmess:append('c');
-opt.formatoptions:remove('c');
-opt.formatoptions:remove('r');
-opt.formatoptions:remove('o');
+-- Global vars (let g: stuff)
+local g = vim.g
+local opt = vim.opt
 
--- editor
-g.completeopt    = 'menu,menuone,noselect'
-g.clipboard      = "unnamedplus" --yank to system clipboard by default
-g.tabstop        = 4
-g.autochdir      = true          -- change current cwd to wherever the active file is
-g.softtabstop    = 4
-g.shiftwidth     = 4
-g.expandtab      = true
-g.lazyredraw     = false --good for performance
-g.wrap           = true
-g.smartindent    = true
-g.mouse          = "a"  --allow mouse to be used in neovim
-g.scrolloff      = 10
-g.linebreak      = true --don't split words
-g.formatprg      = "fmt"
-g.foldmethod     = "expr"
-g.foldexpr       = "nvim_treesitter#foldexpr()" -- better folding behaviour
-g.wildmenu       = true                         --better autocompletions
-g.wildmode       = 'longest,list,full' --'longest,list,full'
-g.inccommand     = "split"
-g.spelllang      = 'es,en' -- autocorrections
-g.timeout        = true
-g.timeoutlen     = 700     -- time to wait for a mapped sequence to complete (in milliseconds)
-opt.updatetime   = 300     -- faster completion (4000ms default, 300 is comfy)
-g.smarttab       = true    --- Makes tabbing smarter will realize you have 2 vs 4
-g.autoindent     = true
+-- Visual settings
+g.list = true -- Do not show hidden characters
+g.pumblend = 10 -- Transparency for popup menu
+g.showcmd = false -- Disable showing command in status line
+g.signcolumn = "yes" -- Always show the sign column
+g.syntax = "on" -- Enable syntax highlighting
+opt.cmdheight = 0 -- Height of the command bar, set to 0 to hide
+opt.conceallevel = 2 -- Hide quotes in markdown
+opt.cursorline = true -- Highlight the current line
+opt.formatoptions:remove('c', 'r', 'o')
+opt.grepprg = "rg --vimgrep" -- Use ripgrep for searching
+opt.guicursor = "" -- GUI cursor settings
+opt.helpheight = 0 -- Disable help window resizing
+opt.laststatus = 3 -- Always display the status line
+opt.number = true -- Show absolute line numbers
+opt.pumblend = 10 -- Transparency for popup menu
+opt.pumheight = 10 -- Max number of items in the popup menu
+opt.relativenumber = true -- Show relative line numbers
+opt.shortmess:append('c')
+opt.showmode = false -- Disable showing mode (like INSERT)
+opt.showtabline = 1 -- Always show the tab line
+opt.splitbelow = true -- Horizontal splits open below
+opt.splitkeep = 'screen' -- Keep the text on the same screen line when splitting
+opt.splitright = true -- Vertical splits open on the right side
+opt.termguicolors = true -- Enable true color support
+opt.textwidth = 80 -- Maximum width of text before wrapping
+opt.title = true -- Set window title to the current file name
+opt.winheight = 1 -- Minimum height for the active window
+opt.winminheight = 0 -- Minimum height for inactive windows
+opt.winminwidth = 0 -- Minimum width for inactive windows
+opt.winwidth = 30 -- Minimum width for the active window
+if vim.fn.has('nvim-0.9') == 1 then
+  vim.opt.shortmess:append('C') -- Don't show "Scanning..." messages
+  vim.o.splitkeep = 'screen'    -- Reduce scroll during window split
+end
+-- Editor behavior
+opt.completeopt = 'menu,menuone,noselect'
+opt.clipboard = "unnamedplus" -- Use system clipboard by default
+g.tabstop = 4 -- Number of spaces a tab counts for
+g.autochdir = true -- Change working directory to the current file
+g.softtabstop = 4 -- Number of spaces in tab when editing
+opt.shiftwidth = 2 -- Size of an indent
+g.expandtab = true -- Convert tabs to spaces
+opt.lazyredraw = false -- Do not redraw while executing macros
+opt.wrap = true -- Wrap long lines
+opt.wrapmargin = 80 -- Wrap long lines
+opt.smartindent = true -- Smart autoindenting on new lines
+opt.mouse = "a" -- Enable mouse in all modes
+g.scrolloff = 10 -- Minimal number of screen lines to keep above and below the cursor
+opt.linebreak = true -- Prevent words from being split on line wrap
+g.formatprg = "fmt" -- Program to use for formatting
+g.wildmenu = true -- Enable enhanced command line completion
+opt.wildmode = 'full' -- Command-line completion mode
+g.inccommand = "nosplit" -- Show incremental effects of a command
+opt.spelllang = 'es,en' -- Spell checking for Spanish and English
+g.timeout = true -- Use keymap timeout
+g.timeoutlen = 700 -- Time in milliseconds to wait for a mapped sequence to complete
+opt.updatetime = 300 -- Faster completion (default is 4000ms)
 
--- folds
-g.foldcolumn     = "0"
-g.foldnestmax    = 0
-g.foldlevel      = 99 -- Using ufo provider need a large value
-g.foldlevelstart = 99 -- Expand all folds by default
+-- Fold settings
+opt.foldenable = true -- Enable folding
+opt.foldcolumn = "0" -- Show fold column
+opt.foldnestmax = 3 -- Maximum fold nesting level
+opt.foldlevel = 99 -- Start with all folds open
+opt.foldlevelstart = 100 -- Start editing with all folds open
+opt.foldmethod = "manual" -- Folding set to be done manually
+opt.foldexpr = "nvim_treesitter#foldexpr()" -- Set treesitter as the fold method
+g.markdown_folding = 1 -- use folding by heading in markdown
 
-opt.listchars = {
-tab = '  ',
-extends = '⟫',
-precedes = '⟪',
-conceal = '',
-nbsp = '␣',
-trail = '∘'
-}
+if vim.fn.has('nvim-0.10') == 1 then
+  vim.o.foldtext = ''        -- Use underlying text with its highlighting
+end
 
+
+
+
+
+-- Character settings for various UI components
 opt.fillchars = {
-    foldopen = '󰅀', -- 󰅀 
-    foldclose = '', -- 󰅂 
-    fold = ' ', -- ⸱
-    foldsep = ' ',
-    diff = '╱',
-    eob = ' ',
---    horiz = '━',
---    horizup = '┻',
---    horizdown = '┳',
---    vert = '┃',
---    vertleft = '┫',
---    vertright = '┣',
---    verthoriz = '╋',
+    foldopen = '', -- Unicode characters for open fold
+    foldclose = '󰅂', -- Unicode characters for close fold
+    fold = '⸱', -- Character for fold lines
+--    foldsep = ' ', -- Separator for folded lines
+    diff = '╪', -- Character for diff view
+    eob = ' ', -- Character at the End Of Buffer
+--    vert = '┃', -- Vertical split line
 }
--- disable some native plugins entirely
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-vim.g.loaded_2html_plugin = 1
-vim.g.loaded_getscriptPlugin = 1
-vim.g.loaded_gzip = 1
-vim.g.loaded_logipat = 1
-vim.g.loaded_rrhelper = 1
-vim.g.loaded_tarPlugin = 1
-vim.g.loaded_vimballPlugin = 1
-vim.g.loaded_zipPlugin = 1
 
+-- Function to disable unused native plugins
+local function disable_distribution_plugins()
+  vim.g.loaded_2html_plugin = 1
+  vim.g.loaded_getscript = 1
+  vim.g.loaded_getscriptPlugin = 1
+  vim.g.loaded_netrw = 1
+  vim.g.loaded_netrwFileHandlers = 1
+  vim.g.loaded_netrwPlugin = 1
+  vim.g.loaded_netrwSettings = 1
+  vim.g.loaded_tar = 1
+  vim.g.loaded_tarPlugin = 1
+  vim.g.loaded_vimball = 1
+  vim.g.loaded_vimballPlugin = 1
+  vim.g.loaded_zip = 1
+  vim.g.loaded_zipPlugin = 1
+end
 
--- files
+-- File settings
+g.swapfile = false -- Disable swap file creation
+g.backup = false -- Disable backup file creation
+g.undofile = false -- Enable persistent undo
+g.markdown_recommended_style = 0 -- Disable recommended markdown style
 
-g.swapfile   = false
-g.backup     = false
-g.undofile   = false -- persistent undos
-vim.g.markdown_recommended_style = 0 -- Fix markdown indentation settings
-
--- search
-g.hlsearch   = true --enable highlight matching pattern
-g.incsearch  = true --enable incremental search
-g.ignorecase = true
-g.smartcase  = true
-g.wildignore =
-[[ .git,.hg,.svn *.aux,*.out,*.toc *.o,*.obj,*.exe,*.dll,*.manifest,*.rbc,*.class *.ai,*.bmp,*.gif,*.ico,*.jpg,*.jpeg,*.png,*.psd,*.webp *.avi,*.divx,*.mp4,*.webm,*.mov,*.m2ts,*.mkv,*.vob,*.mpg,*.mpeg *.mp3,*.oga,*.ogg,*.wav,*.flac *.eot,*.otf,*.ttf,*.woff *.doc,*.pdf,*.cbr,*.cbz *.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz,*.kgb *.swp,.lock,.DS_Store,._* */tmp/*,*.so,*.swp,*.zip,**/node_modules/**,**/target/**,**.terraform/**" ]] --you can't even read these
+-- Search settings
+opt.hlsearch = true -- Highlight all matches
+opt.incsearch = true -- Incremental search
+opt.ignorecase = true -- Case insensitive searching
+opt.smartcase = true -- Case sensitive if expression contains a capital letter

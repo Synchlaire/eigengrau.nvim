@@ -21,19 +21,18 @@ return {
       sources = {
         { name = "nvim_lsp" },
         { name = "path" },
-        { name = "cmdline" },
         { name = "buffer" },
         { name = "spell" },
       },
       mapping = {
-        ["<A-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-        ["<A-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-        ["<A-y>"] = cmp.mapping(function()
-          cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Insert,
-            select = false,
-          })
-        end, { "i", "c" }),
+        ["<A-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+        ["<A-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+--        ["<A>-<space>"] = cmp.mapping(function()
+--          cmp.mapping.confirm({
+--            behavior = cmp.ConfirmBehavior.Insert,
+--            select = false,
+--          })
+--        end, { "i", "c" }),
       },
       snippet = {
         expand = function(args)

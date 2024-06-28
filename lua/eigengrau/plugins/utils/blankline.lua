@@ -5,7 +5,8 @@ return {
 	config = function()
 		local plugin = require("ibl")
 		plugin.setup({
-			indent = { char = "┊" },
+			indent = { char = "▎" },
 		})
 	end,
 }
+

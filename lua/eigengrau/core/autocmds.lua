@@ -73,15 +73,34 @@ cmd("BufWritePre", {
 })
 
 -- resize splits if window got resized
+--local resize_splits = augroup('resize_splits', {})
+--cmd({ 'VimResized' }, {
+--    group = resize_splits,
+--    callback = function()
+--        vim.cmd('tabdo wincmd =')
+--    end,
+--})
+-- resize splits if window got resized
 local resize_splits = augroup('resize_splits', {})
-cmd({ 'VimResized' }, {
+cmd({ "VimResized" }, {
     group = resize_splits,
     callback = function()
-        vim.cmd('tabdo wincmd =')
+        local current_tab = vim.fn.tabpagenr()
+        vim.cmd("tabdo wincmd =")
+        vim.cmd("tabnext " .. current_tab)
     end,
 })
 
-
+-- wrap and check for spell in text filetypes
+--cmd("FileType", {
+--  group = augroup("wrap_spell"),
+--  pattern = { "gitcommit", "markdown" },
+--  callback = function()
+--    vim.opt_local.wrap = true
+--    vim.opt_local.spell = true
+--  end,
+--})
+--TODO: fix this
 
 -----------------------------------
 --             PLUGINS           --
@@ -103,10 +122,12 @@ cmd('FileType', {
         'Jaq',
         'PlenaryTestPopup',
         'fugitive',
+        'diagmsg',
         'help',
         'lir',
         'lspinfo',
         'man',
+        "bmessages_buffer",
         'notify',
         'qf',
         'spectre_panel',
@@ -119,3 +140,4 @@ cmd('FileType', {
 })
 
 -- i hate normies so goddamn much
+

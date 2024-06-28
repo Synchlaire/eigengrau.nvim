@@ -8,19 +8,23 @@ keymap('n', '<SPACE>', '<Nop>', opts)
 keymap('i', 'kj', '<Esc>', opts)
 keymap('i', 'jk', '<Esc>', opts)
 
-keymap('v', 'kj', '<Esc>', opts)
-keymap('v', 'jk', '<Esc>', opts)
 -- press tab to autoindent
-keymap('n', '<TAB>', '==', opts)
 keymap('v', '<TAB>', '=', opts)
+
+-- more intuitive redo
+
+
+keymap('n', 'U', '<cmd>redo<cr>', opts)
+-- toggle folds
+keymap("n", "<Tab>", "za", opts)
 
 -- keyboard substitutions for my sanity
 keymap('n', '_', '/', opts)
 keymap('n', 'ñ', '~', opts)
 
 -- navigate within insert mode
-keymap('i', '<A-k>', '<Up>', opts)
-keymap('i', '<A-j>', '<Down>', opts)
+--keymap('i', '<A-k>', '<Up>', opts)
+--keymap('i', '<A-j>', '<Down>', opts)
 keymap('i', '<A-h>', '<Left>', opts)
 keymap('i', '<A-l>', '<Right>', opts)
 
@@ -29,11 +33,19 @@ keymap('n', '<S-l>', '$', { desc = 'jump to end of line' })
 keymap('n', '<S-h>', '0', { desc = 'jump to beginning of line' })
 
 -- move a blocks of text up/down with K/J in visual mode
-keymap("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
-keymap("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
+--keymap("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
+--keymap("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
 
 -- search and replace the word under cursor in the file with Control+s
 keymap("n", "<C-s>", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], opts)
+
+
+-- better search motions
+keymap('n', 'n', 'nzzzv', { desc = 'Jump to next search.'})
+keymap('n', 'N', 'Nzzzv',  { desc = 'Jump to previous search.'})
+
+-- concatenate lines
+keymap("n", "J", "mzJ`z", opts)
 
 -- Don't yank on delete char
 keymap("n", "x", '"_x', opts)
@@ -46,18 +58,18 @@ keymap("v", "p", '"_dP', opts)
 
 -- yank whole file
 keymap("n", "<C-y>", "<cmd>%y+<CR>", {
-    desc = "Copy whole file"
+  desc = "Copy whole file"
 })
 
 -- Paste
 keymap("n", "]p", "o<Esc>p", {
-    desc = "Paste below"
+  desc = "Paste below"
 })
 keymap("n", "[p", "O<Esc>p", {
-    desc = "Paste above"
+  desc = "Paste above"
 })
 keymap("i", "<C-v>", '<ESC>"+p<ESC>a', {
-    desc = "Paste from clipboard"
+  desc = "Paste from clipboard"
 })
 
 
@@ -66,6 +78,8 @@ keymap("i", "<C-v>", '<ESC>"+p<ESC>a', {
 ----------------------------
 
 keymap('n', '<A-f>', '<cmd>WindowsMaximize<cr>', { desc = 'maximize window' })
+keymap('n', '<A-t>', '<cmd>WindowsMaximizeVertically<cr>', { desc = 'maximize window' })
+keymap('n', '<A-w>', '<cmd>WindowsMaximizeHorizontally<cr>', { desc = 'maximize window' })
 keymap('n', '<A-0>', '<cmd>WindowsEqualize<cr>', { desc = 'equalize windows' })
 
 -- Resize window using <ctrl> arrow keys
@@ -123,9 +137,8 @@ keymap("n", "<F2>", "<cmd>SosToggle<CR>", opts)
 keymap("n", "<leader>zm", '<cmd>ZenMode<CR>', { desc = 'toggle Zen Mode' })
 
 -- toggle background workaround, kinda janky if you ask me
-keymap("n", "|", ':exec &bg=="light"? "set bg=dark" : "set bg=light"<CR>', { noremap = true, silent = true })
-keymap("n", "<leader>|", '<cmd>TransparentToggle| lua require("notify")("Transparency Toggle")<cr>',
-    { desc = 'toggle transparency' })
+keymap("n", "<C-r>", ':exec &bg=="light"? "set bg=dark" : "set bg=light"<CR>', { noremap = true, silent = true })
+--keymap("n", "<leader>|", '<cmd>TransparentToggle| lua require("notify")("Transparency Toggle")<cr>', { desc = 'toggle transparency' })
 
 
 
@@ -155,7 +168,6 @@ keymap("n", "<leader>hh", "<cmd>Alpha<cr>", { desc = 'open homescreen' })
 
 
 -- flash.nvim
-
 keymap('n', 's', '<cmd>lua require("flash").jump()<CR>', opts)
 
 -- dismiss the goddamn notification spam

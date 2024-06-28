@@ -1,8 +1,6 @@
 return {
 --- plain
     'andreypopp/vim-colors-plain',
-    lazy = false,
-    priority = 1000,
 }
 --  'haishanh/night-owl.vim', event = "Colorscheme",
 --  'lamartire/hg.vim', event = "Colorscheme",

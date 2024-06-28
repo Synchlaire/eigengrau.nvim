@@ -6,6 +6,20 @@ return {
 		local dashboard = require("alpha.themes.dashboard")
 
 		-- set header
+		local ghost = {
+            " ⠀⠀⠀⠀⠀⠀⢀⣤⣶⣶⣖⣦⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀",
+            " ⠀⠀⠀⠀⢀⣾⡟⣉⣽⣿⢿⡿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀",
+            " ⠀⠀⠀⢠⣿⣿⣿⡗⠋⠙⡿⣷⢌⣿⣿⠀⠀⠀⠀⠀⠀⠀",
+            " ⣷⣄⣀⣿⣿⣿⣿⣷⣦⣤⣾⣿⣿⣿⡿⠀⠀⠀⠀⠀⠀⠀",
+            " ⠈⠙⠛⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⡀⠀⢀⠀⠀⠀⠀",
+            " ⠀⠀⠀⠸⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠻⠿⠿⠋⠀⠀⠀⠀",
+            " ⠀⠀⠀⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀",
+            " ⠀⠀⠀⠀⠀⠈⢿⣿⣿⣿⣿⣿⣿⣇⠀⠀⠀⠀⠀⠀⠀⡄",
+            " ⠀⠀⠀⠀⠀⠀⠀⠙⢿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⢀⡾⠀",
+            " ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣿⣿⣿⣿⣷⣶⣴⣾⠏⠀⠀",
+            " ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠛⠛⠛⠋⠁⠀⠀⠀",
+        }
+
 		local ouroboros = {
 			"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⣀⣀⣀⣄⣀⠀⠀⠀⠀⠀⠀",
 			"⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⡶⢿⣟⡛⣿⢉⣿⠛⢿⣯⡈⠙⣿⣦⡀⠀⠀⠀",
@@ -24,7 +38,7 @@ return {
 			"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
 		}
 
-		dashboard.section.header.val = ouroboros
+		dashboard.section.header.val = ghost
 		dashboard.section.header.opts = {
 			type = "text",
 			position = "center",
@@ -39,7 +53,7 @@ return {
 				"  Sessions",
 				"<cmd>Telescope possession list theme=dropdown  initial_mode=normal <CR>"
 			),
-			dashboard.button("n", "  New file", "<cmd>ene <BAR> startinsert <CR>"),
+			dashboard.button("n", "  New file", "<cmd>ene <BAR><CR>"),
 			dashboard.button("ff", "  Find file", "<cmd>cd $HOME | Telescope find_files<CR>"),
 			dashboard.button("fd", "  Open folder", "<cmd>cd $HOME | Telescope zoxide list<CR>"),
 			dashboard.button("fr", "  Recent", "<cmd>Telescope frecency<CR>"),
@@ -50,6 +64,7 @@ return {
 			dashboard.button("qq", "  Quit NVIM", "<cmd>qa<CR>"),
 		}
 
+		dashboard.section.footer.val = "Total plugins: " .. require("lazy").stats().count
 		dashboard.section.footer.val = "Total plugins: " .. require("lazy").stats().count
 
 		-- main configs
