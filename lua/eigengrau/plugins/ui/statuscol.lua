@@ -1,7 +1,4 @@
-local M = {}
-
----@type LazyPluginSpec
-M.spec = {
+return {
     "luukvbaal/statuscol.nvim",
     branch = "0.10",
     event = "BufEnter",
@@ -13,7 +10,7 @@ M.spec = {
 
         return {
             relculright = true,
-            ft_ignore = { "neo-tree" },
+            ft_ignore = { "alpha" },
             segments = {
                 { sign = { namespace = { "gitsigns" } } },
                 { text = { builtin.foldfunc }, click = "v:lua.ScFa", sign = { colwidth = 2 } },
@@ -25,4 +22,3 @@ M.spec = {
     end,
 }
 
-return M.spec

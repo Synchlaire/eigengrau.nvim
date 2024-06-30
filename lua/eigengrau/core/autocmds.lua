@@ -139,5 +139,5 @@ cmd('FileType', {
     end,
 })
 
--- i hate normies so goddamn much
+--NOTE: i hate normies so goddamn much
 

@@ -3,16 +3,16 @@ local g = vim.g
 local opt = vim.opt
 
 -- Visual settings
-g.list = true -- Do not show hidden characters
-g.pumblend = 10 -- Transparency for popup menu
-g.showcmd = false -- Disable showing command in status line
-g.signcolumn = "yes" -- Always show the sign column
-g.syntax = "on" -- Enable syntax highlighting
+opt.list = false -- Do not show hidden characters
+opt.pumblend = 10 -- Transparency for popup menu
+opt.showcmd = false -- Disable showing command in status line
+opt.signcolumn = "yes" -- Always show the sign column
+--opt.syntax = "on" -- Enable syntax highlighting
 opt.cmdheight = 0 -- Height of the command bar, set to 0 to hide
 opt.conceallevel = 2 -- Hide quotes in markdown
 opt.cursorline = true -- Highlight the current line
 opt.formatoptions:remove('c', 'r', 'o')
-opt.grepprg = "rg --vimgrep" -- Use ripgrep for searching
+--opt.grepprg = "rg --vimgrep" -- Use ripgrep for searching
 opt.guicursor = "" -- GUI cursor settings
 opt.helpheight = 0 -- Disable help window resizing
 opt.laststatus = 3 -- Always display the status line
@@ -22,7 +22,7 @@ opt.pumheight = 10 -- Max number of items in the popup menu
 opt.relativenumber = true -- Show relative line numbers
 opt.shortmess:append('c')
 opt.showmode = false -- Disable showing mode (like INSERT)
-opt.showtabline = 1 -- Always show the tab line
+opt.showtabline = 2 -- Always show the tab line
 opt.splitbelow = true -- Horizontal splits open below
 opt.splitkeep = 'screen' -- Keep the text on the same screen line when splitting
 opt.splitright = true -- Vertical splits open on the right side
@@ -63,7 +63,7 @@ opt.updatetime = 300 -- Faster completion (default is 4000ms)
 
 -- Fold settings
 opt.foldenable = true -- Enable folding
-opt.foldcolumn = "0" -- Show fold column
+opt.foldcolumn = "1" -- Show fold column
 opt.foldnestmax = 3 -- Maximum fold nesting level
 opt.foldlevel = 99 -- Start with all folds open
 opt.foldlevelstart = 100 -- Start editing with all folds open
@@ -78,16 +78,15 @@ end
 
 
 
-
 -- Character settings for various UI components
 opt.fillchars = {
-    foldopen = '', -- Unicode characters for open fold
-    foldclose = '󰅂', -- Unicode characters for close fold
-    fold = '⸱', -- Character for fold lines
---    foldsep = ' ', -- Separator for folded lines
-    diff = '╪', -- Character for diff view
-    eob = ' ', -- Character at the End Of Buffer
---    vert = '┃', -- Vertical split line
+  foldopen = '', -- Unicode characters for open fold
+  foldclose = '󰅂', -- Unicode characters for close fold
+  fold = '⸱', -- Character for fold lines
+  foldsep = ' ', -- Separator for folded lines
+  diff = '╱',-- Character for diff view
+  eob = ' ', -- Character at the End Of Buffer
+  --    vert = '┃', -- Vertical split line
 }
 
 -- Function to disable unused native plugins
@@ -108,9 +107,9 @@ local function disable_distribution_plugins()
 end
 
 -- File settings
-g.swapfile = false -- Disable swap file creation
-g.backup = false -- Disable backup file creation
-g.undofile = false -- Enable persistent undo
+opt.swapfile = false -- Disable swap file creation
+opt.backup = false -- Disable backup file creation
+opt.undofile = false -- Enable persistent undo
 g.markdown_recommended_style = 0 -- Disable recommended markdown style
 
 -- Search settings

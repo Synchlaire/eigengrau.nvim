@@ -12,9 +12,8 @@ keymap('i', 'jk', '<Esc>', opts)
 keymap('v', '<TAB>', '=', opts)
 
 -- more intuitive redo
-
-
 keymap('n', 'U', '<cmd>redo<cr>', opts)
+
 -- toggle folds
 keymap("n", "<Tab>", "za", opts)
 

@@ -2,8 +2,8 @@ return {
 
 --- poimandres
     'olivercederborg/poimandres.nvim',
-    lazy = true,
-    keys = "<leader>fc",
+    lazy = false,
+    event = "VeryLazy",
     config = function()
         require("poimandres").setup {
             bold_vert_split = true,        -- use bold vertical separators

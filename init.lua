@@ -40,11 +40,11 @@ require("lazy").setup(plugins, {
     size = { width = 0.8, height = 0.8 },
     border = "solid",
   },
-        change_detection = {
-            -- automatically check for config file changes and reload the ui
-            enabled = true,
-            notify = false, -- get a notification when changes are found
-        },
+  change_detection = {
+    -- automatically check for config file changes and reload the ui
+    enabled = true,
+    notify = false, -- get a notification when changes are found
+  },
 
   -- disabled plugins
   performance = {
@@ -67,7 +67,7 @@ require("lazy").setup(plugins, {
 	"zipPlugin",
 	"tutor",
 	"rplugin",
-	--            "logiPat",
+	"logiPat",
 	"netrwSettings",
 	"netrwFileHandlers",
 	"shada",
@@ -88,24 +88,24 @@ require("lazy").setup(plugins, {
 
 -- core
 vim.loader.enable()
-
 require("eigengrau.core.options")
 require("eigengrau.core.keymaps")
 require("eigengrau.core.aliases")
 require("eigengrau.core.autocmds")
 
+vim.cmd("colorscheme pywal16")
 
--- override default theme colors
+---- override default theme colors
 --function ColorMyPencils()
---vim.api.nvim_set_hl(0, "StatusLine", { bg = "None" })
---vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "None" })
---vim.api.nvim_set_hl(0, "Normal", { bg = "None" })
---vim.api.nvim_set_hl(0, "NormalFloat", { bg = "None" })
---vim.api.nvim_set_hl(0, "Pmenu", { bg = "None" })
---vim.api.nvim_set_hl(0, "SignColumn", { bg = "None" })
---vim.api.nvim_set_hl(0, "FoldColumn", { bg = "None" })
---vim.api.nvim_set_hl(0, "TabLineFill", { bg = "None" })
+--  vim.api.nvim_set_hl(0, "StatusLine", { bg = "None" })
+--  vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "None" })
+--  vim.api.nvim_set_hl(0, "Normal", { bg = "None" })
+--  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "None" })
+--  vim.api.nvim_set_hl(0, "Pmenu", { bg = "None" })
+--  vim.api.nvim_set_hl(0, "SignColumn", { bg = "None" })
+--  vim.api.nvim_set_hl(0, "FoldColumn", { bg = "None" })
+--  vim.api.nvim_set_hl(0, "TabLineFill", { bg = "None" })
+--  vim.api.nvim_set_hl(0, "TabLine", { bg = "None" })
 --end
+--
 --ColorMyPencils()
-
-vim.cmd[[colorscheme plain]]

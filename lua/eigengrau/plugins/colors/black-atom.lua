@@ -1,11 +1,11 @@
 return{
   "black-atom-industries/black-atom.nvim",
   pin = true,
-  lazy = false,
+  event = "VeryLazy",
   dependencies = {
     "black-atom-industries/black-atom-vault",
     pin = true,
-    lazy = false
+    lazy = true
   },
   opts = {
     debug = false,

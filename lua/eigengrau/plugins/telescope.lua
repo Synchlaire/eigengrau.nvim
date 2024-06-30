@@ -3,22 +3,20 @@ return {
   'nvim-telescope/telescope.nvim',
   lazy = true,
   keys = {"<leader>ff", "<leader>cd", "<leader>fc", "<leader>q", "<leader>fh"},
-  event = {"VimEnter"},
-
   dependencies = {
-    { 'nvim-telescope/telescope-frecency.nvim' },
-    { '2kabhishek/nerdy.nvim' },
-    { 'keyvchan/telescope-find-pickers.nvim' },
-    { 'ghassan0/telescope-glyph.nvim' },
-    {'nvim-telescope/telescope-ui-select.nvim' },
-    { 'jvgrootveld/telescope-zoxide' }
+     'nvim-telescope/telescope-frecency.nvim',
+     '2kabhishek/nerdy.nvim',
+     'keyvchan/telescope-find-pickers.nvim',
+     'ghassan0/telescope-glyph.nvim',
+     'nvim-telescope/telescope-ui-select.nvim',
+     'jvgrootveld/telescope-zoxide',
   },
   config = function()
     -- set locals for conciseness
 
-    local ignore_filetypes_list = { "venv", "__pycache__", "%.jpeg",
-      "%.jpg", "%.png", "%.webp", "%.pdf",  "%.ico", "%.mp3", "%.ogg", "%.mp4",
-      "%.webm", "%.epub", "%cache%", "%.ttf", "%.otf", "%.oil://%" }
+    local ignore_filetypes_list = { "venv", "__pycache__", "%.jpeg", "%.jpg",
+      "%.png", "%.webp", "%.pdf",  "%.ico", "%.mp3", "%.ogg", "%.mp4", "%.webm",
+      "%.epub", "%cache%", "%.ttf", "%.otf", "%.oil://%", "%courses%" }
 
     local telescope = require("telescope")
     local utils = require("telescope").utils
@@ -186,33 +184,21 @@ return {
 	    ["pr"] = "/home/claroscuro/projects/",
 	    ["codex"] = "/home/claroscuro/Vaults/",
 	  },
-
-
-
 	},
       },
     }
 
-    --- Keybinds
+    --- Keybinds ----
     -- builtin
     vim.keymap.set('n', '<leader>fd', builtin.fd, { desc = 'Find files across system'})
     vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'live grep'})
     vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'help tags'})
     vim.keymap.set('n', '<leader>fc', builtin.colorscheme, { desc = 'change colorscheme'})
-
-    -- neocomposer macros
-    vim.keymap.set('n', '<leader>q', '<cmd>Telescope macros<CR>', { desc = 'macros management'})
-
-    -- frecency open
-    vim.keymap.set('n', '<leader>ff', '<cmd>Telescope frecency<CR>', {desc = 'search files globally'})
-    -- zoxide
-    vim.keymap.set('n', '<leader>cd', '<cmd>Telescope zoxide list<CR>', {desc = 'search directories'})
-
-    -- session management
-    vim.keymap.set('n', '<leader>fs', '<cmd>Telescope possession list<CR>', { desc = 'session management'})
-
-    --- meta-menu
-    vim.keymap.set('n', '<A-o>', '<cmd>Telescope find_pickers<CR>', {desc = 'telescope menu'})
+    -- plugins
+    vim.keymap.set('n', '<leader>q', '<cmd>Telescope macros<CR>', { desc = 'macros management'}) -- macros
+    vim.keymap.set('n', '<leader>ff', '<cmd>Telescope frecency<CR>', {desc = 'search files globally'}) -- frecency
+    vim.keymap.set('n', '<leader>cd', '<cmd>Telescope zoxide list<CR>', {desc = 'search directories'}) -- zoxide
+    vim.keymap.set('n', '<leader>fs', '<cmd>Telescope possession list<CR>', { desc = 'session management'}) -- sessions
+    vim.keymap.set('n', '<A-o>', '<cmd>Telescope find_pickers<CR>', {desc = 'telescope menu'}) -- meta-menu
   end
 }
-

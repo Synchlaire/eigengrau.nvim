@@ -3,6 +3,7 @@ return {
   dependencies = {
     "meuter/lualine-so-fancy.nvim",
     "nativerv/lualine-wal.nvim",
+    'xiyaowong/transparent.nvim',
   },
   event = { "BufReadPre", "BufNewFile", "InsertEnter" },
   config = function()
@@ -28,7 +29,7 @@ return {
       },
       sections = {
 	lualine_a = { "mode", "fancy_macro", "branch", "fancy_diagnostics" },
-	lualine_b = {"tabs"},
+	lualine_b = {},
 	lualine_c =
 	  { "%=",
 	    { "buffers",
