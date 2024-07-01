@@ -7,7 +7,7 @@ opt.list = false -- Do not show hidden characters
 opt.pumblend = 10 -- Transparency for popup menu
 opt.showcmd = false -- Disable showing command in status line
 opt.signcolumn = "yes" -- Always show the sign column
---opt.syntax = "on" -- Enable syntax highlighting
+opt.syntax = "on" -- Enable syntax highlighting
 opt.cmdheight = 0 -- Height of the command bar, set to 0 to hide
 opt.conceallevel = 2 -- Hide quotes in markdown
 opt.cursorline = true -- Highlight the current line
@@ -22,7 +22,7 @@ opt.pumheight = 10 -- Max number of items in the popup menu
 opt.relativenumber = true -- Show relative line numbers
 opt.shortmess:append('c')
 opt.showmode = false -- Disable showing mode (like INSERT)
-opt.showtabline = 2 -- Always show the tab line
+opt.showtabline = 1 --  show the tab line
 opt.splitbelow = true -- Horizontal splits open below
 opt.splitkeep = 'screen' -- Keep the text on the same screen line when splitting
 opt.splitright = true -- Vertical splits open on the right side
@@ -50,6 +50,7 @@ opt.wrap = true -- Wrap long lines
 opt.wrapmargin = 80 -- Wrap long lines
 opt.smartindent = true -- Smart autoindenting on new lines
 opt.mouse = "a" -- Enable mouse in all modes
+opt.shell = "zsh" -- use zsh for external command-line
 g.scrolloff = 10 -- Minimal number of screen lines to keep above and below the cursor
 opt.linebreak = true -- Prevent words from being split on line wrap
 g.formatprg = "fmt" -- Program to use for formatting
@@ -74,8 +75,6 @@ g.markdown_folding = 1 -- use folding by heading in markdown
 if vim.fn.has('nvim-0.10') == 1 then
   vim.o.foldtext = ''        -- Use underlying text with its highlighting
 end
-
-
 
 
 -- Character settings for various UI components

@@ -2,7 +2,7 @@ return {
   -- Telescope plugins
   'nvim-telescope/telescope.nvim',
   lazy = true,
-  keys = {"<leader>ff", "<leader>cd", "<leader>fc", "<leader>q", "<leader>fh"},
+  cmd = "Telescope",
   dependencies = {
      'nvim-telescope/telescope-frecency.nvim',
      '2kabhishek/nerdy.nvim',

@@ -7,6 +7,13 @@ return {
   },
   event = { "BufReadPre", "BufNewFile", "InsertEnter" },
   config = function()
+-- useful functions
+
+local function window()
+  return vim.api.nvim_win_get_number(0)
+end
+
+-------- setup
     require("lualine").setup({
       options = {
 	globalstatus = true,
@@ -41,21 +48,21 @@ return {
 		active = "lualine_a_insert",
 		inactive = "nil"
 	      },
-
+	      ignore_tabs = true,
 	    },
 	},
 	lualine_x = {"fancy_cwd"},
 	lualine_y = {},
 	lualine_z = {"progress", "location" },
       },
-      inactive_sections = {
-        lualine_a = {},
-        lualine_b = {},
-        lualine_c = {'filename'},
-        lualine_x = {'location'},
-        lualine_y = {},
-        lualine_z = {}
-      },
+--      inactive_sections = {
+--        lualine_a = {},
+--        lualine_b = {},
+--        lualine_c = {'filename'},
+--        lualine_x = {'location'},
+--        lualine_y = {},
+--        lualine_z = {}
+--      },
 
       tabline = {},
       winbar = {},
