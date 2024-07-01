@@ -7,13 +7,13 @@ return {
   },
   event = { "BufReadPre", "BufNewFile", "InsertEnter" },
   config = function()
--- useful functions
+    -- useful functions
 
-local function window()
-  return vim.api.nvim_win_get_number(0)
-end
+    local function window()
+      return vim.api.nvim_win_get_number(0)
+    end
 
--------- setup
+    -------- setup
     require("lualine").setup({
       options = {
 	globalstatus = true,
@@ -24,7 +24,8 @@ end
 	section_separators = { left = "", right = "" },
 	disabled_filetypes = {
 	  statusline = { "alpha" },
---	  winbar = {},
+	  tabline = { "alpha" },
+	  winbar = {},
 	},
 	ignore_focus = {},
 	always_divide_middle = false,
@@ -55,16 +56,35 @@ end
 	lualine_y = {},
 	lualine_z = {"progress", "location" },
       },
---      inactive_sections = {
---        lualine_a = {},
---        lualine_b = {},
---        lualine_c = {'filename'},
---        lualine_x = {'location'},
---        lualine_y = {},
---        lualine_z = {}
---      },
+      --      inactive_sections = {
+      --        lualine_a = {},
+      --        lualine_b = {},
+      --        lualine_c = {'filename'},
+      --        lualine_x = {'location'},
+      --        lualine_y = {},
+      --        lualine_z = {}
+      --      },
 
-      tabline = {},
+      tabline = {
+	lualine_a = {{
+	  "tabs",
+	  mode = 2,
+--	  path = 0,
+	  tabs_color = {
+	    active = "lualine_a_insert",
+	    inactive = "nil",
+	  },
+	  show_modified_status = true,
+	  symbols = {
+	    modified = '  ',
+	  },
+	  },
+	},
+	lualine_b = {"%="},
+	lualine_z = { {"windows", mode = 1 }
+	},
+      },
+
       winbar = {},
       inactive_winbar = {},
       extensions = { "oil", "overseer", "lazy" },

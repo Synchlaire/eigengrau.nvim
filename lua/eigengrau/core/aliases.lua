@@ -7,7 +7,10 @@ vim.cmd([[
     cnoreabbrev tb Tabularize /
     cnoreabbrev ll Lazy load
     cnoreabbrev lll Lazy load all <cr>
+    cnoreabbrev rt LualineRenameTab
+
     " Insert mode aliases
 
   " inoreabbrev mornign morning
+
 ]])

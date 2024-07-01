@@ -2,7 +2,8 @@ return {
   -- Telescope plugins
   'nvim-telescope/telescope.nvim',
   lazy = true,
-  cmd = "Telescope",
+  cmd = { "Telescope" },
+  event = {"BufNew" },
   dependencies = {
      'nvim-telescope/telescope-frecency.nvim',
      '2kabhishek/nerdy.nvim',

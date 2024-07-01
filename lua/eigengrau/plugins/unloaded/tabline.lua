@@ -1,16 +1,20 @@
 return {
-  {'romgrk/barbar.nvim',
-    dependencies = {
-      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
-      'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
-    },
-    init = function() vim.g.barbar_auto_setup = false end,
-    opts = {
-      animation = true,
-      auto_hide = true,
-      clickable = true,
-      focus_on_close = 'left'
-    },
-    version = '^1.0.0', -- optional: only update when a new 1.x version is released
-  },
+  'alvarosevilla95/luatab.nvim',
+  dependencies = { 'nvim-tree/nvim-web-devicons' },
+ event = { "TabNew", "TabEnter", "TabNewEntered" },
+
+  config = function()
+local status, luatab = pcall(require, 'luatab')
+if (not status) then return end
+    require'luatab'.setup {
+      windowCount = function(idx) return idx .. " " end,
+      modified = function() return "" end,
+      separator = function(idx)
+        local s = require('eigengrau.components.icons').separators.vertical_bar_thin
+        return (idx < vim.fn.tabpagenr('$') and '%#TabLine#' .. s or '')
+      end
+    }
+  end
+
 }
+

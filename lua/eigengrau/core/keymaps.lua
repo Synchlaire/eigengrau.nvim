@@ -119,7 +119,7 @@ keymap('n', '<A-k>', '<C-w>k', { desc = 'focus window up' })
 keymap('n', '<A-l>', '<C-w>l', { desc = 'focus window right' })
 
 -- Tab navigation
-keymap("n", "<leader>tt", "<cmd>tabnew<CR>", { desc = "Open new tab" })
+keymap("n", "<leader>tt", "<cmd>tabnew | LualineRenameTab 󰨓 <CR>", { desc = "Open new tab" })
 keymap("n", "<leader>tT", "<cmd>tab split<CR>", { desc = "make tab a split" })
 keymap("n", "<leader>dt", "<cmd>tabclose<CR>", { desc = "Close current tab" })
 keymap("n", "<A-n>", "<cmd>tabn<CR>", { desc = "Go to next tab" })
