@@ -3,11 +3,11 @@ return {
 --- poimandres
     'olivercederborg/poimandres.nvim',
     lazy = false,
-    event = "VeryLazy",
+    cmd = "Colorscheme",
     config = function()
         require("poimandres").setup {
-            bold_vert_split = true,        -- use bold vertical separators
-            dim_nc_background = true,      -- dim 'non-current' window backgrounds
+            bold_vert_split = false,        -- use bold vertical separators
+            dim_nc_background = false,      -- dim 'non-current' window backgrounds
             disable_background = false,     -- disable background
             disable_float_background = true, -- disable background for floats
             disable_italics = false,       -- disable italics

@@ -2,15 +2,15 @@ return {
   -- Telescope plugins
   'nvim-telescope/telescope.nvim',
   lazy = true,
-  cmd = { "Telescope" },
-  event = {"BufNew" },
+  event = {"BufEnter"},
+  cmd = { "Telescope", "Colorscheme" },
   dependencies = {
-     'nvim-telescope/telescope-frecency.nvim',
-     '2kabhishek/nerdy.nvim',
-     'keyvchan/telescope-find-pickers.nvim',
-     'ghassan0/telescope-glyph.nvim',
-     'nvim-telescope/telescope-ui-select.nvim',
-     'jvgrootveld/telescope-zoxide',
+     {'nvim-telescope/telescope-frecency.nvim', lazy = true},
+     {'2kabhishek/nerdy.nvim', lazy = true},
+     {'keyvchan/telescope-find-pickers.nvim', lazy = true},
+     {'ghassan0/telescope-glyph.nvim', lazy = true},
+     {'nvim-telescope/telescope-ui-select.nvim', lazy = true},
+     {'jvgrootveld/telescope-zoxide', lazy = true},
   },
   config = function()
     -- set locals for conciseness
@@ -168,7 +168,7 @@ return {
 	},
 
 	frecency = {
-	  auto_validate = true,
+	  auto_validate = false,
 	  matcher = "default",
 	  db_safe_mode = false,
 	  -- workspace_scan_cmd = nil, --{ "fd", ".", "-type", "f"},

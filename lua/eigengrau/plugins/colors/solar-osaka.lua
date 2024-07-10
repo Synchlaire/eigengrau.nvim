@@ -2,7 +2,8 @@ return {
   {
     "craftzdog/solarized-osaka.nvim",
     lazy = false,
-    event = "VeryLazy",
+
+    cmd = "Colorscheme",
     opts = function()
       return {
 	transparent = false,

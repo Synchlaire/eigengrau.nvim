@@ -73,14 +73,6 @@ cmd("BufWritePre", {
 })
 
 -- resize splits if window got resized
---local resize_splits = augroup('resize_splits', {})
---cmd({ 'VimResized' }, {
---    group = resize_splits,
---    callback = function()
---        vim.cmd('tabdo wincmd =')
---    end,
---})
--- resize splits if window got resized
 local resize_splits = augroup('resize_splits', {})
 cmd({ "VimResized" }, {
     group = resize_splits,
@@ -140,4 +132,3 @@ cmd('FileType', {
 })
 
 --NOTE: i hate normies so goddamn much
-

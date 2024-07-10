@@ -23,8 +23,8 @@ return {
 	component_separators = { left = "", right = "" },
 	section_separators = { left = "", right = "" },
 	disabled_filetypes = {
-	  statusline = { "alpha" },
-	  tabline = { "alpha" },
+	  statusline = {},
+	  tabline = {},
 	  winbar = {},
 	},
 	ignore_focus = {},
@@ -65,29 +65,40 @@ return {
       --        lualine_z = {}
       --      },
 
-      tabline = {
-	lualine_a = {{
-	  "tabs",
-	  mode = 2,
---	  path = 0,
-	  tabs_color = {
-	    active = "lualine_a_insert",
-	    inactive = "nil",
-	  },
-	  show_modified_status = true,
-	  symbols = {
-	    modified = '  ',
-	  },
-	  },
-	},
-	lualine_b = {"%="},
-	lualine_z = { {"windows", mode = 1 }
-	},
-      },
+--      tabline = {
+--	lualine_a = {{
+--	  "tabs",
+--	  cond = function()
+--	    return #vim.fn.gettabinfo() > 1
+--	  end,
+--
+--	  mode = 2,
+----	  path = 0,
+--	  tabs_color = {
+--	    active = "lualine_a_insert",
+--	    inactive = "nil",
+--	  },
+--	  show_modified_status = true,
+--	  symbols = {
+--	    modified = '   ',
+--	  },
+--	  },
+--	},
+--	lualine_b = {"%="},
+--	lualine_z = { {"windows",
+--	  cond = function()
+--	    return #vim.fn.getwininfo() > 1
+--	  end,
+--	  mode = 1 ,
+--
+--	  }
+--	},
+--      },
 
       winbar = {},
       inactive_winbar = {},
-      extensions = { "oil", "overseer", "lazy" },
+
+      extensions = { "oil", "overseer", "lazy", "man", "mason", "trouble", "quickfix" },
     })
   end
 }

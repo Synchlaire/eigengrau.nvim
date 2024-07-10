@@ -1,6 +1,5 @@
 return {    --- monet
   'fynnfluegge/monet.nvim',
-  event = "VeryLazy",
   config = function()
     require("monet").setup {
       transparent_background = false,

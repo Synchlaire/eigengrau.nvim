@@ -93,7 +93,7 @@ require("eigengrau.core.keymaps")
 require("eigengrau.core.aliases")
 require("eigengrau.core.autocmds")
 
-vim.cmd("colorscheme pywal16")
+vim.cmd[["colorscheme pywal16"]]
 
 ---- override default theme colors
 --function ColorMyPencils()

@@ -1,7 +1,11 @@
 return {
 --- plain
     'andreypopp/vim-colors-plain',
-    event = "VeryLazy",
+    cmd = "Colorscheme",
+    config = function()
+    vim.cmd[[colorscheme plain]]
+    end
+
 }
 --  'haishanh/night-owl.vim', event = "Colorscheme",
 --  'lamartire/hg.vim', event = "Colorscheme",

@@ -13,7 +13,7 @@ return {
 	-- "mtime",
       },
       buf_options = {
-	buflisted = true,
+	buflisted = false,
 	bufhidden = "hide",
       },
       win_options = {
@@ -91,6 +91,7 @@ return {
 	  return false
 	end,
       },
+
       -- Configuration for the floating window in oil.open_float
       float = {
 	-- Padding around the floating window

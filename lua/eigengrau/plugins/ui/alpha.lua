@@ -36,8 +36,29 @@ return {
       "⠀⠀⠀⠀⠀⠀⠀⠈⠙⠛⠾⣧⣼⣟⣉⣿⣉⣻⣧⡿⠟⠋⠁⠀⠀⠀⠀⠀⠀",
       "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
     }
+local bruh = {
+      "                                         ",
+      "                                         ",
+      "       ⣇⣿⠘⣿⣿⣿⡿⡿⣟⣟⢟⢟⢝⠵⡝⣿⡿⢂⣼⣿⣷⣌⠩⡫⡻⣝⠹⢿⣿⣷    ",
+      "       ⡆⣿⣆⠱⣝⡵⣝⢅⠙⣿⢕⢕⢕⢕⢝⣥⢒⠅⣿⣿⣿⡿⣳⣌⠪⡪⣡⢑⢝⣇    ",
+      "       ⡆⣿⣿⣦⠹⣳⣳⣕⢅⠈⢗⢕⢕⢕⢕⢕⢈⢆⠟⠋⠉⠁⠉⠉⠁⠈⠼⢐⢕⢽    ",
+      "       ⡗⢰⣶⣶⣦⣝⢝⢕⢕⠅⡆⢕⢕⢕⢕⢕⣴⠏⣠⡶⠛⡉⡉⡛⢶⣦⡀⠐⣕⢕    ",
+      "       ⡝⡄⢻⢟⣿⣿⣷⣕⣕⣅⣿⣔⣕⣵⣵⣿⣿⢠⣿⢠⣮⡈⣌⠨⠅⠹⣷⡀⢱⢕    ",
+      "       ⡝⡵⠟⠈⢀⣀⣀⡀⠉⢿⣿⣿⣿⣿⣿⣿⣿⣼⣿⢈⡋⠴⢿⡟⣡⡇⣿⡇⡀⢕    ",
+      "       ⡝⠁⣠⣾⠟⡉⡉⡉⠻⣦⣻⣿⣿⣿⣿⣿⣿⣿⣿⣧⠸⣿⣦⣥⣿⡇⡿⣰⢗⢄    ",
+      "       ⠁⢰⣿⡏⣴⣌⠈⣌⠡⠈⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣬⣉⣉⣁⣄⢖⢕⢕⢕    ",
+      "       ⡀⢻⣿⡇⢙⠁⠴⢿⡟⣡⡆⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣵⣵⣿    ",
+      "       ⡻⣄⣻⣿⣌⠘⢿⣷⣥⣿⠇⣿⣿⣿⣿⣿⣿⠛⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿    ",
+      "       ⣷⢄⠻⣿⣟⠿⠦⠍⠉⣡⣾⣿⣿⣿⣿⣿⣿⢸⣿⣦⠙⣿⣿⣿⣿⣿⣿⣿⣿⠟    ",
+      "       ⡕⡑⣑⣈⣻⢗⢟⢞⢝⣻⣿⣿⣿⣿⣿⣿⣿⠸⣿⠿⠃⣿⣿⣿⣿⣿⣿⡿⠁⣠    ",
+      "       ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙    ",
+      "       ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣    ",
+      "                                         ",
+      "                                         ",
+      "                                         ",
 
-    dashboard.section.header.val = ghost
+    }
+    dashboard.section.header.val = bruh
     dashboard.section.header.opts = {
       type = "text",
       position = "center",
@@ -45,28 +66,26 @@ return {
     }
 
 
---- SECTIONS
-
+    --- SECTIONS
 
     -- Buttons
     dashboard.section.buttons.val = {
-      dashboard.button("ss", "  Sessions", "<cmd>Telescope possession list theme=dropdown initial_mode=normal <CR>"),
-      dashboard.button("n", "  New file", "<cmd>ene <BAR><CR>"),
-      dashboard.button("ff", "  Find file", "<cmd>cd $HOME | Telescope find_files<CR>"),
-      dashboard.button("fd", "  Open folder", "<cmd>cd $HOME | Telescope zoxide list<CR>"),
-      dashboard.button("fr", "  Recent", "<cmd>Telescope frecency<CR>"),
-      dashboard.button("o", "  Codex", "<cmd>ObsidianQuickSwitch<CR>"),
-      dashboard.button("lz", "󰂖  Lazy", ":Lazy<CR>"),
-      dashboard.button("c", "  Config", "<cmd>cd ~/.config/nvim/|e . | pwd<CR>"),
-      dashboard.button("m", "󱌣  Mason", ":Mason<CR>"),
-      dashboard.button("qq", "  Quit NVIM", "<cmd>qa<CR>"),
+    dashboard.button( "ss" , "   Sessions      " , "<cmd>Telescope possession list theme=dropdown initial_mode=normal <CR> " ),
+    dashboard.button( "ff" , "   Find file     " , "<cmd>cd $HOME | Telescope find_files<CR>" ),
+    dashboard.button( "fr" , "   Recent        " , "<cmd>Telescope frecency<CR>" ),
+    dashboard.button( "o " , "   Codex         " , "<cmd>ObsidianQuickSwitch<CR>" ),
+    dashboard.button( "lz" , " 󰂖  Lazy Plugins  " , ":Lazy<CR>" ),
+    dashboard.button( "c " , "   Config        " , "<cmd>cd ~/.config/nvim/|e . | pwd<CR>" ),
+    dashboard.button( "m " , " 󱌣  Mason         " , "<cmd>Mason<CR>" ),
+    dashboard.button( "fc" , "   Change Colors " , "<cmd>Telescope colorscheme<CR>" ),
+    dashboard.button( "qq" , "   Quit NVIM     " , "<cmd>qa<CR>" ),
     }
 
     -- Footer
 
     local lazy_stats = require("lazy").stats()
 
-    dashboard.section.footer.val = "Total plugins: " .. lazy_stats.count .. ""
+    dashboard.section.footer.val = "Total bloat: " .. lazy_stats.count .. ""
 
     -- Disable folding on alpha buffer
     vim.cmd([[autocmd FileType alpha setlocal nofoldenable]])
@@ -82,26 +101,31 @@ return {
       group = "alpha_tabline",
       pattern = "alpha",
       callback = function()
-        vim.api.nvim_create_autocmd("BufUnload", {
-          group = "alpha_tabline",
-          buffer = 0,
-          command = "set showtabline=1 ruler laststatus=1",
-        })
+	vim.api.nvim_create_autocmd("BufUnload", {
+	  group = "alpha_tabline",
+	  buffer = 0,
+	  command = "set showtabline=1 ruler laststatus=3",
+	})
       end,
     })
 
     -- Setup alpha with the dashboard
     alpha.setup({
       layout = {
-        { type = "padding", val = 5 },
-        dashboard.section.header,
-        { type = "padding", val = 5 },
-        dashboard.section.buttons,
-        { type = "padding", val = 5 },
-        dashboard.section.footer
+	{ type = "padding", val = 0 },
+	dashboard.section.header,
+	{ type = "padding", val = 5 },
+	dashboard.section.buttons,
+	{ type = "padding", val = 0 },
+	dashboard.section.footer,
       },
 
-      opts = {},
+      opts = {
+	noautocmd = false, --better integration with plugins
+	margin = 50,
+	wrap = "overflow",
+
+      },
     })
   end,
 }
