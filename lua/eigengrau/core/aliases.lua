@@ -7,7 +7,7 @@ vim.cmd([[
     cnoreabbrev tb Tabularize /
     cnoreabbrev ll Lazy load
     cnoreabbrev lll Lazy load all <cr>
-    cnoreabbrev fc! FrecencyValidate!<cr>
+    cnoreabbrev fc FrecencyValidate!<cr>
 
     " Insert mode aliases
 
