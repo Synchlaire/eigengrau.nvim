@@ -1,6 +1,7 @@
 return {
   'cvigilv/patana.nvim',
-    cmd = "Colorscheme",
+  lazy = true,
+  event = {"ColorSchemePre"},
     config = function()
     end
 }

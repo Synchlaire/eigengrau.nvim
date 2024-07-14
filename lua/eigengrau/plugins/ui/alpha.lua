@@ -53,9 +53,6 @@ local bruh = {
       "       ⡕⡑⣑⣈⣻⢗⢟⢞⢝⣻⣿⣿⣿⣿⣿⣿⣿⠸⣿⠿⠃⣿⣿⣿⣿⣿⣿⡿⠁⣠    ",
       "       ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙    ",
       "       ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣    ",
-      "                                         ",
-      "                                         ",
-      "                                         ",
 
     }
     dashboard.section.header.val = bruh
@@ -70,22 +67,53 @@ local bruh = {
 
     -- Buttons
     dashboard.section.buttons.val = {
-    dashboard.button( "ss" , "   Sessions      " , "<cmd>Telescope possession list theme=dropdown initial_mode=normal <CR> " ),
-    dashboard.button( "ff" , "   Find file     " , "<cmd>cd $HOME | Telescope find_files<CR>" ),
-    dashboard.button( "fr" , "   Recent        " , "<cmd>Telescope frecency<CR>" ),
-    dashboard.button( "o " , "   Codex         " , "<cmd>ObsidianQuickSwitch<CR>" ),
-    dashboard.button( "lz" , " 󰂖  Lazy Plugins  " , ":Lazy<CR>" ),
-    dashboard.button( "c " , "   Config        " , "<cmd>cd ~/.config/nvim/|e . | pwd<CR>" ),
-    dashboard.button( "m " , " 󱌣  Mason         " , "<cmd>Mason<CR>" ),
-    dashboard.button( "fc" , "   Change Colors " , "<cmd>Telescope colorscheme<CR>" ),
+    dashboard.button( "s"  , "   Sessions      " , "<cmd>Telescope possession list theme=dropdown initial_mode=normal <CR> " ),
+    dashboard.button( "h"  , "   Home          " , "<cmd>cd $HOME | e . | pwd<CR>" ),
+    dashboard.button( "c"  , "   Config        " , "<cmd>cd ~/.config/nvim/|e . | pwd<CR>" ),
+    dashboard.button( "o"  , "   Codex         " , "<cmd>ObsidianQuickSwitch<CR>" ),
+    dashboard.button( "l"  , " 󰂖  Lazy Plugins  " , "<cmd>Lazy<CR>" ),
+    dashboard.button( "ff" , "   Find file     " , "<cmd>cd $HOME | Telescope fd<CR>" ),
+    dashboard.button( "fr" , "   Recent files  " , "<cmd>Telescope oldfiles<CR>" ),
     dashboard.button( "qq" , "   Quit NVIM     " , "<cmd>qa<CR>" ),
+
+--    dashboard.button( "fc" , "   Change Colors " , "<cmd>Telescope colorscheme<CR>" ),
+--    dashboard.button( "m " , " 󱌣  Mason         " , "<cmd>Mason<CR>" ),
+
     }
 
     -- Footer
+        vim.api.nvim_create_autocmd("User", {
+            pattern = "LazyVimStarted",
+            callback = function()
+                local v = vim.version()
+                local dev = ""
+                if v.prerelease == "dev" then
+                    dev = "-dev+" .. v.build
+                else
+                    dev = ""
+                end
+                local version = v.major .. "." .. v.minor .. "." .. v.patch .. dev
+                local stats = require("lazy").stats()
+                local plugins_count = stats.loaded .. "/" .. stats.count
+                local ms = math.floor(stats.startuptime + 0.5)
+                local time = vim.fn.strftime("%H:%M:%S")
+                local date = vim.fn.strftime("%d.%m.%Y")
+                local line1 = "鈴" .. plugins_count .. " bloat loaded in " .. ms .. "ms"
+                local line2 = "󰃭 " .. date .. "  " .. time
+                local line3 = " " .. version
 
-    local lazy_stats = require("lazy").stats()
+                local line1_width = vim.fn.strdisplaywidth(line1)
+                local line2Padded = string.rep(" ", (line1_width - vim.fn.strdisplaywidth(line2)) / 2) .. line2
+                local line3Padded = string.rep(" ", (line1_width - vim.fn.strdisplaywidth(line3)) / 2) .. line3
 
-    dashboard.section.footer.val = "Total bloat: " .. lazy_stats.count .. ""
+                dashboard.section.footer.val = {
+                    line1,
+--                    line2Padded,
+--                    line3Padded,
+                }
+                pcall(vim.cmd.AlphaRedraw)
+            end,
+    })
 
     -- Disable folding on alpha buffer
     vim.cmd([[autocmd FileType alpha setlocal nofoldenable]])
@@ -112,7 +140,7 @@ local bruh = {
     -- Setup alpha with the dashboard
     alpha.setup({
       layout = {
-	{ type = "padding", val = 0 },
+	{ type = "padding", val = 5 },
 	dashboard.section.header,
 	{ type = "padding", val = 5 },
 	dashboard.section.buttons,
@@ -122,10 +150,12 @@ local bruh = {
 
       opts = {
 	noautocmd = false, --better integration with plugins
-	margin = 50,
+	margin = 30,
+	shrink_margin = true,
 	wrap = "overflow",
 
       },
+
     })
   end,
 }

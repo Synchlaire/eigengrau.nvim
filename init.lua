@@ -70,7 +70,7 @@ require("lazy").setup(plugins, {
 	"logiPat",
 	"netrwSettings",
 	"netrwFileHandlers",
-	"shada",
+	--            "shada",
 	--            "syntax",
 	--            "synmenu",
 	--           "optwin",

@@ -8,6 +8,7 @@ vim.cmd([[
     cnoreabbrev ll Lazy load
     cnoreabbrev lll Lazy load all <cr>
     cnoreabbrev fc FrecencyValidate!<cr>
+    cnoreabbrev tn set rnu! number!<cr>
 
     " Insert mode aliases
 

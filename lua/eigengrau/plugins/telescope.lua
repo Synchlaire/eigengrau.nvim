@@ -3,7 +3,7 @@ return {
   'nvim-telescope/telescope.nvim',
   lazy = true,
   event = {"BufEnter"},
-  cmd = { "Telescope", "Colorscheme" },
+  cmd = { "Telescope" },
   dependencies = {
      {'nvim-telescope/telescope-frecency.nvim', lazy = true},
      {'2kabhishek/nerdy.nvim', lazy = true},

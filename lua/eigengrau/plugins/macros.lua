@@ -1,7 +1,7 @@
 return { "ecthelionvi/NeoComposer.nvim",
   lazy = true,
-  dependencies ={ "kkharji/sqlite.lua" },
-  event = { "BufReadPre", "BufNewFile" },
+  dependencies ={ "kkharji/sqlite.lua", lazy = true },
+  event = { "RecordingEnter" },
   init = function()
     require("NeoComposer").setup({
       notify = true,

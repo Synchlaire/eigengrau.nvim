@@ -1,9 +1,8 @@
 return {
   {
     "craftzdog/solarized-osaka.nvim",
-    lazy = false,
-
-    cmd = "Colorscheme",
+    lazy = true,
+    event = {"ColorSchemePre"},
     opts = function()
       return {
 	transparent = false,

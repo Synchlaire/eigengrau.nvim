@@ -8,7 +8,7 @@ return{
     lazy = true,
     ft = { "doc", "docx", "odt", "ppt", "pptx", "xls", "xlsx" },
   },
-  { "airblade/vim-gitgutter", event = "BufEnter" },
+  { "airblade/vim-gitgutter", lazy = true, event = "BufAdd" },
 
   -- Debugging and diagnostics
   --	{ "mfussenegger/nvim-dap", event = "InsertEnter" },

@@ -1,7 +1,7 @@
 return {
     "luukvbaal/statuscol.nvim",
-    branch = "0.10",
-    event = "BufEnter",
+--    branch = "0.10",
+    event = "BufAdd",
     enabled = function()
         return vim.fn.has("nvim-0.10") == 1
     end,

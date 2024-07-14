@@ -39,11 +39,11 @@ keymap('n', '<S-h>', '0', { desc = 'jump to beginning of line' })
 keymap("n", "<C-s>", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], opts)
 
 
--- better search motions
+-- better search motions, results are shown in the middle
 keymap('n', 'n', 'nzzzv', { desc = 'Jump to next search.'})
 keymap('n', 'N', 'Nzzzv',  { desc = 'Jump to previous search.'})
 
--- concatenate lines
+-- concatenate lines while keeping cursor position
 keymap("n", "J", "mzJ`z", opts)
 
 -- Don't yank on delete char
@@ -98,8 +98,8 @@ keymap('n', '<A-6>', '<cmd>LualineBuffersJump! 6<CR>', opts)
 keymap('n', '<A-7>', '<cmd>LualineBuffersJump! 7<CR>', opts)
 keymap('n', '<A-8>', '<cmd>LualineBuffersJump! 8<CR>', opts)
 keymap('n', '<A-9>', '<cmd>LualineBuffersJump! 9<CR>', opts)
-keymap('n', '<A-,>', '<cmd>bp|echo "buffer 󰒮-! "<CR>', opts)
-keymap('n', '<A-.>', '<cmd>bn|echo "buffer -󰒭 "<CR>', opts)
+--keymap('n', '<A-,>', '<cmd>bp|echo "buffer 󰒮-! "<CR>', opts)
+--keymap('n', '<A-.>', '<cmd>bn|echo "buffer -󰒭 "<CR>', opts)
 keymap('n', '<leader>dd', '<cmd>bd!|echo "buffer 󰚌  "<CR>', opts)
 
 -- Splits
@@ -137,7 +137,6 @@ keymap("n", "<leader>zm", '<cmd>ZenMode<CR>', { desc = 'toggle Zen Mode' })
 
 -- toggle background workaround, kinda janky if you ask me
 keymap("n", "<C-r>", ':exec &bg=="light"? "set bg=dark" : "set bg=light"<CR>', { noremap = true, silent = true })
---keymap("n", "<leader>|", '<cmd>TransparentToggle| lua require("notify")("Transparency Toggle")<cr>', { desc = 'toggle transparency' })
 
 
 
@@ -153,17 +152,17 @@ keymap("v", "<leader>on", "<cmd>ObsidianLinkNew<cr>", { desc = 'Create new Obsid
 keymap("v", "<leader>oe", "<cmd>ObsidianExtractNote<cr>", { desc = 'create new note out of visual selection' })
 
 --terminal
---keymap("t", "<Esc>", "<C-\\><C-n>", opts)
---keymap("t", "<Esc><Esc>", "<Esc>", opts)
 keymap("t", "jk", "<C-\\><C-n>", opts)
 keymap("t", "kj", "<C-\\><C-n>", opts)
 --keymap("t", "<ESC><ESC>", "<C-\\><C-n>")
+--keymap("t", "<Esc>", "<C-\\><C-n>", opts)
+--keymap("t", "<Esc><Esc>", "<Esc>", opts)
 
 -- Lazy
 keymap("n", "<leader>lz", "<cmd>Lazy<cr>", { desc = 'open lazy plugin manager' })
 
 -- HOMESCREEN
-keymap("n", "<leader>hh", "<cmd>Alpha<cr>", { desc = 'open homescreen' })
+keymap("n", "<leader><ESC>", "<cmd>Alpha<cr>", { desc = 'open homescreen' })
 
 
 -- flash.nvim
