@@ -55,7 +55,11 @@ local bruh = {
       "       ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣    ",
 
     }
-    dashboard.section.header.val = bruh
+
+
+
+
+    dashboard.section.header.val = ghost
     dashboard.section.header.opts = {
       type = "text",
       position = "center",
@@ -144,7 +148,7 @@ local bruh = {
 	dashboard.section.header,
 	{ type = "padding", val = 5 },
 	dashboard.section.buttons,
-	{ type = "padding", val = 0 },
+	{ type = "padding", val = 3 },
 	dashboard.section.footer,
       },
 

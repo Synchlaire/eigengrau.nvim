@@ -2,7 +2,7 @@ return{
   { "nvim-lua/plenary.nvim", event = "VimEnter" },
   { "nvim-tree/nvim-web-devicons", lazy = true },
   { "godlygeek/tabular", cmd = "Tabularize" },
-  { "typicode/bg.nvim", event = "VeryLazy" },
+  { "typicode/bg.nvim", priority = 1001 },
   {
     "konfekt/vim-office",
     lazy = true,
