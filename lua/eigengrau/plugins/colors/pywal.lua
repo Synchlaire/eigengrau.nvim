@@ -1,10 +1,9 @@
 return {
   { 'uZer/pywal16.nvim' ,
-    --  event = "VeryLazy",
-    --  branch = 'newcolors',
-    name = 'pywal16',
-    init = function()
-      require('pywal16').setup()
+    --    name = 'pywal16',
+    priority = 1001,
+    config = function()
+      vim.cmd.colorscheme("pywal16")
     end
   },
 }

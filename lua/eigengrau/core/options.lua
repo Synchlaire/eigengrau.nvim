@@ -3,6 +3,30 @@ local g = vim.g
 local opt = vim.opt
 
 -- Visual settings
+
+
+-- nvim color
+vim.env.NVIM_TUI_ENABLE_TRUE_COLOR = 1
+
+-- cursor
+    -- This is from the help docs, it enables mode shapes, "Cursor" highlight, and blinking
+    opt.guicursor = {
+        "n-v-c-sm:block-Cursor",
+        "i-ci-ve:ver25-iCursor",
+        "r-cr-o:hor20-Cursor",
+        "a:blinkon0",
+    }
+    opt.cursorlineopt = { "both" }
+
+
+
+
+
+opt.emoji = false -- keep it disabled otherwise it messes rendering
+
+
+
+opt.jumpoptions = { "stack" } -- make the jumplist behave like a browser stack
 opt.list = false -- Do not show hidden characters
 opt.pumblend = 10 -- Transparency for popup menu
 opt.showcmd = false -- Disable showing command in status line
@@ -28,6 +52,7 @@ opt.splitkeep = 'screen' -- Keep the text on the same screen line when splitting
 opt.splitright = true -- Vertical splits open on the right side
 opt.termguicolors = true -- Enable true color support
 opt.textwidth = 80 -- Maximum width of text before wrapping
+opt.display = "lastline" -- long lines fit on one line
 opt.title = true -- Set window title to the current file name
 opt.winheight = 1 -- Minimum height for the active window
 opt.winminheight = 0 -- Minimum height for inactive windows
@@ -54,8 +79,8 @@ opt.shell = "zsh" -- use zsh for external command-line
 g.scrolloff = 10 -- Minimal number of screen lines to keep above and below the cursor
 opt.linebreak = true -- Prevent words from being split on line wrap
 g.formatprg = "fmt" -- Program to use for formatting
-g.wildmenu = true -- Enable enhanced command line completion
-opt.wildmode = 'full' -- Command-line completion mode
+opt.wildmenu = true -- Enable enhanced command line completion
+opt.wildmode = 'list:full' -- Command-line completion mode
 g.inccommand = "nosplit" -- Show incremental effects of a command
 opt.spelllang = 'es,en' -- Spell checking for Spanish and English
 g.timeout = true -- Use keymap timeout
@@ -63,14 +88,14 @@ g.timeoutlen = 700 -- Time in milliseconds to wait for a mapped sequence to comp
 opt.updatetime = 300 -- Faster completion (default is 4000ms)
 
 -- Fold settings
-opt.foldenable = true -- Enable folding
-opt.foldcolumn = "1" -- Show fold column
-opt.foldnestmax = 3 -- Maximum fold nesting level
-opt.foldlevel = 99 -- Start with all folds open
-opt.foldlevelstart = 100 -- Start editing with all folds open
-opt.foldmethod = "manual" -- Folding set to be done manually
-opt.foldexpr = "nvim_treesitter#foldexpr()" -- Set treesitter as the fold method
-g.markdown_folding = 1 -- use folding by heading in markdown
+opt.foldenable = false -- Enable folding
+--opt.foldcolumn = "1" -- Show fold column
+--opt.foldnestmax = 3 -- Maximum fold nesting level
+--opt.foldlevel = 99 -- Start with all folds open
+--opt.foldlevelstart = 100 -- Start editing with all folds open
+--opt.foldmethod = "manual" -- Folding set to be done manually
+--opt.foldexpr = "nvim_treesitter#foldexpr()" -- Set treesitter as the fold method
+--g.markdown_folding = 1 -- use folding by heading in markdown
 
 if vim.fn.has('nvim-0.10') == 1 then
   vim.o.foldtext = ''        -- Use underlying text with its highlighting

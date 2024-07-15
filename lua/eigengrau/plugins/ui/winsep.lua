@@ -4,7 +4,7 @@ return {
   lazy = true,
   config = function()
     require("colorful-winsep").setup({
-	highlight = {
+      highlight = {
 	fg = vim.api.nvim_get_hl(0, { name = "lualine_a_insert" })["fg"],
 	bg = vim.api.nvim_get_hl(0, { name = "EndofBuffer" })["bg"],
       },

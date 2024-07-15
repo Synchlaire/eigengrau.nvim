@@ -48,12 +48,12 @@ return {
       },
       -- callback where you can add custom code when the Zen window opens
       on_open = function(win)
---	require("notify")("zen mode On") TODO: add a new notify method
+	--	require("notify")("zen mode On") TODO: add a new notify method
 	require("ibl").update{enabled = false}
       end,
       -- callback where you can add custom code when the Zen window closes
       on_close = function()
---	require("notify")("zen mode off")
+	--	require("notify")("zen mode off")
 	require("ibl").update{enabled = true}
       end,
     })

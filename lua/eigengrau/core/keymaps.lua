@@ -71,7 +71,10 @@ keymap("i", "<C-v>", '<ESC>"+p<ESC>a', {
   desc = "Paste from clipboard"
 })
 
+-- Better registers
 
+
+keymap('n', '"', '<cmd>Registers<CR>', opts)
 
 -- Splits, Tabs, Buffers
 ----------------------------
@@ -121,7 +124,7 @@ keymap('n', '<A-l>', '<C-w>l', { desc = 'focus window right' })
 -- Tab navigation
 keymap("n", "<leader>tt", "<cmd>tabnew<CR>", { desc = "Open new tab" })
 keymap("n", "<leader>tT", "<cmd>tab split<CR>", { desc = "make tab a split" })
-keymap("n", "<leader>dt", "<cmd>tabclose<CR>", { desc = "Close current tab" })
+--keymap("n", "<leader>dt", "<cmd>tabclose<CR>", { desc = "Close current tab" })
 keymap("n", "<A-n>", "<cmd>tabn<CR>", { desc = "Go to next tab" })
 keymap("n", "<a-b>", "<cmd>tabp<CR>", { desc = "Go to previous tab" })
 keymap("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" })
@@ -176,13 +179,6 @@ keymap("n", "<leader>gtc", "<cmd>Git commit<cr>", { desc = 'Git commit' })
 keymap("n", "<leader>gtd", "<cmd>Gdiffsplit<cr>", { desc = 'Git diff' })
 keymap("n", "<leader>gtpl", "<cmd>Git pull<cr>",  { desc = 'Git pull' })
 keymap("n", "<leader>gtpu", "<cmd>15 split|term git push<cr>", { desc = 'Git push' })
-
-
-
-
-
-
-
 
 -- dismiss the goddamn notification spam
 keymap('n', '<Esc>', '<cmd>NoiceDismiss<CR>', opts)

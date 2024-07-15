@@ -10,11 +10,13 @@ return {
 	char = "▎",
 	--	tab_char = { "a", "b", "c" },
 	highlight = { "Function", "Label" },
-	--	remove_blankline_trail = true,
 	smart_indent_cap = true,
 	repeat_linebreak = false,
 	priority = 2
       },
+      viewport_buffer = {
+	max = 500,
+      }
     })
   end,
 }

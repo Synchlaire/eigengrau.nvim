@@ -34,10 +34,10 @@ return {
 	  },
 	},
 	routes = {
---	        {
-	          view = "notify",
+	  --	        {
+	  view = "notify",
 	  --        filter = { event = "msg_showmode" },
---	       },
+	  --	       },
 	  {
 	    filter = {
 	      event = "msg_show",
@@ -93,7 +93,7 @@ return {
 	  popupmenu = {
 	    enabled = true, -- enables the Noice popupmenu UI
 	    ---@type 'nui'|'cmp'
-	    backend = "nui", -- backend to use to show regular cmdline completions
+	    backend = "cmp", -- backend to use to show regular cmdline completions
 	    ---@type NoicePopupmenuItemKind|false
 	    -- Icons for completion item kinds (see defaults at noice.config.icons.kinds)
 	    -- defaults for hover and signature help
@@ -153,4 +153,9 @@ return {
       })
     end,
   },
+
+vim.keymap.set("c", "<S-Enter>", function()
+	require("noice").redirect(vim.fn.getcmdline())
+end, { desc = "Redirect Cmdline" })
+
 }
