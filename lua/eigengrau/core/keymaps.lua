@@ -168,5 +168,21 @@ keymap("n", "<leader><ESC>", "<cmd>Alpha<cr>", { desc = 'open homescreen' })
 -- flash.nvim
 keymap('n', 's', '<cmd>lua require("flash").jump()<CR>', opts)
 
+
+-- Git
+keymap("n", "<leader>gts", "<cmd>Git<cr>", { desc = 'Git status' })
+keymap("n", "<leader>gtw", "<cmd>Gwrite<cr>", { desc = 'Git add' })
+keymap("n", "<leader>gtc", "<cmd>Git commit<cr>", { desc = 'Git commit' })
+keymap("n", "<leader>gtd", "<cmd>Gdiffsplit<cr>", { desc = 'Git diff' })
+keymap("n", "<leader>gtpl", "<cmd>Git pull<cr>",  { desc = 'Git pull' })
+keymap("n", "<leader>gtpu", "<cmd>15 split|term git push<cr>", { desc = 'Git push' })
+
+
+
+
+
+
+
+
 -- dismiss the goddamn notification spam
 keymap('n', '<Esc>', '<cmd>NoiceDismiss<CR>', opts)

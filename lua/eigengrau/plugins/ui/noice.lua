@@ -4,7 +4,7 @@ return {
     event ="VeryLazy",
     dependencies = {
       {"MunifTanjim/nui.nvim", event ="VeryLazy"},
---      {"rcarriga/nvim-notify", event ="VeryLazy"},
+      {"rcarriga/nvim-notify", event ="VeryLazy"},
     },
     config = function()
       require("noice").setup({
@@ -34,10 +34,10 @@ return {
 	  },
 	},
 	routes = {
-	  --      {
+--	        {
 	          view = "notify",
 	  --        filter = { event = "msg_showmode" },
-	  --      },
+--	       },
 	  {
 	    filter = {
 	      event = "msg_show",

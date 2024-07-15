@@ -9,7 +9,7 @@ vim.cmd([[
     cnoreabbrev lll Lazy load all <cr>
     cnoreabbrev fc FrecencyValidate!<cr>
     cnoreabbrev tn set rnu! number!<cr>
-
+    cnoreabbrev git Git
     " Insert mode aliases
 
   " inoreabbrev mornign morning
