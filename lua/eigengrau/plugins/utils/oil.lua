@@ -1,6 +1,6 @@
 return {
   'stevearc/oil.nvim',
-  lazy = true,
+  lazy = false,
   event = {"BufAdd", "bufReadPre"},
   config = function()
     require("oil").setup({

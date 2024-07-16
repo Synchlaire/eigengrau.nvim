@@ -5,7 +5,7 @@ return{
     config = true,
     keys = {
         {
-            "dt",
+            "<space>dt",
             function()
                 require("tabscope").remove_tab_buffer()
             end,

@@ -13,6 +13,7 @@ return {
 	"lua",
 	"markdown",
 	"markdown_inline",
+	"typst",
 	"python",
 	"vim",
 	"vimdoc",
