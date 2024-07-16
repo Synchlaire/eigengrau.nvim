@@ -68,8 +68,8 @@ require("lazy").setup(plugins, {
 	"tutor",
 	"rplugin",
 	"logiPat",
-	--"netrwSettings",
-	--"netrwFileHandlers",
+	"netrwSettings",
+	"netrwFileHandlers",
 	--            "shada",
 	--            "syntax",
 	--            "synmenu",
@@ -87,12 +87,10 @@ require("lazy").setup(plugins, {
 })
 
 -- core
-vim.loader.enable()
 require("eigengrau.core.options")
 require("eigengrau.core.keymaps")
 require("eigengrau.core.aliases")
 require("eigengrau.core.autocmds")
-
 
 ---- override default theme colors
 --function ColorMyPencils()
@@ -108,3 +106,5 @@ require("eigengrau.core.autocmds")
 --end
 --
 --ColorMyPencils()
+
+vim.loader.enable()

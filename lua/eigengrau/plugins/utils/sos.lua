@@ -12,7 +12,7 @@ return {
       -- started), and a countdown of `timeout` milliseconds begins. Further buffer
       -- changes will then debounce the timer. After firing, the timer is not
       -- started again until the next buffer change.
-      timeout = 60000,
+      timeout = 120000,
 
       -- Set, and manage, Vim's 'autowrite' option (see :h 'autowrite'). Allowing
       -- sos to "manage" the option makes it so that all autosaving functionality
@@ -26,7 +26,7 @@ return {
       --     true: set and manage 'autowrite'
       --
       --     false: don't set, touch, or manage any of Vim's 'autowwrite' options
-      autowrite = true,
+      autowrite = all,
 
       -- Automatically write all modified buffers before executing a command on
       -- the cmdline. Aborting the cmdline (e.g. via `<Esc>`) also aborts the
@@ -50,7 +50,7 @@ return {
       --                          keys: the full/long names of commands that should
       --                                trigger write
       --                          values: true
-      save_on_cmd = "some",
+      save_on_cmd = "false",
 
       -- Save/write a changed buffer before leaving it (i.e. on the `BufLeave`
       -- autocmd event). This will lead to fewer buffers having to be written
@@ -82,7 +82,7 @@ return {
       -- have: a normal 'buftype', 'ma', 'noro'. See lua/sos/impl.lua for the
       -- default behavior/fn.
       ---@type fun(bufnr: integer): boolean
-      -- should_observe_buf = require("sos.impl").should_observe_buf,
+       should_observe_buf = require("sos.impl").should_observe_buf,
 
       -- The function that is called when the shared/global timer fires. You
       -- probably don't want to change this unless you absolutely need to and know
@@ -91,7 +91,7 @@ return {
       -- set) buffers. See lua/sos/impl.lua for the default behavior/fn. Any value
       -- returned by this function is ignored. `vim.api.*` can be used inside this
       -- fn (this fn will be called with `vim.schedule()`).
-      -- on_timer = require("sos.impl").on_timer,
+       on_timer = require("sos.impl").on_timer,
     }
   end
 }

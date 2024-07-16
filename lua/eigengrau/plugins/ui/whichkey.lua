@@ -13,7 +13,7 @@ return {
       ---@param mapping wk.Mapping
       filter = function(mapping)
 	-- example to exclude mappings without a description
-	-- return mapping.desc and mapping.desc ~= ""
+	return mapping.desc and mapping.desc ~= ""
 	return true
       end,
       --- You can add any mappings here, or use `require('which-key').add()` later
@@ -61,25 +61,25 @@ return {
       win = {
 	-- don't allow the popup to overlap with the cursor
 	no_overlap = true,
-	-- width = 1,
-	-- height = { min = 4, max = 25 },
+	width = { min = 20, max = 70 },
+	height = { min = 4, max = 45 },
 	-- col = 0,
 	-- row = math.huge,
-	-- border = "none",
-	padding = { 1, 2 }, -- extra window padding [top/bottom, right/left]
+	border = "none",
+	padding = { 4, 2 }, -- extra window padding [top/bottom, right/left]
 	title = true,
 	title_pos = "center",
 	zindex = 1000,
 	-- Additional vim.wo and vim.bo options
 	bo = {},
 	wo = {
-	  -- winblend = 10, -- value between 0-100 0 for fully opaque and 100 for fully transparent
+	   winblend = 0, -- value between 0-100 0 for fully opaque and 100 for fully transparent
 	},
       },
       layout = {
 	width = { min = 20 }, -- min and max width of the columns
 	spacing = 3, -- spacing between columns
-	align = "left", -- align columns left, center or right
+	align = "center", -- align columns left, center or right
       },
       keys = {
 	scroll_down = "<c-d>", -- binding to scroll down inside the popup
@@ -95,9 +95,10 @@ return {
       --- * mod: special modifier keys last
       --- * manual: the order the mappings were added
       --- * case: lower-case first
-      sort = { "local", "order", "group", "alphanum", "mod" },
+--      sort = { "local", "order", "group", "alphanum", "mod" },
+      sort = { "local", "group", "mod" },
       ---@type number|fun(node: wk.Node):boolean?
-      expand = 0, -- expand groups when <= n mappings
+      expand = 2, -- expand groups when <= n mappings
       -- expand = function(node)
       --   return not node.desc -- expand all nodes without a description
       -- end,
@@ -121,9 +122,9 @@ return {
 	},
       },
       icons = {
-	breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
-	separator = "➜", -- symbol used between a key and it's label
-	group = "+", -- symbol prepended to a group
+	breadcrumb = " » ", -- symbol used in the command line area that shows your active key combo
+	separator = " ➜ ", -- symbol used between a key and it's label
+	group = " ", -- symbol prepended to a group
 	ellipsis = "…",
 	--- See `lua/which-key/icons.lua` for more details
 	--- Set to `false` to disable keymap icons
@@ -139,7 +140,7 @@ return {
 	  Left = " ",
 	  Right = " ",
 	  C = "󰘴 ",
-	  M = "󰘵 ",
+	  M = "<alt> ",
 	  S = "󰘶 ",
 	  CR = "󰌑 ",
 	  Esc = "󱊷 ",

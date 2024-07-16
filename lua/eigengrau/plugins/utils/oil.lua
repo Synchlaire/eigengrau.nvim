@@ -54,7 +54,6 @@ return {
 	["-"] = "actions.parent",
 	["<a-->"] = "actions.open_cwd",
 	["'"] = "actions.cd",
-	["~"] = "actions.tcd",
 	["g."] = "actions.toggle_hidden",
 	["<leader>--"] = {
 	  "actions.open_terminal",

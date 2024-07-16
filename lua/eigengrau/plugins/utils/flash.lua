@@ -67,7 +67,7 @@ return {
 	  search = {},
 	},
 	char = {
-	  enabled = true,
+	  enabled = false,
 	  config = function(opts)
 	    opts.autohide = opts.autohide or (vim.fn.mode(true):find("no") and vim.v.operator == "y")
 

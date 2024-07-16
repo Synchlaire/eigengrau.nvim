@@ -1,8 +1,9 @@
 return {
-
   "tpope/vim-fugitive",
-  event = "VeryLazy",
+  lazy = "true",
   config = function()
   end,
-
 }
+
+
+-- tpope my beloved
