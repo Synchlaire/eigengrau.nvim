@@ -2,7 +2,6 @@ return {
   'chomosuke/typst-preview.nvim',
   lazy = true,
   ft = 'typst',
-  version = '0.3.*',
   build = function() require 'typst-preview'.update() end,
   config = function()
 require 'typst-preview'.setup {
@@ -12,7 +11,7 @@ require 'typst-preview'.setup {
   -- Custom format string to open the output link provided with %s
   -- Example: open_cmd = 'firefox %s -P typst-preview --class typst-preview'
 --  open_cmd = nil,
- open_cmd = 'firefox %s --class typst-preview',
+ open_cmd = 'firefox -p preview %s --class typst-preview',
 
   -- Setting this to 'always' will invert black and white in the preview
   -- Setting this to 'auto' will invert depending if the browser has enable
@@ -28,8 +27,8 @@ require 'typst-preview'.setup {
   -- required.
   dependencies_bin = {
     -- if you are using tinymist, just set ['typst-preview'] = "tinymist".
---    ['typst-preview'] = nil,
---    ['websocat'] = nil
+    ['typst-preview'] = nil,
+    ['websocat'] = nil
   },
 
   -- This function will be called to determine the root of the typst project

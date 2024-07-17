@@ -1,15 +1,11 @@
 return{
   "black-atom-industries/black-atom.nvim",
   lazy = true,
-  event = {"ColorSchemePre"},
-
-
-  pin = false,
---  dependencies = {
---    "black-atom-industries/black-atom-vault",
+  dependencies = {
+    "black-atom-industries/black-atom-vault",
 --    pin = true,
---    lazy = true
---  },
+    lazy = true,
+  },
   opts = {
     debug = false,
     styles = {

@@ -1,3 +1,4 @@
+vim.loader.disable()
 -- Ensure lazy.nvim is installed
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -68,8 +69,6 @@ require("lazy").setup(plugins, {
 	"tutor",
 	"rplugin",
 	"logiPat",
-	"netrwSettings",
-	"netrwFileHandlers",
 	--            "shada",
 	--            "syntax",
 	--            "synmenu",
@@ -81,6 +80,8 @@ require("lazy").setup(plugins, {
 	"indent_on",
 	"netrw",                  -- disable builtin file manager
 	"netrwPlugin",            -- disable builtin file manager
+	"netrwSettings",
+	"netrwFileHandlers",
       },
     },
   },
@@ -107,4 +108,3 @@ require("eigengrau.core.autocmds")
 --
 --ColorMyPencils()
 
-vim.loader.enable()

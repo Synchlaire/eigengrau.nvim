@@ -5,7 +5,7 @@ return {
   config = function()
     require("oil").setup({
       constrain_cursor = "editable",
-      cleanup_delay_ms = 500,
+      cleanup_delay_ms = 300,
       columns = {
 	"icon",
 	-- "permissions",
@@ -53,7 +53,7 @@ return {
 	["<C-l>"] = "actions.refresh",
 	["-"] = "actions.parent",
 	["<a-->"] = "actions.open_cwd",
-	["'"] = "actions.cd",
+	["<leader>'"] = "actions.cd",
 	["g."] = "actions.toggle_hidden",
 	["<leader>--"] = {
 	  "actions.open_terminal",

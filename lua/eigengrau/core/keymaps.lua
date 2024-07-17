@@ -8,7 +8,7 @@ keymap('n', '<SPACE>', '<Nop>', opts)
 keymap('i', 'kj', '<Esc>', opts)
 keymap('i', 'jk', '<Esc>', opts)
 
--- press tab to autoindent
+-- press tab to autoindent while on visual mode
 keymap('v', '<TAB>', '=', opts)
 
 -- more intuitive redo
@@ -18,7 +18,7 @@ keymap('n', 'U', '<cmd>redo<cr>', opts)
 keymap("n", "<Tab>", "za", opts)
 
 -- keyboard substitutions for my sanity
-keymap('n', '_', '/', opts)
+keymap('n', ';', '/', opts)
 keymap('n', 'ñ', '~', opts)
 
 -- navigate within insert mode
@@ -28,22 +28,18 @@ keymap('i', '<A-h>', '<Left>', opts)
 keymap('i', '<A-l>', '<Right>', opts)
 
 -- Move to beginning/end of line
-keymap('n', '<S-l>', '$', { desc = 'jump to end of line' })
-keymap('n', '<S-h>', '0', { desc = 'jump to beginning of line' })
+keymap('n', '<S-l>', '$',  { desc = 'jump to end of line' })
+keymap('n', '<S-h>', '0',  { desc = 'jump to beginning of line' })
 
 -- move a blocks of text up/down with K/J in visual mode
 --keymap("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
 --keymap("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
 
--- search and replace the word under cursor in the file with Control+s
-keymap("n", "<C-s>", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], opts)
-
-
 -- better search motions, results are shown in the middle
 keymap('n', 'n', 'nzzzv', { desc = 'Jump to next search.'})
-keymap('n', 'N', 'Nzzzv',  { desc = 'Jump to previous search.'})
+keymap('n', 'N', 'Nzzzv', { desc = 'Jump to previous search.'})
 
--- concatenate lines while keeping cursor position
+-- concatenate lines while keeping cursor in place
 keymap("n", "J", "mzJ`z", opts)
 
 -- Don't yank on delete char
@@ -56,25 +52,13 @@ keymap("v", "X", '"_X', opts)
 keymap("v", "p", '"_dP', opts)
 
 -- yank whole file
-keymap("n", "<C-y>", "<cmd>%y+<CR>", {
-  desc = "Copy whole file"
-})
+keymap("n", "<C-y>", "<cmd>%y+<CR>", { desc = "Copy whole file" })
 
 -- Paste
-keymap("n", "]p", "o<Esc>p", {
-  desc = "Paste below"
-})
-keymap("n", "[p", "O<Esc>p", {
-  desc = "Paste above"
-})
-keymap("i", "<C-v>", '<ESC>"+p<ESC>a', {
-  desc = "Paste from clipboard"
-})
+keymap("n", "]p", "o<Esc>p", { desc = "Paste below" })
+keymap("n", "[p", "O<Esc>p", { desc = "Paste above" })
+keymap("i", "<C-v>", '<ESC>"+p<ESC>a', { desc = "Paste from clipboard" })
 
--- Better registers
-
-
-keymap('n', '"', '<cmd>Registers<CR>', opts)
 
 -- Splits, Tabs, Buffers
 ----------------------------
@@ -182,3 +166,9 @@ keymap("n", "<leader>gtpu", "<cmd>15 split|term git push<cr>", { desc = 'Git pus
 
 -- dismiss the goddamn notification spam
 keymap('n', '<Esc>', '<cmd>NoiceDismiss<CR>', opts)
+
+
+-- huez theme picker
+
+keymap('n', '<leader>fc', '<cmd>lua require("huez.pickers").themes()<cr>', { desc = 'change colorscheme'})
+keymap('n', '<leader>fC', '<cmd>lua require("huez.pickers").live()<cr>', { desc = 'download colorschemes'})

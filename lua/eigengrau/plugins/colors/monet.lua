@@ -1,7 +1,6 @@
 return {    --- monet
   'fynnfluegge/monet.nvim',
   lazy = true,
-  event = {"ColorSchemePre"},
   config = function()
     require("monet").setup {
       transparent_background = false,

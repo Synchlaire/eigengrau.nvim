@@ -2,7 +2,6 @@ return {
   --- nightfly
   'bluz71/vim-nightfly-colors',
   lazy = true,
-  event = {"ColorSchemePre"},
   init = function()
     local g = vim.g
     g.nightflyCursorColor = true

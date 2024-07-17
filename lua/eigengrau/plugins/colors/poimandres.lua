@@ -2,7 +2,6 @@ return {
   --- poimandres
   'olivercederborg/poimandres.nvim',
   lazy = true,
-  event = {"ColorSchemePre"},
   config = function()
     require("poimandres").setup {
       bold_vert_split = false,        -- use bold vertical separators
