@@ -10,7 +10,7 @@ return {
      {'keyvchan/telescope-find-pickers.nvim', lazy = true},
      {'ghassan0/telescope-glyph.nvim', lazy = true},
      {'nvim-telescope/telescope-ui-select.nvim', lazy = true},
-     {'jvgrootveld/telescope-zoxide', lazy = true},
+--     {'jvgrootveld/telescope-zoxide', lazy = true},
   },
   config = function()
     -- set locals for conciseness
@@ -32,7 +32,7 @@ return {
     ext('nerdy')
     ext('glyph')
     ext('find_pickers')
-    ext('zoxide')
+--    ext('zoxide')
     ext('ui-select')
     ext('possession')
 
@@ -132,40 +132,40 @@ return {
 	["ui-select"] = {
 	  theme.get_dropdown {},
 	},
-	[ "zoxide" ] = {
-	  prompt_title = "[ Zoxide ]",
-	  -- Zoxide list command with score
-	  list_command = "zoxide query -ls",
-	  mappings = {
-	    default = {
-	      action = function(selection)
-		vim.cmd.edit(selection.path)
-	      end,
-	      after_action = function(selection)
-		print("Directory changed to " .. selection.path)
-	      end
-	    },
-	    ["<S-CR>"] = { action = require("telescope._extensions.zoxide.utils").create_basic_command("vsplit") },
-	    ["<cr>"] = { action = require("telescope._extensions.zoxide.utils").create_basic_command("edit") },
-	    ["<C-b>"] = {
-	      keepinsert = true,
-	      action = function(selection)
-		builtin.file_browser({ cwd = selection.path })
-	      end
-	    },
-	    ["<C-f>"] = {
-	      keepinsert = true,
-	      action = function(selection)
-		builtin.find_files({ cwd = selection.path })
-	      end
-	    },
-	    ["<C-t>"] = {
-	      action = function(selection)
-		vim.cmd.tcd(selection.path)
-	      end
-	    },
-	  },
-	},
+--	[ "zoxide" ] = {
+--	  prompt_title = "[ Zoxide ]",
+--	  -- Zoxide list command with score
+--	  list_command = "zoxide query -ls",
+--	  mappings = {
+--	    default = {
+--	      action = function(selection)
+--		vim.cmd.edit(selection.path)
+--	      end,
+--	      after_action = function(selection)
+--		print("Directory changed to " .. selection.path)
+--	      end
+--	    },
+--	    ["<S-CR>"] = { action = require("telescope._extensions.zoxide.utils").create_basic_command("vsplit") },
+--	    ["<cr>"] = { action = require("telescope._extensions.zoxide.utils").create_basic_command("edit") },
+--	    ["<C-b>"] = {
+--	      keepinsert = true,
+--	      action = function(selection)
+--		builtin.file_browser({ cwd = selection.path })
+--	      end
+--	    },
+--	    ["<C-f>"] = {
+--	      keepinsert = true,
+--	      action = function(selection)
+--		builtin.find_files({ cwd = selection.path })
+--	      end
+--	    },
+--	    ["<C-t>"] = {
+--	      action = function(selection)
+--		vim.cmd.tcd(selection.path)
+--	      end
+--	    },
+--	  },
+--	},
 
 	frecency = {
 	  auto_validate = false,
@@ -194,11 +194,12 @@ return {
     vim.keymap.set('n', '<leader>fd', builtin.fd, { desc = 'Find files across system'})
     vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'live grep'})
     vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'help tags'})
-    vim.keymap.set('n', '<leader>fc', builtin.colorscheme, { desc = 'change colorscheme'})
+--    vim.keymap.set('n', '<leader>fc', builtin.colorscheme, { desc = 'change colorscheme'})
+
     -- plugins
     vim.keymap.set('n', '<leader>q', '<cmd>Telescope macros<CR>', { desc = 'macros management'}) -- macros
     vim.keymap.set('n', '<leader>ff', '<cmd>Telescope frecency<CR>', {desc = 'search files globally'}) -- frecency
-    vim.keymap.set('n', '<leader>cd', '<cmd>Telescope zoxide list<CR>', {desc = 'search directories'}) -- zoxide
+--    vim.keymap.set('n', '<leader>cd', '<cmd>Telescope zoxide list<CR>', {desc = 'search directories'}) -- zoxide
     vim.keymap.set('n', '<leader>fs', '<cmd>Telescope possession list<CR>', { desc = 'session management'}) -- sessions
     vim.keymap.set('n', '<A-o>', '<cmd>Telescope find_pickers<CR>', {desc = 'telescope menu'}) -- meta-menu
   end

@@ -1,12 +1,15 @@
 return {
   "vague2k/huez.nvim",
+  dependencies = {
+  "RedsXDD/neopywal.nvim",
+  },
   import = "huez-manager.import",
   branch = "stable",
   event = "UIEnter",
   config = function()
     require("huez").setup ({
       path = vim.fs.normalize(vim.fn.stdpath("data") --[[@as string]]) .. "/huez",
-      fallback = "plain",
+      fallback = "neopywal",
       suppress_messages = true,
       theme_config_module = "plugins.test",
       exclude = {},

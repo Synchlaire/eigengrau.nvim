@@ -16,7 +16,7 @@ require 'typst-preview'.setup {
   -- Setting this to 'always' will invert black and white in the preview
   -- Setting this to 'auto' will invert depending if the browser has enable
   -- dark mode
-  invert_colors = 'always',
+  invert_colors = 'auto',
 
   -- Whether the preview will follow the cursor in the source file
   follow_cursor = true,

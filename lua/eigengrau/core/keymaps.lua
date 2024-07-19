@@ -139,8 +139,8 @@ keymap("v", "<leader>on", "<cmd>ObsidianLinkNew<cr>", { desc = 'Create new Obsid
 keymap("v", "<leader>oe", "<cmd>ObsidianExtractNote<cr>", { desc = 'create new note out of visual selection' })
 
 --terminal
-keymap("t", "jk", "<C-\\><C-n>", opts)
-keymap("t", "kj", "<C-\\><C-n>", opts)
+keymap("t", "C-j", "<C-\\><C-n>", opts)
+--keymap("t", "kj", "<C-\\><C-n>", opts)
 --keymap("t", "<ESC><ESC>", "<C-\\><C-n>")
 --keymap("t", "<Esc>", "<C-\\><C-n>", opts)
 --keymap("t", "<Esc><Esc>", "<Esc>", opts)
