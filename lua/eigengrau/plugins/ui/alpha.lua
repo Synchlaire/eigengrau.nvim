@@ -1,6 +1,8 @@
 return {
   "goolord/alpha-nvim",
   event = "VimEnter",
+  enabled = true,
+  init = false,
   config = function()
     local alpha = require("alpha")
     local dashboard = require("alpha.themes.dashboard")
@@ -37,22 +39,20 @@ return {
       "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
     }
 local bruh = {
-      "                                         ",
-      "                                         ",
-      "       ⣇⣿⠘⣿⣿⣿⡿⡿⣟⣟⢟⢟⢝⠵⡝⣿⡿⢂⣼⣿⣷⣌⠩⡫⡻⣝⠹⢿⣿⣷    ",
-      "       ⡆⣿⣆⠱⣝⡵⣝⢅⠙⣿⢕⢕⢕⢕⢝⣥⢒⠅⣿⣿⣿⡿⣳⣌⠪⡪⣡⢑⢝⣇    ",
-      "       ⡆⣿⣿⣦⠹⣳⣳⣕⢅⠈⢗⢕⢕⢕⢕⢕⢈⢆⠟⠋⠉⠁⠉⠉⠁⠈⠼⢐⢕⢽    ",
-      "       ⡗⢰⣶⣶⣦⣝⢝⢕⢕⠅⡆⢕⢕⢕⢕⢕⣴⠏⣠⡶⠛⡉⡉⡛⢶⣦⡀⠐⣕⢕    ",
-      "       ⡝⡄⢻⢟⣿⣿⣷⣕⣕⣅⣿⣔⣕⣵⣵⣿⣿⢠⣿⢠⣮⡈⣌⠨⠅⠹⣷⡀⢱⢕    ",
-      "       ⡝⡵⠟⠈⢀⣀⣀⡀⠉⢿⣿⣿⣿⣿⣿⣿⣿⣼⣿⢈⡋⠴⢿⡟⣡⡇⣿⡇⡀⢕    ",
-      "       ⡝⠁⣠⣾⠟⡉⡉⡉⠻⣦⣻⣿⣿⣿⣿⣿⣿⣿⣿⣧⠸⣿⣦⣥⣿⡇⡿⣰⢗⢄    ",
-      "       ⠁⢰⣿⡏⣴⣌⠈⣌⠡⠈⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣬⣉⣉⣁⣄⢖⢕⢕⢕    ",
-      "       ⡀⢻⣿⡇⢙⠁⠴⢿⡟⣡⡆⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣵⣵⣿    ",
-      "       ⡻⣄⣻⣿⣌⠘⢿⣷⣥⣿⠇⣿⣿⣿⣿⣿⣿⠛⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿    ",
-      "       ⣷⢄⠻⣿⣟⠿⠦⠍⠉⣡⣾⣿⣿⣿⣿⣿⣿⢸⣿⣦⠙⣿⣿⣿⣿⣿⣿⣿⣿⠟    ",
-      "       ⡕⡑⣑⣈⣻⢗⢟⢞⢝⣻⣿⣿⣿⣿⣿⣿⣿⠸⣿⠿⠃⣿⣿⣿⣿⣿⣿⡿⠁⣠    ",
-      "       ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙    ",
-      "       ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣    ",
+      "  ⣇⣿⠘⣿⣿⣿⡿⡿⣟⣟⢟⢟⢝⠵⡝⣿⡿⢂⣼⣿⣷⣌⠩⡫⡻⣝⠹⢿⣿⣷  ",
+      "  ⡆⣿⣆⠱⣝⡵⣝⢅⠙⣿⢕⢕⢕⢕⢝⣥⢒⠅⣿⣿⣿⡿⣳⣌⠪⡪⣡⢑⢝⣇  ",
+      "  ⡆⣿⣿⣦⠹⣳⣳⣕⢅⠈⢗⢕⢕⢕⢕⢕⢈⢆⠟⠋⠉⠁⠉⠉⠁⠈⠼⢐⢕⢽  ",
+      "  ⡗⢰⣶⣶⣦⣝⢝⢕⢕⠅⡆⢕⢕⢕⢕⢕⣴⠏⣠⡶⠛⡉⡉⡛⢶⣦⡀⠐⣕⢕  ",
+      "  ⡝⡄⢻⢟⣿⣿⣷⣕⣕⣅⣿⣔⣕⣵⣵⣿⣿⢠⣿⢠⣮⡈⣌⠨⠅⠹⣷⡀⢱⢕  ",
+      "  ⡝⡵⠟⠈⢀⣀⣀⡀⠉⢿⣿⣿⣿⣿⣿⣿⣿⣼⣿⢈⡋⠴⢿⡟⣡⡇⣿⡇⡀⢕  ",
+      "  ⡝⠁⣠⣾⠟⡉⡉⡉⠻⣦⣻⣿⣿⣿⣿⣿⣿⣿⣿⣧⠸⣿⣦⣥⣿⡇⡿⣰⢗⢄  ",
+      "  ⠁⢰⣿⡏⣴⣌⠈⣌⠡⠈⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣬⣉⣉⣁⣄⢖⢕⢕⢕  ",
+      "  ⡀⢻⣿⡇⢙⠁⠴⢿⡟⣡⡆⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣵⣵⣿  ",
+      "  ⡻⣄⣻⣿⣌⠘⢿⣷⣥⣿⠇⣿⣿⣿⣿⣿⣿⠛⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿  ",
+      "  ⣷⢄⠻⣿⣟⠿⠦⠍⠉⣡⣾⣿⣿⣿⣿⣿⣿⢸⣿⣦⠙⣿⣿⣿⣿⣿⣿⣿⣿⠟  ",
+      "  ⡕⡑⣑⣈⣻⢗⢟⢞⢝⣻⣿⣿⣿⣿⣿⣿⣿⠸⣿⠿⠃⣿⣿⣿⣿⣿⣿⡿⠁⣠  ",
+      "  ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙  ",
+      "  ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣  ",
 
     }
 
@@ -71,17 +71,16 @@ local bruh = {
 
     -- Buttons
     dashboard.section.buttons.val = {
-    dashboard.button( "s"  , "   Sessions      " , "<cmd>Telescope possession list theme=dropdown initial_mode=normal <CR> " ),
-    dashboard.button( "h"  , "   Home          " , "<cmd>cd $HOME | e . | pwd<CR>" ),
-    dashboard.button( "c"  , "   Config        " , "<cmd>cd ~/.config/nvim/|e . | pwd<CR>" ),
-    dashboard.button( "o"  , "   Codex         " , "<cmd>ObsidianQuickSwitch<CR>" ),
-    dashboard.button( "l"  , " 󰂖  Lazy Plugins  " , "<cmd>Lazy<CR>" ),
-    dashboard.button( "ff" , "   Find file     " , "<cmd>cd $HOME | Telescope fd<CR>" ),
-    dashboard.button( "fr" , "   Recent files  " , "<cmd>Telescope oldfiles<CR>" ),
-    dashboard.button( "qq" , "   Quit NVIM     " , "<cmd>qa<CR>" ),
-
---    dashboard.button( "fc" , "   Change Colors " , "<cmd>Telescope colorscheme<CR>" ),
---    dashboard.button( "m " , " 󱌣  Mason         " , "<cmd>Mason<CR>" ),
+    dashboard.button( "s"  , "  Sessions      " , "<cmd>Telescope possession list theme=dropdown initial_mode=normal <CR> " ),
+    dashboard.button( "h"  , "  Home          " , "<cmd>cd $HOME | e . | pwd<CR>" ),
+    dashboard.button( "n"  , "  New file      " , "<cmd>ene <BAR> startinsert <CR>" ),
+    dashboard.button( "c"  , "  Config        " , "<cmd>cd ~/.config/nvim/|e . | pwd<CR>" ),
+    dashboard.button( "o"  , "  Codex         " , "<cmd>cd ~/Vaults/|e . | pwd<CR>" ),
+    dashboard.button( "p"  , "󱅄  Projects      " , "<cmd>ProjectExplorer<CR>" ),
+    dashboard.button( "l"  , "󱈼  Lazy Plugins  " , "<cmd>Lazy<CR>" ),
+    dashboard.button( "ff" , "  Find file     " , "<cmd>cd $HOME | Telescope fd<CR>" ),
+    dashboard.button( "fr" , "  Recent files  " , "<cmd>Telescope oldfiles<CR>" ),
+    dashboard.button( "qq" , "  Quit NVIM     " , "<cmd>qa<CR>" ),
 
     }
 
@@ -148,15 +147,16 @@ local bruh = {
 	dashboard.section.header,
 	{ type = "padding", val = 5 },
 	dashboard.section.buttons,
-	{ type = "padding", val = 3 },
+	{ type = "padding", val = 5 },
 	dashboard.section.footer,
+	{ type = "padding", val = 1 },
       },
 
       opts = {
 	noautocmd = false, --better integration with plugins
-	margin = 30,
+	margin = 35,
 	shrink_margin = true,
-	wrap = "overflow",
+--	wrap = "overflow",
 
       },
 

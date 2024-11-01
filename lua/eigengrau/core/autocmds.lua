@@ -130,5 +130,13 @@ cmd('FileType', {
         vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = event.buf, silent = true })
     end,
 })
-
 --NOTE: i hate normies so goddamn much
+
+-----------------------------------
+--             FILETYPES           --
+-----------------------------------
+
+cmd({"BufNewFile", "BufRead"}, {
+  pattern = "*.typ",
+  command = "setfiletype typst"
+})

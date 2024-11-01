@@ -2,7 +2,7 @@ return {
   'tmillr/sos.nvim',
   event = 'InsertEnter',
   config = function()
-    require("sos").setup {
+    require("lua.eigengrau.plugins.unloaded.sos").setup {
       -- Whether to enable the plugin
       enabled = true,
 

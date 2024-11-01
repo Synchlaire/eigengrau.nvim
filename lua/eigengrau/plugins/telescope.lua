@@ -2,25 +2,21 @@ return {
   -- Telescope plugins
   'nvim-telescope/telescope.nvim',
   lazy = true,
-  event = {"BufEnter"},
   cmd = { "Telescope" },
   dependencies = {
-     {'nvim-telescope/telescope-frecency.nvim', lazy = true},
      {'2kabhishek/nerdy.nvim', lazy = true},
      {'keyvchan/telescope-find-pickers.nvim', lazy = true},
      {'ghassan0/telescope-glyph.nvim', lazy = true},
      {'nvim-telescope/telescope-ui-select.nvim', lazy = true},
---     {'jvgrootveld/telescope-zoxide', lazy = true},
   },
   config = function()
     -- set locals for conciseness
-
     local ignore_filetypes_list = { "venv", "__pycache__", "%.jpeg", "%.jpg",
-      "%.png", "%.webp", "%.pdf",  "%.ico", "%.mp3", "%.ogg", "%.mp4", "%.webm",
-      "%.epub", "%cache%", "%.ttf", "%.otf", "%.oil://%", "%courses%" }
+      "%.png", "%.webp", "%.svg", "%.pdf",  "%.ico", "%.mp3", "%.ogg", "%.mp4", "%.webm",
+      "%.epub", "%cache%", "%.ttf", "%.otf", "%.csl", "%.oil://%", "%courses%", "%.srt", "%.dll" }
 
     local telescope = require("telescope")
-    local utils = require("telescope").utils
+--    local utils = require("telescope").utils
     local builtin = require('telescope.builtin')
     local actions = require("telescope.actions")
     local ext = require("telescope").load_extension
@@ -28,14 +24,12 @@ return {
 
     --- load extensions
     ext('macros')
-    ext('frecency')
     ext('nerdy')
     ext('glyph')
     ext('find_pickers')
---    ext('zoxide')
     ext('ui-select')
     ext('possession')
-
+    ext('chezmoi')
 
     -- setup
     telescope.setup {
@@ -65,13 +59,13 @@ return {
 	    width = 0.8,
 	  },
 	  bottom_pane = {
-	    show_line = false,
+	    show_line = true,
 	    height = 25,
 	    preview_cutoff = 0,
 	    prompt_position = "top",
 	  },
 	  center = {
-	    show_line = false,
+	    show_line = true,
 	    height = 0.4,
 	    preview_cutoff = 0,
 	    prompt_position = "top",
@@ -132,60 +126,7 @@ return {
 	["ui-select"] = {
 	  theme.get_dropdown {},
 	},
---	[ "zoxide" ] = {
---	  prompt_title = "[ Zoxide ]",
---	  -- Zoxide list command with score
---	  list_command = "zoxide query -ls",
---	  mappings = {
---	    default = {
---	      action = function(selection)
---		vim.cmd.edit(selection.path)
---	      end,
---	      after_action = function(selection)
---		print("Directory changed to " .. selection.path)
---	      end
---	    },
---	    ["<S-CR>"] = { action = require("telescope._extensions.zoxide.utils").create_basic_command("vsplit") },
---	    ["<cr>"] = { action = require("telescope._extensions.zoxide.utils").create_basic_command("edit") },
---	    ["<C-b>"] = {
---	      keepinsert = true,
---	      action = function(selection)
---		builtin.file_browser({ cwd = selection.path })
---	      end
---	    },
---	    ["<C-f>"] = {
---	      keepinsert = true,
---	      action = function(selection)
---		builtin.find_files({ cwd = selection.path })
---	      end
---	    },
---	    ["<C-t>"] = {
---	      action = function(selection)
---		vim.cmd.tcd(selection.path)
---	      end
---	    },
---	  },
---	},
 
-	frecency = {
-	  auto_validate = false,
-	  matcher = "default",
-	  db_safe_mode = false,
-	  -- workspace_scan_cmd = nil, --{ "fd", ".", "-type", "f"},
-	  show_filter_column = { "LSP", "CWD", "FOO" },
-	  show_unindexed = true,
-	  show_scores = true,
-	  ignore_patterns = { ignore_filetypes_list  },
-	  hide_current_bufer = false,
-	  disable_devicons = false,
-	  path_display = {"filename_first"},
-	  workspaces = {
-	    ["cfg"] = "/home/claroscuro/.config/",
-	    ["data"] = "/home/claroscuro/.local/share/",
-	    ["pr"] = "/home/claroscuro/projects/",
-	    ["codex"] = "/home/claroscuro/Vaults/",
-	  },
-	},
       },
     }
 
@@ -198,9 +139,12 @@ return {
 
     -- plugins
     vim.keymap.set('n', '<leader>q', '<cmd>Telescope macros<CR>', { desc = 'macros management'}) -- macros
-    vim.keymap.set('n', '<leader>ff', '<cmd>Telescope frecency<CR>', {desc = 'search files globally'}) -- frecency
---    vim.keymap.set('n', '<leader>cd', '<cmd>Telescope zoxide list<CR>', {desc = 'search directories'}) -- zoxide
+--    vim.keymap.set('n', '<leader>f<TAB>', '<cmd>Telescope buffers theme=dropdown preview=false <CR>', { desc = 'macros management'}) -- macros
+    vim.keymap.set('n', '<leader>ff', '<cmd>Telescope oldfiles<CR>', {desc = 'search files globally'}) -- frecency
+    --    vim.keymap.set('n', '<leader>cd', '<cmd>Telescope zoxide list<CR>', {desc = 'search directories'}) -- zoxide
     vim.keymap.set('n', '<leader>fs', '<cmd>Telescope possession list<CR>', { desc = 'session management'}) -- sessions
     vim.keymap.set('n', '<A-o>', '<cmd>Telescope find_pickers<CR>', {desc = 'telescope menu'}) -- meta-menu
+
+    vim.keymap.set('n', '<leader>cz', telescope.extensions.chezmoi.find_files, {desc = 'chezmoi management'})
   end
 }

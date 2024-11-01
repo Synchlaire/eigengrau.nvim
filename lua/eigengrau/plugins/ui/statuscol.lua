@@ -1,24 +1,24 @@
 return {
-    "luukvbaal/statuscol.nvim",
---    branch = "0.10",
-    event = "BufAdd",
-    enabled = function()
-        return vim.fn.has("nvim-0.10") == 1
-    end,
-    opts = function()
-        local builtin = require("statuscol.builtin")
+  "luukvbaal/statuscol.nvim",
+  --    branch = "0.10",
+  event = "BufAdd",
+  enabled = function()
+    return vim.fn.has("nvim-0.10") == 1
+  end,
+  opts = function()
+    local builtin = require("statuscol.builtin")
 
-        return {
-            relculright = true,
-            ft_ignore = { "alpha" },
-            segments = {
-                { sign = { namespace = { "gitsigns" } } },
-                { text = { builtin.foldfunc }, click = "v:lua.ScFa", sign = { colwidth = 2 } },
-                { sign = { namespace = { "diagnostic" }, foldclosed = true } },
-                { text = { builtin.lnumfunc }, click = "v:lua.ScLa", sign = { colwidth = 2 } },
-                { text = { " " } },
-            },
-        }
-    end,
+    return {
+      relculright = true,
+      ft_ignore = { "alpha" },
+      segments = {
+	{ sign = { namespace = { "gitsigns" } } },
+	{ text = { builtin.foldfunc }, click = "v:lua.ScFa", sign = { colwidth = 2 } },
+	{ sign = { namespace = { "diagnostic" }, foldclosed = true } },
+	{ text = { builtin.lnumfunc }, click = "v:lua.ScLa", sign = { colwidth = 2 } },
+	{ text = { " " } },
+      },
+    }
+  end,
 }
 

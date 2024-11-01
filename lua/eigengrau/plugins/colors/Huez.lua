@@ -1,33 +1,31 @@
 return {
   "vague2k/huez.nvim",
-  dependencies = {
-  "RedsXDD/neopywal.nvim",
-  },
-  import = "huez-manager.import",
-  branch = "stable",
+  lazy = true,
   event = "UIEnter",
+--  import = "huez-manager.import",
+  branch = "stable",
   config = function()
     require("huez").setup ({
       path = vim.fs.normalize(vim.fn.stdpath("data") --[[@as string]]) .. "/huez",
       fallback = "neopywal",
       suppress_messages = true,
-      theme_config_module = "plugins.test",
+      theme_config_module = nil,
       exclude = {},
       picker = {
 	themes = {
-	  layout = "top",
+	  layout = "center",
 	  opts = {},
 	},
 	favorites = {
-	  layout = "top",
+	  layout = "center",
 	  opts = {},
 	},
 	live = {
-	  layout = "top",
+	  layout = "center",
 	  opts = {},
 	},
 	ensured = {
-	  layout = "top",
+	  layout = "center",
 	  opts = {},
 	},
       },

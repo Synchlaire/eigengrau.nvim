@@ -4,11 +4,10 @@ local opt = vim.opt
 
 -- Visual settings
 
-
 -- nvim color
-vim.env.NVIM_TUI_ENABLE_TRUE_COLOR = 1
+vim.env.NVIM_TUI_ENABLE_TRUE_COLOR = 0
 
--- cursor
+---------- cursor settings
     -- This is from the help docs, it enables mode shapes, "Cursor" highlight, and blinking
     opt.guicursor = {
         "n-v-c-sm:block-Cursor",
@@ -17,15 +16,9 @@ vim.env.NVIM_TUI_ENABLE_TRUE_COLOR = 1
         "a:blinkon0",
     }
     opt.cursorlineopt = { "both" }
-
-
-
-
+-------------
 
 opt.emoji = false -- keep it disabled otherwise it messes rendering
-
-
-
 opt.jumpoptions = { "stack" } -- make the jumplist behave like a browser stack
 opt.list = false -- Do not show hidden characters
 opt.pumblend = 10 -- Transparency for popup menu
@@ -36,8 +29,7 @@ opt.cmdheight = 0 -- Height of the command bar, set to 0 to hide
 opt.conceallevel = 2 -- Hide quotes in markdown
 opt.cursorline = true -- Highlight the current line
 opt.formatoptions:remove('c', 'r', 'o')
---opt.grepprg = "rg --vimgrep" -- Use ripgrep for searching
-opt.guicursor = "" -- GUI cursor settings
+opt.grepprg = "rg --vimgrep" -- Use ripgrep for searching
 opt.helpheight = 0 -- Disable help window resizing
 opt.laststatus = 3 -- Always display the status line
 opt.number = true -- Show absolute line numbers
@@ -88,14 +80,14 @@ g.timeoutlen = 700 -- Time in milliseconds to wait for a mapped sequence to comp
 opt.updatetime = 300 -- Faster completion (default is 4000ms)
 
 -- Fold settings
-opt.foldenable = false -- Enable folding
---opt.foldcolumn = "1" -- Show fold column
---opt.foldnestmax = 3 -- Maximum fold nesting level
---opt.foldlevel = 99 -- Start with all folds open
---opt.foldlevelstart = 100 -- Start editing with all folds open
---opt.foldmethod = "manual" -- Folding set to be done manually
---opt.foldexpr = "nvim_treesitter#foldexpr()" -- Set treesitter as the fold method
---g.markdown_folding = 1 -- use folding by heading in markdown
+opt.foldenable = true -- Enable folding
+opt.foldcolumn = "1" -- Show fold column
+opt.foldnestmax = 3 -- Maximum fold nesting level
+opt.foldlevel = 99 -- Start with all folds open
+opt.foldlevelstart = 100 -- Start editing with all folds open
+opt.foldmethod = "manual" -- Folding set to be done manually
+opt.foldexpr = "nvim_treesitter#foldexpr()" -- Set treesitter as the fold method
+g.markdown_folding = 1 -- use folding by heading in markdown
 
 if vim.fn.has('nvim-0.10') == 1 then
   vim.o.foldtext = ''        -- Use underlying text with its highlighting
@@ -107,7 +99,7 @@ opt.fillchars = {
   foldopen = '', -- Unicode characters for open fold
   foldclose = '󰅂', -- Unicode characters for close fold
   fold = '⸱', -- Character for fold lines
-  foldsep = ' ', -- Separator for folded lines
+  foldsep = '┃', -- Separator for folded lines
   diff = '╱',-- Character for diff view
   eob = ' ', -- Character at the End Of Buffer
   --    vert = '┃', -- Vertical split line

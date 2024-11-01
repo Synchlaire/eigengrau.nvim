@@ -1,7 +1,7 @@
 return {
   'stevearc/oil.nvim',
-  lazy = false,
-  event = {"BufAdd", "bufReadPre"},
+  lazy = true,
+  event = {"VeryLazy"},
   config = function()
     require("oil").setup({
       constrain_cursor = "editable",
@@ -64,7 +64,7 @@ return {
 	  },
 	  desc = "Open the command line with the current directory as an argument",
 	},
-	["<leader>-f"] = {
+	["<leader><leader>"] = {
 	  function()
 	    require("telescope.builtin").find_files({
 	      cwd = require("oil").get_current_dir()

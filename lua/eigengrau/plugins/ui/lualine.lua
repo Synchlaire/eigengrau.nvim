@@ -28,7 +28,7 @@ return {
 	  winbar = {},
 	},
 	ignore_focus = {},
-	always_divide_middle = false,
+	always_divide_middle = true,
 	refresh = {
 	  statusline = 1000,
 	  tabline = 1000,
@@ -36,7 +36,7 @@ return {
 	},
       },
       sections = {
-	lualine_a = { "mode", "fancy_macro", "branch", "fancy_diagnostics" },
+	lualine_a = { "mode", "fancy_macro", "fancy_diagnostics", "branch"},
 	lualine_b = {},
 	lualine_c =
 	  { "%=",
@@ -44,17 +44,18 @@ return {
 	      show_filename_only = true,
 	      hide_filename_extension = true,
 	      show_modified_status = true,
-	      mode = 2,
+	      mode = 0,
 	      buffers_color = {
 		active = "lualine_a_insert",
 		inactive = "nil"
 	      },
+	      "%=",
 	      ignore_tabs = true,
 	    },
-	},
-	lualine_x = {"fancy_cwd"},
+	  },
+	lualine_x = {},
 	lualine_y = {},
-	lualine_z = {"progress", "location" },
+	lualine_z = {"location", {"fancy_cwd", substitute_home = true } },
       },
       --      inactive_sections = {
       --        lualine_a = {},
@@ -65,35 +66,35 @@ return {
       --        lualine_z = {}
       --      },
 
---      tabline = {
---	lualine_a = {{
---	  "tabs",
---	  cond = function()
---	    return #vim.fn.gettabinfo() > 1
---	  end,
---
---	  mode = 2,
-----	  path = 0,
---	  tabs_color = {
---	    active = "lualine_a_insert",
---	    inactive = "nil",
---	  },
---	  show_modified_status = true,
---	  symbols = {
---	    modified = '   ',
---	  },
---	  },
---	},
---	lualine_b = {"%="},
---	lualine_z = { {"windows",
---	  cond = function()
---	    return #vim.fn.getwininfo() > 1
---	  end,
---	  mode = 1 ,
---
---	  }
---	},
---      },
+      --      tabline = {
+      --	lualine_a = {{
+      --	  "tabs",
+      --	  cond = function()
+      --	    return #vim.fn.gettabinfo() > 1
+      --	  end,
+      --
+      --	  mode = 2,
+      ----	  path = 0,
+      --	  tabs_color = {
+      --	    active = "lualine_a_insert",
+      --	    inactive = "nil",
+      --	  },
+      --	  show_modified_status = true,
+      --	  symbols = {
+      --	    modified = '   ',
+      --	  },
+      --	  },
+      --	},
+      --	lualine_b = {"%="},
+      --	lualine_z = { {"windows",
+      --	  cond = function()
+      --	    return #vim.fn.getwininfo() > 1
+      --	  end,
+      --	  mode = 1 ,
+      --
+      --	  }
+      --	},
+      --      },
 
       winbar = {},
       inactive_winbar = {},

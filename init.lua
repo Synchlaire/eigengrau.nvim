@@ -18,23 +18,26 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 --vim.g.maplocalleader = ";"
 
+-- Neovide settings
+require("eigengrau.core.neovide")
+
+
 -- Lazy.nvim setup
 
 -- plugins
 local plugins = {
-  { import = "eigengrau.plugins"},
-  { import = "eigengrau.plugins.colors"},
-  { import = "eigengrau.plugins.markdown"},
-  { import = "eigengrau.plugins.ui"},
-  { import = "eigengrau.plugins.dev"},
-  { import = "eigengrau.plugins.utils"},
+  { import = "eigengrau.plugins" },
+  { import = "eigengrau.plugins.colors" },
+  { import = "eigengrau.plugins.markdown" },
+  { import = "eigengrau.plugins.ui" },
+  { import = "eigengrau.plugins.dev" },
+  { import = "eigengrau.plugins.utils" },
 
 }
 
-
 require("lazy").setup(plugins, {
   checker = {
-    enabled = false,
+    enabled = true,
     notify = false,
   },
   ui = {
@@ -77,9 +80,9 @@ require("lazy").setup(plugins, {
 	"bugreport",
 	--           "ftplugin",
 	--          "load_ftplneugin",
-	"indent_on",
-	"netrw",                  -- disable builtin file manager
-	"netrwPlugin",            -- disable builtin file manager
+	--	"indent_on",
+	"netrw",   -- disable builtin file manager
+	"netrwPlugin", -- disable builtin file manager
 	"netrwSettings",
 	"netrwFileHandlers",
       },
@@ -107,4 +110,3 @@ require("eigengrau.core.autocmds")
 --end
 --
 --ColorMyPencils()
-

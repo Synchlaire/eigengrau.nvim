@@ -2,15 +2,28 @@
 local opts = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
 
+----------
+-- Function to change light or dark mode
+function ToggleNight()
+  if (vim.o.background == "dark") then
+    vim.o.background = "light"
+  else
+    vim.o.background = "dark"
+  end
+end
+----------
+
 -- This is only to make sure the spacebar doesn't have any mapping beforehand
 keymap('n', '<SPACE>', '<Nop>', opts)
--- exit insert mode using k j
-keymap('i', 'kj', '<Esc>', opts)
-keymap('i', 'jk', '<Esc>', opts)
 
+---------- Escape keys, currently being handled by better-escape.nvim
+-- exit insert mode using k j
+--keymap('i', 'kj', '<Esc>', opts)
+--keymap('i', 'jk', '<Esc>', opts)
+----keymap('v', 'jk', '<Nop>', opts) -- no idea why this started getting funky
+---------
 -- press tab to autoindent while on visual mode
 keymap('v', '<TAB>', '=', opts)
-
 -- more intuitive redo
 keymap('n', 'U', '<cmd>redo<cr>', opts)
 
@@ -87,7 +100,7 @@ keymap('n', '<A-8>', '<cmd>LualineBuffersJump! 8<CR>', opts)
 keymap('n', '<A-9>', '<cmd>LualineBuffersJump! 9<CR>', opts)
 --keymap('n', '<A-,>', '<cmd>bp|echo "buffer 󰒮-! "<CR>', opts)
 --keymap('n', '<A-.>', '<cmd>bn|echo "buffer -󰒭 "<CR>', opts)
-keymap('n', '<leader>dd', '<cmd>bd!|echo "buffer 󰚌  "<CR>', opts)
+keymap('n', '<leader>dd', '<cmd>bd!|echo "buffer 󰚌  "<CR>', {desc = 'delete buffer'})
 
 -- Splits
 keymap('n', '<leader>sv', '<cmd>vs| echo "split |  "<CR>', { desc = 'vert split' })
@@ -119,13 +132,15 @@ keymap('n', '<leader>ss', '<cmd>set spell! | echo "spellcheck toggle"<CR>', { de
 -- toggle autosave
 keymap("n", "<F2>", "<cmd>SosToggle<CR>", opts)
 
+-- toggle numbers
+
+keymap("n", "tn", '<cmd>set rnu! number!<CR>', { desc = 'toggle line numbers' })
+
 --zen mode
 keymap("n", "<leader>zm", '<cmd>ZenMode<CR>', { desc = 'toggle Zen Mode' })
 
--- toggle background workaround, kinda janky if you ask me
-keymap("n", "<C-r>", ':exec &bg=="light"? "set bg=dark" : "set bg=light"<CR>', { noremap = true, silent = true })
-
-
+-- Change background color
+keymap("n", "tb", '<cmd>lua ToggleNight()<CR>', { noremap = true, silent = true })
 
 -- obsidian
 keymap("n", "<leader>oo", "<cmd>ObsidianQuickSwitch<cr>", { desc = 'Obsidian Quick-Switch' })
@@ -171,4 +186,4 @@ keymap('n', '<Esc>', '<cmd>NoiceDismiss<CR>', opts)
 -- huez theme picker
 
 keymap('n', '<leader>fc', '<cmd>lua require("huez.pickers").themes()<cr>', { desc = 'change colorscheme'})
-keymap('n', '<leader>fC', '<cmd>lua require("huez.pickers").live()<cr>', { desc = 'download colorschemes'})
+--keymap('n', '<leader>fC', '<cmd>lua require("huez.pickers").live()<cr>', { desc = 'download colorschemes'})
