@@ -4,5 +4,8 @@ require("eigengrau.config.functions.copy-paths")
 require("eigengrau.config.functions.folder-picker")
 require("eigengrau.config.functions.terminal")
 
+-- Load syntax-aware code runner (enhanced terminal)
+require("eigengrau.config.functions.code-runner")
+
 -- Setup prose formatting utilities
 require("eigengrau.config.functions.prose").setup()
