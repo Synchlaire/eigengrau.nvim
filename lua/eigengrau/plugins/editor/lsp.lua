@@ -9,7 +9,12 @@ return {
     lazy = true,
     event = { "BufReadPost", "BufNewFile" },
     opts = {
-      ensure_installed = { "lua_ls", "bashls", "tinymist", "harper_ls" },
+      ensure_installed = {
+        "lua_ls",
+        "bashls",
+        "tinymist",
+        -- "harper_ls"
+      },
       automatic_installation = true,
       handlers = {
         -- Default handler - setup all servers with new API
@@ -47,50 +52,9 @@ return {
           vim.lsp.enable("lua_ls")
         end,
 
-        -- Harper-ls for grammar/spelling (Spanish + English)
+        -- Harper-ls: Don't auto-enable, configured via lspconfig below
         ["harper_ls"] = function()
-          local capabilities =
-              require("blink.cmp").get_lsp_capabilities()
-
-          vim.lsp.config.harper_ls = {
-            capabilities = capabilities,
-            filetypes = { "markdown", "text", "gitcommit" },
-            settings = {
-              ["harper-ls"] = {
-                -- Language dialect (supports: "Spanish", "American", "British", "Australian", "Canadian")
-                dialect = "American",  -- Change to "Spanish" for Spanish-only
-
-                -- User dictionary path (add your own words)
-                userDictPath = vim.fn.stdpath("config") .. "/spell/harper_dict.txt",
-
-                -- Linters to enable/disable
-                linters = {
-                  spell_check = true,
-                  spelled_numbers = false,
-                  an_a = true,
-                  sentence_capitalization = true,
-                  unclosed_quotes = true,
-                  wrong_quotes = false,
-                  long_sentences = true,
-                  repeated_words = true,
-                  spaces = true,
-                  matcher = true,
-                  correct_number_suffix = true,
-                  number_suffix_capitalization = true,
-                  multiple_sequential_pronouns = true,
-                  linking_verbs = false,  -- Can be noisy
-                  avoid_curses = false,   -- You curse, we know
-                },
-
-                -- Code action behavior
-                codeActions = {
-                  forceStable = true,
-                },
-              },
-            },
-          }
-
-          vim.lsp.enable("harper_ls")
+          -- Empty handler, we'll use lspconfig.setup() in nvim-lspconfig config
         end,
       },
     },
@@ -115,6 +79,9 @@ return {
         },
         float = { border = "rounded" },
       })
+
+      -- Harper-ls: Disabled until proper 0.11+ migration
+      -- TODO: Migrate to vim.lsp.config API when ready
 
       -- LSP keymaps (only on attach)
       vim.api.nvim_create_autocmd("LspAttach", {
@@ -157,6 +124,7 @@ return {
           )
         end,
       })
+
     end,
   },
 }

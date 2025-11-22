@@ -23,6 +23,7 @@ return {
           -- plain.palettes.dark.bg = "#000000"         -- Pure black bg
           -- plain.palettes.dark.accent = "#ff87af"     -- Pink accent
           -- plain.palettes.light.bg = "#ffffff"        -- Pure white bg
+          -- plain.palettes.light.accent = "#B6D6FD"        -- Pure white bg
         end
       },
       {
@@ -41,7 +42,7 @@ return {
       },
       -- Neopywal
       -- { "neopywal" },
-      { "bettervim/yugen.nvim" },
+      -- { "bettervim/yugen.nvim" },
       -- monoglow
       -- { "wnkz/monoglow.nvim" },
 
@@ -62,6 +63,7 @@ return {
       -- Lackluster
       {
         "slugbyte/lackluster.nvim",
+        whitelist = {'lackluster','lackluster-night'},
         before = function(theme)
           Tweak_background = {
             normal = 'default',    -- main background
@@ -77,6 +79,7 @@ return {
       -- kanso
       {
         "webhooked/kanso.nvim",
+        whitelist = {'kanso-zen','kanso-pearl'},
         before = function(theme)
           require('kanso').setup({
             bold = true,      -- enable bold fonts
@@ -130,6 +133,7 @@ return {
       -- Solarized-osaka
       {
         "craftzdog/solarized-osaka.nvim",
+        whitelist = {'solarized-osaka'},
         before = function(theme)
           require("solarized-osaka").setup({
             -- your configuration comes here
@@ -167,10 +171,7 @@ return {
       -- zenbones (only zenwritten and neobones)
       {
         "zenbones-theme/zenbones.nvim",
-        colorschemes = {
-          { "zenwritten" },
-          { "neobones" },
-        },
+        whitelist = {'zenwritten','neobones'},
       },
 
 

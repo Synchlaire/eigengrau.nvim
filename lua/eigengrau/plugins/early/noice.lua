@@ -4,21 +4,19 @@ return {
     event = "VeryLazy",
     dependencies = {
       { "MunifTanjim/nui.nvim", event = "VeryLazy" },
-      --      {"rcarriga/nvim-notify", event ="VeryLazy"},
     },
     config = function()
       require("noice").setup({
+        -- Disable Noice notifications (often used to prevent conflicts)
+        notify = {
+          enabled = false,
+        },
 
         cmdline = {
-          enabled = true,   -- enables the Noice cmdline UI
-          view = "cmdline", -- options: cmdline | cmdline_popup .Change to `cmdline` to get a classic cmdline at the bottom
-          opts = {},        -- global options for the cmdline. See section on views
+          enabled = true,
+          view = "cmdline",
+          opts = {},
           format = {
-            -- conceal: (default=true) This will hide the text in the cmdline that matches the pattern.
-            -- view: (default is cmdline view)
-            -- opts: any options passed to the view
-            -- icon_hl_group: optional hl_group for the icon
-            -- title: set to anything or empty string to hide
             cmdline = { pattern = "^:", icon = "", lang = "vim" },
             search_down = { kind = "search", pattern = "^/", icon = " ", lang = "regex" },
             search_up = { kind = "search", pattern = "^%?", icon = " ", lang = "regex" },
@@ -29,15 +27,15 @@ return {
               lang = "lua",
             },
             help = { pattern = "^:%s*he?l?p?%s+", icon = "" },
-            input = {}, -- Used by input()
-            -- lua = false, -- to disable a format, set to `false`
+            input = {},
           },
         },
+
         routes = {
-          --	        {
-          view = "notify",
-          --        filter = { event = "msg_showmode" },
-          --	       },
+          {
+            view = "notify",
+            filter = { event = "msg_showmode" },
+          },
           {
             filter = {
               event = "msg_show",
@@ -47,14 +45,13 @@ return {
             opts = { skip = true },
           },
         },
+
         lsp = {
           progress = {
             enabled = true,
-            -- Lsp Progress is formatted using the builtins for lsp_progress. See config.format.builtin
-            -- See the section on formatting for more details on how to customize.
             format = "lsp_progress",
             format_done = "lsp_progress_done",
-            throttle = 1000 / 30, -- frequency to update lsp progress message
+            throttle = 1000 / 30,
             view = "mini",
           },
           override = {
@@ -64,39 +61,33 @@ return {
           },
           hover = {
             enabled = true,
-            silent = false, -- set to true to not show a message if hover is not available
-            view = nil,     -- when nil, use defaults from documentation
-            opts = {},      -- merged with defaults from documentation
+            silent = false,
+            view = nil,
+            opts = {},
           },
           signature = {
             enabled = true,
             auto_open = {
               enabled = true,
-              trigger = true, -- Automatically show signature help when typing a trigger character from the LSP
-              luasnip = true, -- Will open signature help when jumping to Luasnip insert nodes
-              throttle = 50,  -- Debounce lsp signature help request by 50ms
+              trigger = true,
+              luasnip = true,
+              throttle = 50,
             },
-            view = nil,       -- when nil, use defaults from documentation
-            opts = {},        -- merged with defaults from documentation
+            view = nil,
+            opts = {},
           },
           messages = {
-            -- Messages shown by lsp servers
             enabled = true,
             view = "notify",
-            view_error = "notify",       -- view for errors
-            view_warn = "virtualtext",   -- view for warnings
-            view_history = "messages",   -- view for :messages
-            view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
-
+            view_error = "notify",
+            view_warn = "virtualtext",
+            view_history = "messages",
+            view_search = "virtualtext",
             opts = {},
           },
           popupmenu = {
-            enabled = true,  -- enables the Noice popupmenu UI
-            ---@type 'nui'|'cmp'
-            backend = "cmp", -- backend to use to show regular cmdline completions
-            ---@type NoicePopupmenuItemKind|false
-            -- Icons for completion item kinds (see defaults at noice.config.icons.kinds)
-            -- defaults for hover and signature help
+            enabled = true,
+            backend = "cmp",
           },
           documentation = {
             view = "hover",
@@ -109,10 +100,11 @@ return {
             },
           },
         },
+
         markdown = {
           hover = {
-            ["|(%S-)|"] = vim.cmd.help,                       -- vim help links
-            ["%[.-%]%((%S-)%)"] = require("noice.util").open, -- markdown links
+            ["|(%S-)|"] = vim.cmd.help,
+            ["%[.-%]%((%S-)%)"] = require("noice.util").open,
           },
           highlights = {
             ["|%S-|"] = "@text.reference",
@@ -123,39 +115,29 @@ return {
             ["{%S-}"] = "@parameter",
           },
         },
+
         health = {
-          checker = true, -- Disable if you don't want health checks to run
+          checker = true,
         },
+
         smart_move = {
-          -- noice tries to move out of the way of existing floating windows.
-          enabled = true, -- you can disable this behaviour here
-          -- add any filetypes here, that shouldn't trigger smart move.
+          enabled = true,
           excluded_filetypes = { "cmp_menu", "cmp_docs", "notify" },
         },
 
         presets = {
-          -- you can enable a preset by setting it to true, or a table that will override the preset config
-          -- you can also add custom presets that you can enable/disable with enabled=true
-          bottom_search = false,        -- use a classic bottom cmdline for search
-          command_palette = false,      -- position the cmdline and popupmenu together
-          long_message_to_split = true, -- long messages will be sent to a split
-          inc_rename = true,            -- enables an input dialog for inc-rename.nvim
-          lsp_doc_border = true,        -- add a border to hover docs and signature help
-        },
-        {
-          win_options = {
-            winhighlight = {
-              Normal = "NormalFloat",
-              FloatBorder = "FloatBorder",
-            },
-          },
+          bottom_search = false,
+          command_palette = false,
+          long_message_to_split = true,
+          inc_rename = true,
+          lsp_doc_border = true,
         },
       })
+
+      -- Keymap definition
+      vim.keymap.set("c", "<S-Enter>", function()
+        require("noice").redirect(vim.fn.getcmdline())
+      end, { desc = "Redirect Cmdline" })
     end,
   },
-
-  vim.keymap.set("c", "<S-Enter>", function()
-    require("noice").redirect(vim.fn.getcmdline())
-  end, { desc = "Redirect Cmdline" })
-
 }

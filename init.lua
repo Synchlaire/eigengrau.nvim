@@ -20,12 +20,16 @@ vim.g.mapleader = " "
 
 -- Ensure API keys from shell environment are accessible
 if not os.getenv("GEMINI_API_KEY") then
-  local handle = io.popen("echo $GEMINI_API_KEY")
-  if handle then
-    local result = handle:read("*a"):gsub("\n", "")
-    handle:close()
-    if result ~= "" then
-      vim.env.GEMINI_API_KEY = result
+  -- Try reading directly from shell config file (for neovide + GUI launches)
+  local shell_config = os.getenv("HOME") .. "/.config/shell/vars.zsh"
+  local file = io.open(shell_config, "r")
+  if file then
+    local content = file:read("*a")
+    file:close()
+    -- Extract GEMINI_API_KEY from export line
+    local key = content:match('export%s+GEMINI_API_KEY%s*=%s*"([^"]+)"')
+    if key and key ~= "" then
+      vim.env.GEMINI_API_KEY = key
     end
   end
 end

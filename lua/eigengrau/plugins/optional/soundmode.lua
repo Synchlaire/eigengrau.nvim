@@ -2,7 +2,6 @@ return {
   "jackplus-xyz/player-one.nvim",
   lazy = true,
   cmd = {"PlayerOneToggle", "PlayerOneEnable", "PlayerOneDisable", "PlayerOneUpdate", "PlayerOneLoad"},
-  keys = {"n", "<space><F1>", "<cmd>PlayerOneToggle<CR>"},
   opts = {
     auto_update = true,
     use_development = true, -- use development builds

@@ -3,47 +3,53 @@
 
 local M = {}
 
--- Palettes
+-- Palettes (adapted from vim-colors-plain by andreypopp)
 M.palettes = {
   dark = {
-    bg = "#121212",
-    bg_alt = "#1a1a1a",
-    fg = "#b0b0b0",
-    fg_dim = "#707070",
-    fg_bright = "#d0d0d0",
-    accent = "#87afd7",
-    accent_dim = "#5f87af",
-    string = "#afaf87",
-    error = "#d78787",
-    warn = "#d7af87",
-    info = "#87afd7",
-    hint = "#87af87",
-    add = "#87af87",
-    change = "#d7af87",
-    delete = "#d78787",
-    selection = "#303030",
-    comment = "#606060",
-    border = "#404040",
+    bg = "#000000",           -- s:black
+    bg_alt = "#303030",       -- s:subtle_black
+    fg = "#CCCCCC",           -- s:lighter_gray (norm)
+    fg_dim = "#999999",       -- s:light_gray (norm_subtle)
+    fg_bright = "#E5E5E5",    -- s:lightest_gray
+    accent = "#B6D6FD",       -- s:light_blue (constant)
+    accent_dim = "#008EC4",   -- s:dark_blue
+    string = "#B6D6FD",       -- s:light_blue (constant in vim-colors-plain)
+    error = "#E32791",        -- s:light_red
+    warn = "#F3E430",         -- s:light_yellow
+    info = "#4FB8CC",         -- s:light_cyan
+    hint = "#5FD7A7",         -- s:light_green
+    add = "#5FD7A7",          -- s:light_green
+    change = "#F3E430",       -- s:light_yellow
+    delete = "#E32791",       -- s:light_red
+    selection = "#545454",    -- s:lighter_black (visual)
+    comment = "#999999",      -- s:light_gray
+    border = "#424242",       -- s:light_black
+    purple = "#6855DE",       -- s:light_purple
+    cyan = "#4FB8CC",         -- s:light_cyan
+    cursor_line = "#303030",  -- s:subtle_black
   },
   light = {
-    bg = "#f5f5f5",
-    bg_alt = "#e8e8e8",
-    fg = "#444444",
-    fg_dim = "#888888",
-    fg_bright = "#222222",
-    accent = "#0087af",
-    accent_dim = "#005f87",
-    string = "#5f5f00",
-    error = "#af0000",
-    warn = "#875f00",
-    info = "#005faf",
-    hint = "#005f00",
-    add = "#005f00",
-    change = "#875f00",
-    delete = "#af0000",
-    selection = "#d7d7d7",
-    comment = "#808080",
-    border = "#c0c0c0",
+    bg = "#F1F1F1",           -- s:white
+    bg_alt = "#E5E5E5",       -- s:lightest_gray
+    fg = "#424242",           -- s:light_black (norm)
+    fg_dim = "#545454",       -- s:lighter_black (norm_subtle)
+    fg_bright = "#222222",    -- s:black
+    accent = "#008EC4",       -- s:dark_blue (constant)
+    accent_dim = "#005f87",   -- darker variant
+    string = "#008EC4",       -- s:dark_blue (constant in vim-colors-plain)
+    error = "#C30771",        -- s:dark_red
+    warn = "#A89C14",         -- s:dark_yellow
+    info = "#20A5BA",         -- s:dark_cyan
+    hint = "#10A778",         -- s:dark_green
+    add = "#10A778",          -- s:dark_green
+    change = "#A89C14",       -- s:dark_yellow
+    delete = "#C30771",       -- s:dark_red
+    selection = "#B6D6FD",    -- s:light_blue (visual)
+    comment = "#999999",      -- s:light_gray
+    border = "#CCCCCC",       -- s:lighter_gray
+    purple = "#523C79",       -- s:dark_purple
+    cyan = "#20A5BA",         -- s:dark_cyan
+    cursor_line = "#E5E5E5",  -- s:lightest_gray
   },
 }
 
@@ -83,7 +89,7 @@ M.setup = function(variant)
   hi("FloatTitle", { fg = p.accent, bg = p.bg_alt, bold = true })
 
   hi("Cursor", { fg = p.bg, bg = p.fg })
-  hi("CursorLine", { bg = p.bg_alt })
+  hi("CursorLine", { bg = p.cursor_line })
   hi("CursorLineNr", { fg = p.fg_bright, bold = true })
   hi("LineNr", { fg = p.fg_dim })
   hi("SignColumn", { bg = p.bg })

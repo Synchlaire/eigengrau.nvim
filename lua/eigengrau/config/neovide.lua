@@ -77,8 +77,8 @@ vim.g.neovide_cursor_trail_size = 0.5        -- Balanced trail
 --====================================================================================================
 
 -- Enable smooth scrolling for better UX
-vim.g.neovide_scroll_animation_length = 0.15  -- Snappier but still smooth
-vim.g.neovide_position_animation_length = 0.15
+vim.g.neovide_scroll_animation_length = 0.05  -- Snappier but still smooth
+vim.g.neovide_position_animation_length = 0.05
 
 -- Additional performance tuning
 vim.g.neovide_underline_stroke_scale = 1.0   -- Crisp underlines
@@ -88,7 +88,7 @@ vim.g.neovide_cursor_unfocused_outline_width = 0.125  -- Reduce outline render c
 -- 0 = no animations for page scrolling (best performance)
 -- Large number = smooth animation for all scrolls (better UX, higher GPU load)
 -- We use a moderate value: animate scrolls up to ~15 lines for smooth feel without GPU stress
-vim.g.neovide_scroll_animation_far_lines = 15
+-- vim.g.neovide_scroll_animation_far_lines = 15
 
 -- Layer Grouping (experimental) - Keep disabled
 vim.g.experimental_layer_grouping = false

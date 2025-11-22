@@ -114,10 +114,6 @@ return {
         blink = true,
       },
 
-      -- CRITICAL: Disable automatic frontmatter management
-      -- This prevents obsidian.nvim from modifying your files on save
-      disable_frontmatter = true,
-
       create_new = true,
 
       picker = {
@@ -172,18 +168,21 @@ return {
 
       new_notes_location = "notes_subdir",
 
-      -- Frontmatter is disabled above, but keep this for manual template usage
-      -- This only applies when YOU explicitly create notes via :Obsidian new
-      note_frontmatter_func = function(note)
-        local out = {
-          aliases = note.aliases or { note.title },
-          tags = note.tags or { "" },
-        }
-        if note.metadata and note.metadata.sorted ~= nil then
-          out.sorted = note.metadata.sorted
-        end
-        return out
-      end,
+      -- Frontmatter configuration (new API for obsidian.nvim 4.0+)
+      frontmatter = {
+        enabled = false, -- Disable automatic frontmatter management
+        -- This only applies when YOU explicitly create notes via :Obsidian new
+        func = function(note)
+          local out = {
+            aliases = note.aliases or { note.title },
+            tags = note.tags or { "" },
+          }
+          if note.metadata and note.metadata.sorted ~= nil then
+            out.sorted = note.metadata.sorted
+          end
+          return out
+        end,
+      },
 
       daily_notes = {
         folder = "logs",

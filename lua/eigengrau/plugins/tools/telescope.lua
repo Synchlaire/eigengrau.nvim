@@ -1,12 +1,12 @@
 return {
   -- Telescope plugins
+  -- Note: Many commands migrated to fzf-lua for better performance
+  -- fzf-lua now handles: files, grep, oldfiles
+  -- Telescope handles: help_tags, sessions, picker discovery
   'nvim-telescope/telescope.nvim',
   lazy = true,
   cmd = { "Telescope" },
   keys = {
-    { '<leader>fd', '<cmd>Telescope fd<CR>',        desc = 'Find files across system' },
-    { '<leader>fg', '<cmd>Telescope live_grep<CR>', desc = 'live grep' },
-    { '<leader>ff', '<cmd>Telescope oldfiles<CR>',  desc = 'search recent files' },
     { '<leader>fh', '<cmd>Telescope help_tags<CR>', desc = 'help tags' },
   },
 
