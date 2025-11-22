@@ -233,23 +233,52 @@ keymap("n", "<leader>rn", "<cmd>lua require('snacks').rename.rename_file()<CR>",
 keymap("n", "<leader>dd", "<cmd>lua require('snacks').bufdelete()<CR>", { desc = "delete buffer" })
 
 
--- Parrot.nvim - AI-powered text generation
-keymap("n", "<leader>pn", "<cmd>PrtChatNew<CR>", { desc = "Parrot: New chat" })
-keymap("n", "<leader>pt", "<cmd>PrtChatToggle<CR>", { desc = "Parrot: Toggle chat" })
-keymap("n", "<leader>pp", "<cmd>PrtChatPaste<CR>", { desc = "Parrot: Paste to chat" })
-keymap("n", "<leader>pf", "<cmd>PrtChatFinder<CR>", { desc = "Parrot: Find chat" })
-keymap("n", "<leader>pm", "<cmd>PrtModel<CR>", { desc = "Parrot: Select model" })
-keymap("n", "<leader>pr", "<cmd>PrtProvider<CR>", { desc = "Parrot: Select provider" })
-keymap("n", "<leader>ps", "<cmd>PrtStatus<CR>", { desc = "Parrot: Show status" })
--- Visual mode prompts
-keymap("v", "<leader>pw", "<cmd>PrtRewrite<CR>", { desc = "Parrot: Rewrite selection" })
-keymap("v", "<leader>pa", "<cmd>PrtAppend<CR>", { desc = "Parrot: Append to selection" })
-keymap("v", "<leader>pi", "<cmd>PrtPrepend<CR>", { desc = "Parrot: Prepend to selection" })
+-- ===========================================================================
+-- PARROT.NVIM KEYBINDS
+-- ===========================================================================
 
--- Custom prompt shortcuts (visual mode)
-keymap("v", "<leader>pc", "<cmd>PrtRewrite WritingCritic<CR>", { desc = "Parrot: Writing critic" })
-keymap("v", "<leader>pk", "<cmd>PrtRewrite TaskBreakdown<CR>", { desc = "Parrot: Break into tasks" })
-keymap("v", "<leader>po", "<cmd>PrtRewrite ObsidianFormat<CR>", { desc = "Parrot: Obsidian format" })
-keymap("v", "<leader>pv", "<cmd>PrtRewrite PhilosophyBreakdown<CR>", { desc = "Parrot: Philosophy lens" })
-keymap("v", "<leader>pz", "<cmd>PrtRewrite Tighten<CR>", { desc = "Parrot: Tighten prose" })
+-- Chat Management
+keymap("n", "<leader>pcn", "<cmd>PrtChatNew<CR>",     { desc = "Parrot → New chat" })
+keymap("n", "<leader>pct", "<cmd>PrtChatToggle<CR>",  { desc = "Parrot → Toggle chat" })
+keymap("n", "<leader>pcp", "<cmd>PrtChatPaste<CR>",   { desc = "Parrot → Paste into chat" })
+keymap("n", "<leader>pcf", "<cmd>PrtChatFinder<CR>",  { desc = "Parrot → Find chat" })
+keymap("n", "<leader>pcm", "<cmd>PrtModel<CR>",       { desc = "Parrot → Select model" })
+keymap("n", "<leader>pcr", "<cmd>PrtProvider<CR>",    { desc = "Parrot → Select provider" })
+keymap("n", "<leader>pcs", "<cmd>PrtStatus<CR>",      { desc = "Parrot → Status" })
 
+-- Core Visual Actions
+keymap("v", "<leader>pr", ":PrtRewrite<CR>",  { desc = "Parrot → Rewrite" })
+keymap("v", "<leader>pa", ":PrtAppend<CR>",   { desc = "Parrot → Append" })
+keymap("v", "<leader>pi", ":PrtPrepend<CR>",  { desc = "Parrot → Prepend" })
+
+-- Writing Hooks
+keymap("v", "<leader>pw", ":PrtHook WritingCritic<CR>",  { desc = "Parrot → Writing Critic" })
+keymap("v", "<leader>pz", ":PrtHook Tighten<CR>",        { desc = "Parrot → Tighten prose" })
+keymap("v", "<leader>ps", ":PrtHook ProseStyle<CR>",     { desc = "Parrot → Prose style" })
+keymap("v", "<leader>pS", ":PrtHook Spell<CR>",          { desc = "Parrot → Spell/grammar" })
+
+-- Philosophy & Analysis Hooks
+keymap("v", "<leader>pv", ":PrtHook PhiloLens<CR>",      { desc = "Parrot → Philosophy lens" })
+keymap("v", "<leader>pk", ":PrtHook ConceptMap<CR>",     { desc = "Parrot → Concept map" })
+keymap("v", "<leader>pg", ":PrtHook ArgumentMap<CR>",    { desc = "Parrot → Argument map" })
+keymap("v", "<leader>pe", ":PrtHook Etymology<CR>",      { desc = "Parrot → Etymology" })
+
+-- Task & Productivity Hooks
+keymap("v", "<leader>pt", ":PrtHook TaskBreakdown<CR>",  { desc = "Parrot → Task breakdown" })
+keymap("v", "<leader>pn", ":PrtHook NextAction<CR>",     { desc = "Parrot → Next action" })
+keymap("v", "<leader>px", ":PrtHook UnfuckThis<CR>",     { desc = "Parrot → Unfuck this" })
+
+-- Code Hooks
+keymap("v", "<leader>pf", ":PrtHook Prettify<CR>",       { desc = "Parrot → Prettify code" })
+keymap("v", "<leader>pc", ":PrtHook CodeReview<CR>",     { desc = "Parrot → Code review" })
+keymap("v", "<leader>pd", ":PrtHook DebugStrategy<CR>",  { desc = "Parrot → Debug strategy" })
+keymap("v", "<leader>pl", ":PrtHook ExplainCode<CR>",    { desc = "Parrot → Explain code" })
+
+-- Obsidian & Knowledge Hooks
+keymap("v", "<leader>po", ":PrtHook ObsidianFormat<CR>", { desc = "Parrot → Obsidian format" })
+keymap("v", "<leader>pj", ":PrtHook VaultLink<CR>",      { desc = "Parrot → Vault links" })
+keymap("v", "<leader>pD", ":PrtHook DailyLog<CR>",       { desc = "Parrot → Daily log" })
+
+-- General Utilities
+keymap("v", "<leader>pq", ":PrtHook Summarize<CR>",      { desc = "Parrot → Summarize" })
+keymap("v", "<leader>pT", ":PrtHook Translate<CR>",      { desc = "Parrot → Translate" })

@@ -166,97 +166,338 @@ config.prompts = {
 -- These use full hook functions that hardcode the prompt template and call parrot.Prompt directly.
 -- Invoke via :PrtHook <hook_name> (e.g., :'<,'>PrtHook WritingCritic) on a visual selection.
 -- With preview_auto_apply=true, output applies directly to the buffer after generation.
+-- ============================================================================
+-- HOOKS CONFIGURATION
+-- ============================================================================
+
 config.hooks = {
-  -- Writing & Prose
+  -- ============================================================================
+  -- WRITING & PROSE
+  -- ============================================================================
+
   WritingCritic = function(parrot, params)
-    local template = [[You are a ruthless literary critic trained in the prose styles of McCarthy, Borges, Hemingway, and David Foster Wallace.
-
-Analyze the provided text and provide specific, actionable feedback with inline comments. Look for:
-- Excessive abstraction or purple prose (McCarthy & Foster Wallace tend toward this)
-- Unnecessary words that should be cut (Hemingway's economy principle)
+    local template = [[You're a ruthless literary critic. Analyze this text for:
+- Excessive abstraction or purple prose
+- Words that should be cut (Hemingway principle: if it can go, it goes)
 - Awkward phrasing that obscures meaning
-- Weak verbs or passive construction
-- Clichéd expressions or lazy metaphors
-- Where the writing could be more beautiful, precise, or evocative
+- Weak verbs, passive construction, clichés
+- Where it could be more precise or evocative
 
-Format your response as:
-1. Overall assessment (1-2 sentences on the strongest and weakest aspects)
-2. Line-by-line comments with specific suggestions (use inline markdown like: `[current text] → [better version]` or `[remove this: redundant]`)
-3. 3-5 specific rewrites you'd suggest, showing before/after
+Format:
+1. Strongest/weakest aspects (2 sentences max)
+2. Inline fixes: `[current] → [better]` or `[cut this: why]`
+3. 3 specific before/after rewrites
 
-Be blunt. Don't praise what doesn't deserve it. Show, don't tell.
+Be blunt. Show, don't tell.
 
 Text: {{selection}}]]
     local model_obj = parrot.get_model("command")
     parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "WritingCritic ~ ", template)
   end,
 
-  -- Brainstorm to Tasks
-  TaskBreakdown = function(parrot, params)
-    local template = [[Take this brain dump and convert it into a structured markdown task list.
-
-For each idea/thought:
-1. Extract the core actionable item
-2. Break it into 3-5 concrete micro-tasks (each should take 15-60 minutes max)
-3. Identify dependencies (what must be done first)
-4. Note any blockers or unknowns
-
-Format as markdown checkboxes with dependencies noted.
-
-Keep it ruthlessly pragmatic. If a task is too vague, ask clarifying questions. Assume I have ADHD and executive dysfunction, so tiny steps are better than big ones.
-
-Brain dump: {{selection}}]]
-    local model_obj = parrot.get_model("command")
-    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "TaskBreakdown ~ ", template)
-  end,
-
-  -- Obsidian Formatting
-  ObsidianFormat = function(parrot, params)
-    local template = "Format the provided text as a well-structured Obsidian markdown note.\n\nRequirements:\n- Add a YAML frontmatter with: date, type (concept/note/reference/fleeting), tags\n- Use proper heading hierarchy (start with H2 for content, H1 is the title in frontmatter)\n- Create internal links for key concepts that might become vault entries\n- Use code blocks for technical terms or exact quotes\n- Add a 'Related' section at the bottom with backlinks\n- Use blockquotes for important quotes or highlighted ideas\n- Break content into logical sections with subheadings\n- Keep prose concise but meaningful\n\nThe goal is to make this easily searchable and linkable within my vault. Preserve nuance but cut filler.\n\nContent: {{selection}}"
-    local model_obj = parrot.get_model("command")
-    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "ObsidianFormat ~ ", template)
-  end,
-
-  -- Philosophy/Analysis
-  PhilosophyBreakdown = function(parrot, params)
-    local template = [[Analyze the provided text through multiple philosophical lenses:
-1. Phenomenological: What is the lived experience being described?
-2. Existential: What does this reveal about freedom, authenticity, or meaning?
-3. Epistemological: What assumptions about knowledge are present?
-4. Etymological: Trace key terms back to their roots - what do they really mean?
-
-Format:
-- Lead with your strongest insight
-- Be specific with citations/references if relevant
-- Flag contradictions or unexamined assumptions
-- End with what's left unresolved
-
-No corporate platitudes. Assume I have a philosophy background and depth to engage with nuance.
-
-Text: {{selection}}]]
-    local model_obj = parrot.get_model("command")
-    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "PhilosophyBreakdown ~ ", template)
-  end,
-
-  -- Editing/Tightening
   Tighten = function(parrot, params)
-    local template = [[Remove every unnecessary word without losing meaning or voice. Cut filler, repetition, and weak constructions. Show me what you'd cut and what you'd keep.
+    local template = [[Remove every unnecessary word without losing meaning or voice. Cut filler, repetition, weak constructions. Show what you'd cut and what you'd keep.
 
 Original: {{selection}}]]
     local model_obj = parrot.get_model("command")
     parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "Tighten ~ ", template)
   end,
 
-  -- New: Code Prettifier (syntax-aware formatting)
-  Prettify = function(parrot, params)
-    local template = [[Reformat the following {{filetype}} code snippet to follow standard formatting conventions (e.g., indentation, line breaks, spacing). Make it clean, readable, and idiomatic for {{filetype}} without changing any logic, functionality, or comments. Preserve the exact behavior.
+  ProseStyle = function(parrot, params)
+    local template = [[Rewrite this in the style requested, but keep the core meaning intact.
+
+Available styles:
+- McCarthy: Sparse, biblical cadence, no quotation marks
+- Hemingway: Brutal economy, short declarative sentences
+- Borges: Labyrinthine, erudite, nested frames
+- DFW: Footnote-heavy, self-aware, maximalist precision
+
+Which style? {{command_args}}
+
+Original: {{selection}}]]
+    local model_obj = parrot.get_model("command")
+    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "ProseStyle ~ ", template)
+  end,
+
+  -- ============================================================================
+  -- PHILOSOPHY & ANALYSIS
+  -- ============================================================================
+
+  ConceptMap = function(parrot, params)
+    local template = "Extract key concepts and map their relationships.\n\nFor each concept:\n- Core definition (1 sentence)\n- Etymological roots if relevant\n- Connections to other concepts in text\n- What's ambiguous or unexamined\n\nFormat: markdown with vault links using [concept] notation.\nEnd with 2-3 unanswered questions this raises.\n\nNo fluff. Assume philosophy background.\n\nText: {{selection}}"
+    local model_obj = parrot.get_model("command")
+    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "ConceptMap ~ ", template)
+  end,
+
+  ArgumentMap = function(parrot, params)
+    local template = [[Dissect this argument's structure:
+
+1. Main claim(s)
+2. Premises (explicit and implicit)
+3. Logical structure (deductive/inductive/abductive)
+4. Assumptions (stated and unstated)
+5. Strongest objections
+6. What's doing the actual work
+
+Be surgical. Show where reasoning breaks or rests on unexamined premises.
+
+Argument: {{selection}}]]
+    local model_obj = parrot.get_model("command")
+    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "ArgumentMap ~ ", template)
+  end,
+
+  PhiloLens = function(parrot, params)
+    local template = [[Analyze through ONE philosophical lens (specify which):
+- Phenomenological: lived experience, embodiment, perception
+- Existential: freedom, authenticity, meaning, absurdity
+- Psychoanalytic: desire, lack, unconscious, symptom
+- Epistemological: knowledge, justification, skepticism
+
+Format:
+- Core insight (2-3 sentences)
+- Key concepts from this tradition that apply
+- What this lens reveals that others miss
+- What it can't see
+
+Be specific. Flag contradictions. End with what's unresolved.
+
+Lens: {{command_args}}
+Text: {{selection}}]]
+    local model_obj = parrot.get_model("command")
+    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "PhiloLens ~ ", template)
+  end,
+
+  Etymology = function(parrot, params)
+    local template = [[Trace the etymological roots of key terms in this text.
+
+For each significant word:
+- Original language and root meaning
+- How meaning shifted over time
+- What the etymology reveals about the concept
+- Related terms from same root
+
+Focus on words doing conceptual work, not filler.
+Be specific with dates/sources when you can.
+
+Text: {{selection}}]]
+    local model_obj = parrot.get_model("command")
+    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "Etymology ~ ", template)
+  end,
+
+  -- ============================================================================
+  -- TASK MANAGEMENT & ADHD SUPPORT
+  -- ============================================================================
+
+  TaskBreakdown = function(parrot, params)
+    local template = [[Convert this brain dump into concrete micro-tasks.
+
+Rules:
+- Each task: 15-60 minutes max
+- Start with smallest possible action (not "set up server" → "create project directory")
+- Flag dependencies explicitly
+- Note blockers/unknowns as separate items
+- Add difficulty: (trivial/easy/medium/hard)
+
+Format: markdown checkboxes with inline notes.
+Cut vague items. If unclear → "[CLARIFY: what specifically?]"
+
+Brain dump: {{selection}}]]
+    local model_obj = parrot.get_model("command")
+    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "TaskBreakdown ~ ", template)
+  end,
+
+  NextAction = function(parrot, params)
+    local template = [[Given this context, what's the immediate next action?
+
+Requirements:
+- Must be completable in <30 minutes
+- No dependencies or prerequisites
+- Specific enough to start without planning
+- Physical action (not "think about" or "research")
+
+Format: Single sentence. That's it.
+
+Context: {{selection}}]]
+    local model_obj = parrot.get_model("command")
+    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "NextAction ~ ", template)
+  end,
+
+  UnfuckThis = function(parrot, params)
+    local template = [[I'm stuck. Help me unfuck this situation.
+
+Analyze:
+1. What's the actual problem? (not the symptom)
+2. What am I avoiding/overthinking?
+3. What's the stupidly obvious thing I'm missing?
+4. Smallest possible step forward
+
+Be blunt. Call out if this is executive dysfunction vs actual complexity.
+
+Situation: {{selection}}]]
+    local model_obj = parrot.get_model("command")
+    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "UnfuckThis ~ ", template)
+  end,
+
+  -- ============================================================================
+  -- CODE & TECHNICAL
+  -- ============================================================================
+
+  DebugStrategy = function(parrot, params)
+    local template = [[Given this broken code/error, provide debugging strategy.
+
+Don't fix it yet. Instead:
+1. Problem type? (syntax/logic/runtime/architecture)
+2. Minimal test case?
+3. What would each failure mode look like?
+4. Diagnostic process (step 1, 2, 3...)
+5. Common gotchas for this pattern/language
+
+Be specific. Assume I can code but need diagnostic reasoning.
+
+Code/Error:
+``````````{{filetype}}
+{{selection}}
+`````````]]
+    local model_obj = parrot.get_model("command")
+    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "DebugStrategy ~ ", template)
+  end,
+
+  CodeReview = function(parrot, params)
+    local template = [[Review this code like you're doing a PR review.
+
+Check for:
+- Logic errors or edge cases
+- Performance issues
+- Readability/maintainability
+- Better patterns or idioms for {{filetype}}
+- Security concerns
+- What would break this?
+
+Format: Inline comments with specific line references.
+Be direct. Assume I want to learn, not be coddled.
 
 Code:
-```{{filetype}}
+````````{{filetype}}
+{{selection}}
+```````]]
+    local model_obj = parrot.get_model("command")
+    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "CodeReview ~ ", template)
+  end,
+
+  Prettify = function(parrot, params)
+    local template = [[Reformat this {{filetype}} code to follow standard conventions.
+
+Requirements:
+- Proper indentation/spacing
+- Idiomatic style for {{filetype}}
+- NO logic changes
+- NO functionality changes
+- Preserve all comments
+
+Just make it clean and readable.
+
+Code:
+``````{{filetype}}
+{{selection}}
+`````]]
+    local model_obj = parrot.get_model("command")
+    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "Prettify ~ ", template)
+  end,
+
+  ExplainCode = function(parrot, params)
+    local template = [[Explain what this code does.
+
+Format:
+1. High-level purpose (1 sentence)
+2. Step-by-step breakdown (be specific about logic)
+3. Key concepts/patterns used
+4. Potential gotchas or edge cases
+
+Assume I code but might not know this specific pattern/library.
+Be precise, not condescending.
+
+Code:
+````{{filetype}}
 {{selection}}
 ```]]
     local model_obj = parrot.get_model("command")
-    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "Prettify ~ ", template)
+    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "ExplainCode ~ ", template)
+  end,
+
+  -- ============================================================================
+  -- OBSIDIAN & VAULT INTEGRATION
+  -- ============================================================================
+
+  ObsidianFormat = function(parrot, params)
+    local template = "Format as structured Obsidian note.\n\nRequirements:\n- YAML frontmatter: date, type (concept/note/reference/fleeting), tags\n- Heading hierarchy (H2+ for content, H1 is title in frontmatter)\n- Internal links for key concepts\n- Code blocks for technical terms/quotes\n- 'Related' section with backlinks\n- Blockquotes for important ideas\n- Logical sections with subheadings\n\nGoal: searchable, linkable, concise but meaningful.\n\nContent: {{selection}}"
+    local model_obj = parrot.get_model("command")
+    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "ObsidianFormat ~ ", template)
+  end,
+
+  VaultLink = function(parrot, params)
+    local template = "Analyze for vault integration.\n\nSuggest:\n1. Concepts worth their own note\n2. Existing vault notes this connects to\n3. Specific tags (not generic)\n4. Where this fits in knowledge structure\n\nOnly link concepts worth separate entries.\nBe practical, not exhaustive.\n\nText: {{selection}}"
+    local model_obj = parrot.get_model("command")
+    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "VaultLink ~ ", template)
+  end,
+
+  DailyLog = function(parrot, params)
+    local template = [[Convert this into a daily log entry.
+
+Format:
+- Key events/tasks completed
+- Interesting thoughts/observations
+- Problems encountered
+- Next session priorities
+
+Keep it factual and concise. This is for reference, not poetry.
+
+Raw notes: {{selection}}]]
+    local model_obj = parrot.get_model("command")
+    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "DailyLog ~ ", template)
+  end,
+
+  -- ============================================================================
+  -- UTILITY & EDITING
+  -- ============================================================================
+
+  Spell = function(parrot, params)
+    local template = [[Proofread and fix spelling/grammar errors.
+
+Don't change style or tone. Just fix actual mistakes.
+
+Text: {{selection}}]]
+    local model_obj = parrot.get_model("command")
+    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "Spell ~ ", template)
+  end,
+
+  Summarize = function(parrot, params)
+    local template = [[Summarize this concisely.
+
+Requirements:
+- Preserve key points and nuance
+- Cut fluff and repetition
+- Keep technical terms intact
+- Aim for 30-40% of original length
+
+Be ruthless but fair.
+
+Text: {{selection}}]]
+    local model_obj = parrot.get_model("command")
+    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "Summarize ~ ", template)
+  end,
+
+  Translate = function(parrot, params)
+    local template = [[Translate this to {{command_args}}.
+
+Preserve:
+- Original tone/register
+- Technical terms (provide target language equivalent in parentheses if needed)
+- Cultural context where relevant
+
+Target language: {{command_args}}
+Text: {{selection}}]]
+    local model_obj = parrot.get_model("command")
+    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "Translate ~ ", template)
   end,
 }
 
