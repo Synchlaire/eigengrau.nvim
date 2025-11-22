@@ -127,15 +127,16 @@ config.user_input_ui = "native"
 config.command_prompt_prefix_template = " {{llm}} ~ "
 config.command_auto_select_response = true
 
--- Popup configuration (less intrusive, right-side positioning)
+-- Popup configuration (disable preview, push to right edge)
 config.style_popup_border = "rounded"
-config.style_popup_margin_bottom = 2
-config.style_popup_margin_left = 0
+config.style_popup_margin_bottom = 4
+config.style_popup_margin_left = 40  -- push way to the right
 config.style_popup_margin_right = 1
 config.style_popup_margin_top = 1
 config.style_popup_max_width = 80  -- narrower, easier to read
 config.style_popup_max_height = 30
 config.style_popup_position = "bottom"  -- keep at bottom, less flash
+config.enable_preview = false  -- disable broken preview
 
 -- Performance
 config.model_cache_expiry_hours = 48
