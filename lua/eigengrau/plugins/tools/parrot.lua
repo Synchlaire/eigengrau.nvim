@@ -127,13 +127,15 @@ config.user_input_ui = "native"
 config.command_prompt_prefix_template = " {{llm}} ~ "
 config.command_auto_select_response = true
 
--- Popup configuration
-config.style_popup_border = "single"
-config.style_popup_margin_bottom = 8
-config.style_popup_margin_left = 1
-config.style_popup_margin_right = 2
-config.style_popup_margin_top = 2
-config.style_popup_max_width = 160
+-- Popup configuration (less intrusive, right-side positioning)
+config.style_popup_border = "rounded"
+config.style_popup_margin_bottom = 2
+config.style_popup_margin_left = 0
+config.style_popup_margin_right = 1
+config.style_popup_margin_top = 1
+config.style_popup_max_width = 80  -- narrower, easier to read
+config.style_popup_max_height = 30
+config.style_popup_position = "bottom"  -- keep at bottom, less flash
 
 -- Performance
 config.model_cache_expiry_hours = 48
@@ -213,11 +215,11 @@ Text: {{selection}}]]
   end,
 
   Tighten = function(parrot, params)
-    local template = [[Remove every unnecessary word without losing meaning or voice. Cut filler, repetition, weak constructions. Show what you'd cut and what you'd keep.
+    local template = [[Remove every unnecessary word without losing meaning or voice. Cut filler, repetition, weak constructions.
 
 Original: {{selection}}]]
     local model_obj = parrot.get_model("command")
-    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "Tighten ~ ", template)
+    parrot.Prompt(params, parrot.ui.Target.rewrite, model_obj, "Tighten ~ ", template)
   end,
 
   ProseStyle = function(parrot, params)
@@ -352,7 +354,7 @@ Be blunt. Call out if this is executive dysfunction vs actual complexity.
 
 Situation: {{selection}}]]
     local model_obj = parrot.get_model("command")
-    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "UnfuckThis ~ ", template)
+    parrot.Prompt(params, parrot.ui.Target.rewrite, model_obj, "UnfuckThis ~ ", template)
   end,
 
   -- ============================================================================
@@ -418,7 +420,7 @@ Code:
 {{selection}}
 `````]]
     local model_obj = parrot.get_model("command")
-    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "Prettify ~ ", template)
+    parrot.Prompt(params, parrot.ui.Target.rewrite, model_obj, "Prettify ~ ", template)
   end,
 
   ExplainCode = function(parrot, params)
@@ -470,7 +472,7 @@ Keep it factual and concise. This is for reference, not poetry.
 
 Raw notes: {{selection}}]]
     local model_obj = parrot.get_model("command")
-    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "DailyLog ~ ", template)
+    parrot.Prompt(params, parrot.ui.Target.rewrite, model_obj, "DailyLog ~ ", template)
   end,
 
   -- ============================================================================
@@ -484,7 +486,7 @@ Don't change style or tone. Just fix actual mistakes.
 
 Text: {{selection}}]]
     local model_obj = parrot.get_model("command")
-    parrot.Prompt(params, parrot.ui.Target.popup, model_obj, "Spell ~ ", template)
+    parrot.Prompt(params, parrot.ui.Target.rewrite, model_obj, "Spell ~ ", template)
   end,
 
   Summarize = function(parrot, params)
