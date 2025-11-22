@@ -1,20 +1,15 @@
--- Plain colorscheme - local plugin with auto theme detection
+-- Plain colorscheme
+-- TODO: Once moved to separate repo, uncomment the url line and remove dir line
 return {
-  dir = vim.fn.stdpath("config"),  -- Points to the neovim config directory
+  -- For external repo (uncomment when ready):
+  -- url = "https://github.com/yourusername/plain-nvim",
+
+  -- For local development (remove when using external repo):
+  dir = vim.fn.stdpath("config"),
   name = "plain",
-  lazy = false,  -- Load at startup so colorschemes are always available
+  lazy = false,
   priority = 1001,
-  config = function()
-    -- Initialize plain with auto theme detection
-    require("plain").setup({
-      theme = "auto",  -- auto-switch based on background option
-      transparent = false,
-      bold = true,
-      italic = true,
-      style = {
-        comments = "italic",
-        keywords = "bold",
-      },
-    })
-  end,
+
+  -- No config needed - colorscheme files in colors/ are automatically discovered
+  -- Just use :colorscheme plain to activate
 }
