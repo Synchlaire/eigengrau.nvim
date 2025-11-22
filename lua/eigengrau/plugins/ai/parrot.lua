@@ -88,14 +88,14 @@ return {
       }
     end
 
-    -- 2. OLLAMA PROVIDER
+    -- 2. OLLAMA PROVIDER (Fixed for local LLMs)
     providers.ollama = {
       name = "ollama",
       endpoint = "http://localhost:11434/api/chat",
       api_key = "", -- not required for local Ollama
       params = {
         chat = { temperature = 1.5, top_p = 1, num_ctx = 8192, min_p = 0.05 },
-        command = { temperature = 1.5, top_p = 1, num_ctx = 8192, min_p = 0.05 },
+        command = { temperature = 0.3, top_p = 1, num_ctx = 8192, min_p = 0.05 }, -- Lower temp for commands
       },
       topic_prompt = [[
       Summarize the chat above and only provide a short headline of 2 to 3
@@ -108,49 +108,73 @@ return {
       headers = {
         ["Content-Type"] = "application/json",
       },
+      -- Static fallback models (will be replaced by dynamic fetching)
       models = {
         "llama3.2:3b",
         "llama3.2:1b",
         "gemma2:2b",
-        "dolphin3:latest",
+        "qwen2.5:3b",
+        "qwen2.5-coder:3b",
+        "deepseek-r1:1.5b",
       },
       resolve_api_key = function()
         return true
       end,
+      -- Fixed stdout processor for Ollama streaming format
       process_stdout = function(response)
-        if response:match "message" and response:match "content" then
+        if not response or response == "" then
+          return nil
+        end
+
+        -- Ollama streams in format: {"message":{"content":"text"}}
+        if response:match('"message"') and response:match('"content"') then
           local ok, data = pcall(vim.json.decode, response)
           if ok and data.message and data.message.content then
             return data.message.content
           end
         end
+
+        return nil
       end,
+      -- Fixed model fetching for Ollama
       get_available_models = function(self)
-        local url = self.endpoint:gsub("chat", "")
-        -- Uses Plenary Job to fetch tags
-        local job = Job:new({
-          command = "curl",
-          args = { "-H", "Content-Type: application/json", url .. "tags" },
-        }):sync()
-        local parsed_response = require("parrot.utils").parse_raw_response(job)
+        -- Construct API endpoint for listing models
+        local base_url = self.endpoint:gsub("/api/chat$", "")
+        local tags_url = base_url .. "/api/tags"
 
-        -- Fix: Check validity before parsing
-        if parsed_response == "" or not parsed_response then
+        -- Fetch models using curl
+        local handle = io.popen("curl -s " .. tags_url)
+        if not handle then
+          vim.notify("Failed to fetch Ollama models", vim.log.levels.WARN)
           return {}
         end
 
-        local success, parsed_data = pcall(vim.json.decode, parsed_response)
-        if not success then
+        local result = handle:read("*a")
+        handle:close()
+
+        -- Check if we got a valid response
+        if not result or result == "" then
+          vim.notify("Empty response from Ollama API", vim.log.levels.WARN)
           return {}
         end
 
-        if not parsed_data.models then
+        -- Parse JSON response
+        local success, parsed_data = pcall(vim.json.decode, result)
+        if not success or not parsed_data.models then
+          vim.notify("Failed to parse Ollama models list", vim.log.levels.WARN)
           return {}
         end
 
+        -- Extract model names
         local names = {}
         for _, model in ipairs(parsed_data.models) do
-          table.insert(names, model.name)
+          if model.name then
+            table.insert(names, model.name)
+          end
+        end
+
+        if #names > 0 then
+          vim.notify(string.format("Found %d Ollama models", #names), vim.log.levels.INFO)
         end
 
         return names

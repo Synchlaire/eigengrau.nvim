@@ -43,15 +43,17 @@ require("eigengrau.config.keymaps")
 require("eigengrau.config.aliases")
 require("eigengrau.config.autocmds")
 
--- Plugin imports (organized by load priority)
+-- Plugin imports (organized by functionality)
 local plugins = {
-  { import = "eigengrau.plugins.core" },              -- Startup essentials
-  { import = "eigengrau.plugins.core.colorschemes" }, -- colorschemes duh
-  { import = "eigengrau.plugins.early" },             -- Early loading (UI, treesitter)
-  { import = "eigengrau.plugins.editor" },            -- Editor features (LSP, completion)
-  { import = "eigengrau.plugins.editor.writing" },    -- prose writing tools
-  { import = "eigengrau.plugins.tools" },             -- On-demand tools
-  { import = "eigengrau.plugins.optional" },          -- Optional features
+  { import = "eigengrau.plugins.core" },              -- Core dependencies
+  { import = "eigengrau.plugins.ui.colorschemes" },   -- Colorschemes
+  { import = "eigengrau.plugins.ui" },                -- UI components
+  { import = "eigengrau.plugins.editor" },            -- Editor features
+  { import = "eigengrau.plugins.lsp" },               -- LSP & completion
+  { import = "eigengrau.plugins.navigation" },        -- File/code navigation
+  { import = "eigengrau.plugins.writing" },           -- Writing tools
+  { import = "eigengrau.plugins.ai" },                -- AI assistants
+  { import = "eigengrau.plugins.tools" },             -- Utilities
 }
 
 -- Lazy setup
