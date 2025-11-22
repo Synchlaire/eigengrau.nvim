@@ -18,6 +18,18 @@ vim.opt.rtp:prepend(lazypath)
 -- Leader keys
 vim.g.mapleader = " "
 
+-- Ensure API keys from shell environment are accessible
+if not os.getenv("GEMINI_API_KEY") then
+  local handle = io.popen("echo $GEMINI_API_KEY")
+  if handle then
+    local result = handle:read("*a"):gsub("\n", "")
+    handle:close()
+    if result ~= "" then
+      vim.env.GEMINI_API_KEY = result
+    end
+  end
+end
+
 -- Core settings
 --require("eigengrau.components.init")
 require("eigengrau.config.neovide")

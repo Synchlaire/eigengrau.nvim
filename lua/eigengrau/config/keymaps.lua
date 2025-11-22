@@ -173,7 +173,7 @@ keymap('n', '<leader>tp', '<cmd>PlayerOneToggle<cr>', { desc = 'UI sounds' })
 keymap('n', '<leader>tw', '<cmd>set wrap!<CR>', { desc = 'Word wrap' })
 
 -- toggle conceallevel (useful for markdown)
-keymap('n', '<leader>tc', function()
+vim.keymap.set('n', '<leader>tc', function()
   if vim.o.conceallevel == 0 then
     vim.o.conceallevel = 2
     vim.notify("Conceal: ON", vim.log.levels.INFO)
@@ -184,7 +184,7 @@ keymap('n', '<leader>tc', function()
 end, { desc = 'Conceal level' })
 
 -- toggle diagnostics
-keymap('n', '<leader>td', function()
+vim.keymap.set('n', '<leader>td', function()
   vim.diagnostic.enable(not vim.diagnostic.is_enabled())
   local state = vim.diagnostic.is_enabled() and "ON" or "OFF"
   vim.notify("Diagnostics: " .. state, vim.log.levels.INFO)
@@ -218,8 +218,10 @@ keymap("n", "<leader>gtpu", "<cmd>15 split|term git push<cr>", { desc = 'Git pus
 
 -- theme picker
 keymap('n', '<leader>fc', '<cmd>Themify<cr>', { desc = 'change colorscheme' })
--- folder picker
+-- folder picker (custom, using FolderPicker command)
 keymap('n', '<leader>fD', '<cmd>FolderPicker<cr>', { desc = 'find directory' })
+-- fzf-lua find files/dirs/grep/etc (see plugins/tools/fzf.lua for full config)
+-- <leader>ff, <leader>fg, <leader>fh, etc. defined in fzf plugin spec
 
 --- term utils
 keymap("n", "<A-.>", "<cmd>Vterm<CR>", { desc = "Toggle terminal in vsplit" })
@@ -229,4 +231,25 @@ keymap("n", "<A-,>", "<cmd>Sterm<CR>", { desc = "Toggle terminal hsplit" })
 keymap("n", "<leader>uh", "<cmd>lua require('snacks').notifier.show_history()<CR>", { desc = "Notification History" })
 keymap("n", "<leader>rn", "<cmd>lua require('snacks').rename.rename_file()<CR>", { desc = "Rename File" })
 keymap("n", "<leader>dd", "<cmd>lua require('snacks').bufdelete()<CR>", { desc = "delete buffer" })
+
+
+-- Parrot.nvim - AI-powered text generation
+keymap("n", "<leader>pn", "<cmd>PrtChatNew<CR>", { desc = "Parrot: New chat" })
+keymap("n", "<leader>pt", "<cmd>PrtChatToggle<CR>", { desc = "Parrot: Toggle chat" })
+keymap("n", "<leader>pp", "<cmd>PrtChatPaste<CR>", { desc = "Parrot: Paste to chat" })
+keymap("n", "<leader>pf", "<cmd>PrtChatFinder<CR>", { desc = "Parrot: Find chat" })
+keymap("n", "<leader>pm", "<cmd>PrtModel<CR>", { desc = "Parrot: Select model" })
+keymap("n", "<leader>pr", "<cmd>PrtProvider<CR>", { desc = "Parrot: Select provider" })
+keymap("n", "<leader>ps", "<cmd>PrtStatus<CR>", { desc = "Parrot: Show status" })
+-- Visual mode prompts
+keymap("v", "<leader>pw", "<cmd>PrtRewrite<CR>", { desc = "Parrot: Rewrite selection" })
+keymap("v", "<leader>pa", "<cmd>PrtAppend<CR>", { desc = "Parrot: Append to selection" })
+keymap("v", "<leader>pi", "<cmd>PrtPrepend<CR>", { desc = "Parrot: Prepend to selection" })
+
+-- Custom prompt shortcuts (visual mode)
+keymap("v", "<leader>pc", "<cmd>PrtRewrite WritingCritic<CR>", { desc = "Parrot: Writing critic" })
+keymap("v", "<leader>pk", "<cmd>PrtRewrite TaskBreakdown<CR>", { desc = "Parrot: Break into tasks" })
+keymap("v", "<leader>po", "<cmd>PrtRewrite ObsidianFormat<CR>", { desc = "Parrot: Obsidian format" })
+keymap("v", "<leader>pv", "<cmd>PrtRewrite PhilosophyBreakdown<CR>", { desc = "Parrot: Philosophy lens" })
+keymap("v", "<leader>pz", "<cmd>PrtRewrite Tighten<CR>", { desc = "Parrot: Tighten prose" })
 
