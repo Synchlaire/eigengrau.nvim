@@ -252,33 +252,33 @@ keymap("v", "<leader>pa", ":PrtAppend<CR>",   { desc = "Parrot → Append" })
 keymap("v", "<leader>pi", ":PrtPrepend<CR>",  { desc = "Parrot → Prepend" })
 
 -- Writing Hooks
-keymap("v", "<leader>pw", ":PrtHook WritingCritic<CR>",  { desc = "Parrot → Writing Critic" })
-keymap("v", "<leader>pz", ":PrtHook Tighten<CR>",        { desc = "Parrot → Tighten prose" })
-keymap("v", "<leader>ps", ":PrtHook ProseStyle<CR>",     { desc = "Parrot → Prose style" })
-keymap("v", "<leader>pS", ":PrtHook Spell<CR>",          { desc = "Parrot → Spell/grammar" })
+keymap("v", "<leader>pw", ":PrtWritingCritic<CR>",  { desc = "Parrot → Writing Critic" })
+keymap("v", "<leader>pz", ":PrtTighten<CR>",        { desc = "Parrot → Tighten prose" })
+keymap("v", "<leader>ps", ":PrtProseStyle<CR>",     { desc = "Parrot → Prose style" })
+keymap("v", "<leader>pS", ":PrtSpell<CR>",          { desc = "Parrot → Spell/grammar" })
 
 -- Philosophy & Analysis Hooks
-keymap("v", "<leader>pv", ":PrtHook PhiloLens<CR>",      { desc = "Parrot → Philosophy lens" })
-keymap("v", "<leader>pk", ":PrtHook ConceptMap<CR>",     { desc = "Parrot → Concept map" })
-keymap("v", "<leader>pg", ":PrtHook ArgumentMap<CR>",    { desc = "Parrot → Argument map" })
-keymap("v", "<leader>pe", ":PrtHook Etymology<CR>",      { desc = "Parrot → Etymology" })
+keymap("v", "<leader>pv", ":PrtPhiloLens<CR>",      { desc = "Parrot → Philosophy lens" })
+keymap("v", "<leader>pk", ":PrtConceptMap<CR>",     { desc = "Parrot → Concept map" })
+keymap("v", "<leader>pg", ":PrtArgumentMap<CR>",    { desc = "Parrot → Argument map" })
+keymap("v", "<leader>pe", ":PrtEtymology<CR>",      { desc = "Parrot → Etymology" })
 
 -- Task & Productivity Hooks
-keymap("v", "<leader>pt", ":PrtHook TaskBreakdown<CR>",  { desc = "Parrot → Task breakdown" })
-keymap("v", "<leader>pn", ":PrtHook NextAction<CR>",     { desc = "Parrot → Next action" })
-keymap("v", "<leader>px", ":PrtHook UnfuckThis<CR>",     { desc = "Parrot → Unfuck this" })
+keymap("v", "<leader>pt", ":PrtTaskBreakdown<CR>",  { desc = "Parrot → Task breakdown" })
+keymap("v", "<leader>pn", ":PrtNextAction<CR>",     { desc = "Parrot → Next action" })
+keymap("v", "<leader>px", ":PrtUnfuckThis<CR>",     { desc = "Parrot → Unfuck this" })
 
 -- Code Hooks
-keymap("v", "<leader>pf", ":PrtHook Prettify<CR>",       { desc = "Parrot → Prettify code" })
-keymap("v", "<leader>pc", ":PrtHook CodeReview<CR>",     { desc = "Parrot → Code review" })
-keymap("v", "<leader>pd", ":PrtHook DebugStrategy<CR>",  { desc = "Parrot → Debug strategy" })
-keymap("v", "<leader>pl", ":PrtHook ExplainCode<CR>",    { desc = "Parrot → Explain code" })
+keymap("v", "<leader>pf", ":PrtPrettify<CR>",       { desc = "Parrot → Prettify code" })
+keymap("v", "<leader>pc", ":PrtCodeReview<CR>",     { desc = "Parrot → Code review" })
+keymap("v", "<leader>pd", ":PrtDebugStrategy<CR>",  { desc = "Parrot → Debug strategy" })
+keymap("v", "<leader>pl", ":PrtExplainCode<CR>",    { desc = "Parrot → Explain code" })
 
 -- Obsidian & Knowledge Hooks
-keymap("v", "<leader>po", ":PrtHook ObsidianFormat<CR>", { desc = "Parrot → Obsidian format" })
-keymap("v", "<leader>pj", ":PrtHook VaultLink<CR>",      { desc = "Parrot → Vault links" })
-keymap("v", "<leader>pD", ":PrtHook DailyLog<CR>",       { desc = "Parrot → Daily log" })
+keymap("v", "<leader>po", ":PrtObsidianFormat<CR>", { desc = "Parrot → Obsidian format" })
+keymap("v", "<leader>pj", ":PrtVaultLink<CR>",      { desc = "Parrot → Vault links" })
+keymap("v", "<leader>pD", ":PrtDailyLog<CR>",       { desc = "Parrot → Daily log" })
 
 -- General Utilities
-keymap("v", "<leader>pq", ":PrtHook Summarize<CR>",      { desc = "Parrot → Summarize" })
-keymap("v", "<leader>pT", ":PrtHook Translate<CR>",      { desc = "Parrot → Translate" })
+keymap("v", "<leader>pq", ":PrtSummarize<CR>",      { desc = "Parrot → Summarize" })
+keymap("v", "<leader>pT", ":PrtTranslate<CR>",      { desc = "Parrot → Translate" })
