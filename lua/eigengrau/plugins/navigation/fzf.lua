@@ -68,69 +68,117 @@ return {
     -- ========================================================================
 
     fzf.setup({
-      -- Fuzzy finder settings
+      -- Use a nice profile as base
+      "default-title",
+
+      -- Fuzzy finder settings with visual enhancements
       fzf_opts = {
-        ["--ansi"] = true,              -- Support ANSI colors
-        ["--info"] = "inline",          -- Show count inline
-        ["--layout"] = "reverse",       -- Search at bottom
-        ["--multi"] = true,             -- Multi-select with tab
-        ["--tabstop"] = "4",            -- Tab width
+        ["--ansi"] = true,
+        ["--info"] = "inline-right",     -- Show info on right (cleaner)
+        ["--layout"] = "reverse-list",
+        ["--multi"] = true,
+        ["--height"] = "100%",
+        ["--marker"] = "│",              -- Nice selection marker
+        ["--pointer"] = "",             -- Arrow pointer
+        ["--prompt"] = "  ",            -- Search icon prompt
+        ["--border"] = "rounded",
+        ["--separator"] = "─",           -- Visual separator
+        ["--scrollbar"] = "│",           -- Scrollbar character
+        ["--ellipsis"] = "…",            -- Truncation character
+        ["--color"] = table.concat({
+          "fg:#cccccc",
+          "bg:#000000",
+          "hl:#B6D6FD",                  -- Highlighted match
+          "fg+:#E5E5E5",                 -- Current line foreground
+          "bg+:#303030",                 -- Current line background
+          "hl+:#B6D6FD",                 -- Highlighted match (current)
+          "info:#999999",
+          "prompt:#B6D6FD",              -- Prompt color
+          "pointer:#E32791",             -- Selection pointer
+          "marker:#5FD7A7",              -- Multi-select marker
+          "spinner:#F3E430",
+          "header:#4FB8CC",
+          "border:#424242",              -- Border color
+          "separator:#424242",           -- Separator color
+        }, ","),
         ["--bind"] = table.concat({
           "ctrl-a:select-all",
           "ctrl-d:deselect-all",
           "ctrl-/:toggle-preview",
+          "ctrl-u:preview-page-up",
+          "ctrl-d:preview-page-down",
           "ctrl-y:yank",
+          "alt-j:down",
+          "alt-k:up",
         }, ","),
       },
 
       -- Global settings
       defaults = {
-        prompt = "  ",              -- Prompt prefix
-        prompt_title_bg = "#1a1b26", -- Match background
-        preview_title_bg = "#1a1b26",
-        border = "rounded",
-        scrollbar = "",             -- Hide scrollbar (cleaner)
-        file_icons = true,          -- Show file type icons
-        git_icons = false,          -- Don't need git icons for file finding
+        prompt = "  ",
+        file_icons = true,
+        color_icons = true,
+        git_icons = true,
+        -- Prettier formatter for paths
+        formatter = "path.filename_first",
       },
 
       -- File finding
       files = {
-        prompt = "Files> ",
-        cwd_prompt = true,          -- Show current directory
-        cmd = "fd --type f --hidden --exclude .git" .. fd_excludes, -- fd with filter patterns
-        git_icons = false,
+        prompt = "  ",
+        winopts = {
+          title = " 󰈞 Find Files ",
+          title_pos = "center",
+        },
+        cwd_prompt = true,
+        cmd = "fd --type f --hidden --exclude .git" .. fd_excludes,
         file_icons = true,
-        previewer = "builtin",      -- Use builtin previewer (respects colorscheme)
+        color_icons = true,
+        git_icons = true,
+        previewer = "builtin",
       },
 
       -- Directory finding
       directories = {
-        prompt = "Dirs> ",
+        prompt = "  ",
+        winopts = {
+          title = "  Directories ",
+          title_pos = "center",
+        },
         cmd = "fd --type d --hidden --exclude .git",
-        previewer = false,          -- Directories don't need preview
+        previewer = false,
       },
 
       -- Buffer switching
       buffers = {
-        prompt = "Buffers> ",
+        prompt = "  ",
+        winopts = {
+          title = " 󰈙 Buffers ",
+          title_pos = "center",
+        },
         previewer = false,
-        sort_mru = true,            -- Show most recently used first
+        sort_mru = true,
+        file_icons = true,
+        color_icons = true,
       },
 
       -- Live grep (text search using ripgrep)
       grep = {
-        prompt = "Grep> ",
-        input_prompt = "Grep for> ",
-        previewer = "builtin",     -- Use builtin previewer (respects colorscheme)
-        silent = true,             -- Hide fzf-lua info messages
+        prompt = "  ",
+        winopts = {
+          title = "  Live Grep ",
+          title_pos = "center",
+        },
+        input_prompt = "Grep for  ",
+        previewer = "builtin",
+        silent = true,
         rg_opts = table.concat({
-          "--color=always",         -- Color output
-          "--no-heading",           -- Don't print filename for each match
-          "--line-number",          -- Show line numbers
+          "--color=always",
+          "--no-heading",
+          "--line-number",
+          "--column",
           "--smart-case",
           "--hidden",
-          -- Use --glob patterns to exclude directories/files
           "--glob=!.git",
           "--glob=!node_modules",
           "--glob=!__pycache__",
@@ -147,32 +195,60 @@ return {
 
       -- Help tags
       helptags = {
-        prompt = "Help> ",
+        prompt = "  ",
+        winopts = {
+          title = " 󰋖 Help Tags ",
+          title_pos = "center",
+        },
         previewer = "builtin",
       },
 
       -- Old files (recent files)
       oldfiles = {
-        prompt = "Recent> ",
+        prompt = "  ",
+        winopts = {
+          title = " 󰋚 Recent Files ",
+          title_pos = "center",
+        },
         cwd_only = false,
         include_current_session = true,
+        file_icons = true,
+        color_icons = true,
       },
 
       -- Git
       git = {
         files = {
-          prompt = "Git Files> ",
+          prompt = "  ",
+          winopts = {
+            title = "  Git Files ",
+            title_pos = "center",
+          },
           cmd = "git ls-files --cached --others --exclude-standard",
-          previewer = "builtin",    -- Use builtin previewer (respects colorscheme)
+          previewer = "builtin",
+          file_icons = true,
+          color_icons = true,
         },
         status = {
-          prompt = "Git Status> ",
+          prompt = " 󰊢 ",
+          winopts = {
+            title = " 󰊢 Git Status ",
+            title_pos = "center",
+          },
         },
         commits = {
-          prompt = "Git Commits> ",
+          prompt = "  ",
+          winopts = {
+            title = "  Git Commits ",
+            title_pos = "center",
+          },
         },
         branches = {
-          prompt = "Git Branches> ",
+          prompt = "  ",
+          winopts = {
+            title = "  Git Branches ",
+            title_pos = "center",
+          },
         },
       },
 
@@ -196,33 +272,73 @@ return {
 
       -- Marks
       marks = {
-        prompt = "Marks> ",
+        prompt = "  ",
+        winopts = {
+          title = "  Marks ",
+          title_pos = "center",
+        },
       },
 
       -- Command history
       command_history = {
-        prompt = "Command> ",
+        prompt = "  ",
+        winopts = {
+          title = "  Command History ",
+          title_pos = "center",
+        },
       },
 
       -- Search history
       search_history = {
-        prompt = "Search> ",
+        prompt = "  ",
+        winopts = {
+          title = "  Search History ",
+          title_pos = "center",
+        },
       },
 
-      -- Window configuration
+      -- Commands
+      commands = {
+        prompt = "  ",
+        winopts = {
+          title = "  Commands ",
+          title_pos = "center",
+        },
+      },
+
+      -- Window configuration - CENTERED AND BEAUTIFUL
       winopts = {
         height = 0.85,
-        width = 0.90,                 -- Wider to accommodate side-by-side preview
-        row = 0.30,
-        col = 0.05,
+        width = 0.85,
+        row = 0.5,                        -- Centered vertically (0.5 = middle)
+        col = 0.5,                        -- Centered horizontally (0.5 = middle)
+        border = "rounded",
+        hl = {
+          normal = "Normal",
+          border = "FloatBorder",
+          title = "Title",
+          preview_border = "FloatBorder",
+          preview_title = "Title",
+        },
         preview = {
-          hidden = false,               -- Show preview by default
-          horizontal = "right:45%",     -- Show preview on RIGHT side, 45% width
-          layout = "flex",              -- Flex layout for better space distribution
-          scrollbar = false,            -- No scrollbar in preview
-          delay = 100,                  -- Delay before showing preview
-          border = "rounded",           -- Preview border style
-          title_pos = "center",         -- Center preview title
+          hidden = "hidden",              -- Start with preview (toggle with ctrl-/)
+          vertical = "down:50%",          -- Preview below, 50% height
+          horizontal = "right:50%",       -- Or right side, 50% width
+          layout = "flex",                -- Flex layout adapts to content
+          flip_columns = 120,             -- Switch layout at this width
+          scrollbar = "border",           -- Show scrollbar on border
+          scrolloff = "-2",
+          delay = 50,                     -- Fast preview
+          winopts = {
+            number = true,
+            relativenumber = false,
+            cursorline = true,
+            cursorlineopt = "both",
+            signcolumn = "no",
+            list = false,
+          },
+          title = true,
+          title_pos = "center",
         },
       },
     })
