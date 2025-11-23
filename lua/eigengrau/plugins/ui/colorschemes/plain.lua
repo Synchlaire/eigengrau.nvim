@@ -1,6 +1,6 @@
 -- Plain colorscheme - local plugin with auto theme detection
 return {
-  dir = "/home/claroscuro/projects/plain-nvim/vim-colors-plain",
+  dir = vim.fn.stdpath("config"),  -- Points to the neovim config directory
   name = "plain",
   lazy = false,  -- Load at startup so colorschemes are always available
   priority = 1001,

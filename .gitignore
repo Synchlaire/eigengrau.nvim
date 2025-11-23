@@ -1,0 +1,20 @@
+# Neovim
+lazy-lock.json
+.luarc.json
+
+# Spell files (binary)
+spell/*.spl
+
+# Backup files
+*.bak
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Personal spell dictionaries (optional - uncomment if you want to keep personal dictionaries private)
+# spell/*.add
+# spell/*.add.spl
