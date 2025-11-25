@@ -1,1 +1,0 @@
-- neovide should have a bit of eye-candy, otherwise why have it?

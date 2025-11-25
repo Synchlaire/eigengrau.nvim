@@ -212,8 +212,8 @@ return {
       winopts = {
         height = 0.85,
         width = 0.90,                 -- Wider to accommodate side-by-side preview
-        row = 0.30,
-        col = 0.05,
+        row = 0.50,                    -- Center vertically (0.5 = middle)
+        col = 0.50,                    -- Center horizontally (0.5 = middle)
         preview = {
           hidden = false,               -- Show preview by default
           horizontal = "right:45%",     -- Show preview on RIGHT side, 45% width
