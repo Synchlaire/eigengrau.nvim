@@ -3,7 +3,7 @@ return {
   lazy = false,  -- Load early - many plugins depend on this
   cmd = "FzfLua",
   -- Primary fuzzy finder, replaces most telescope commands
-  -- Keybindings:
+  -- Keybindings in lua/eigengrau/config/keymaps.lua:
   --   <leader>ff   - Find files
   --   <leader>fd   - Find files in cwd (all)
   --   <leader>fg   - Live grep
@@ -11,16 +11,6 @@ return {
   --   <leader>fb   - Find buffers
   --   <leader>fx   - Command palette
   --   <leader>fw   - Grep word/selection
-  keys = {
-    { "<leader>ff", function() require("fzf-lua").files() end, desc = "Find files" },
-    { "<leader>fd", function() require("fzf-lua").files({ cwd = vim.fn.getcwd() }) end, desc = "Find files (cwd)" },
-    { "<leader>fg", function() require("fzf-lua").live_grep() end, desc = "Live grep" },
-    { "<leader>fr", function() require("fzf-lua").oldfiles() end, desc = "Recent files" },
-    { "<leader>fb", function() require("fzf-lua").buffers() end, desc = "Find buffers" },
-    { "<leader>fx", function() require("fzf-lua").commands() end, desc = "Command palette" },
-    { "<leader>fw", function() require("fzf-lua").grep_cword() end, desc = "Grep word under cursor", mode = "n" },
-    { "<leader>fw", function() require("fzf-lua").grep_visual() end, desc = "Grep selection", mode = "v" },
-  },
   dependencies = {
     "nvim-tree/nvim-web-devicons",  -- Optional but recommended for icons
   },

@@ -215,8 +215,16 @@ keymap("n", "<leader>gtpu", "<cmd>15 split|term git push<cr>", { desc = 'Git pus
 keymap('n', '<leader>fc', '<cmd>Themify<cr>', { desc = 'change colorscheme' })
 -- folder picker (custom, using FolderPicker command)
 keymap('n', '<leader>fD', '<cmd>FolderPicker<cr>', { desc = 'find directory' })
--- fzf-lua find files/dirs/grep/etc (see plugins/tools/fzf.lua for full config)
--- <leader>ff, <leader>fg, <leader>fh, etc. defined in fzf plugin spec
+
+-- fzf-lua keybinds
+keymap('n', '<leader>ff', '<cmd>lua require("fzf-lua").files()<cr>', { desc = 'find files' })
+keymap('n', '<leader>fd', '<cmd>lua require("fzf-lua").files({ cwd = vim.fn.getcwd() })<cr>', { desc = 'find files (cwd)' })
+keymap('n', '<leader>fg', '<cmd>lua require("fzf-lua").live_grep()<cr>', { desc = 'live grep' })
+keymap('n', '<leader>fr', '<cmd>lua require("fzf-lua").oldfiles()<cr>', { desc = 'recent files' })
+keymap('n', '<leader>fb', '<cmd>lua require("fzf-lua").buffers()<cr>', { desc = 'find buffers' })
+keymap('n', '<leader>fx', '<cmd>lua require("fzf-lua").commands()<cr>', { desc = 'command palette' })
+keymap('n', '<leader>fw', '<cmd>lua require("fzf-lua").grep_cword()<cr>', { desc = 'grep word under cursor' })
+keymap('v', '<leader>fw', '<cmd>lua require("fzf-lua").grep_visual()<cr>', { desc = 'grep selection' })
 
 --- term utils
 keymap("n", "<A-.>", "<cmd>Vterm<CR>", { desc = "Toggle terminal in vsplit" })
