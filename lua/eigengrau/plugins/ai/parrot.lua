@@ -17,168 +17,169 @@ return {
     -- Define providers table
     local providers = {}
 
-    -- 1. GEMINI PROVIDER
-    if gemini_key then
-      providers.gemini = {
-        name = "gemini",
-        endpoint = function(self)
-          local model = self._model or "gemini-2.0-flash"
-          return "https://generativelanguage.googleapis.com/v1beta/models/"
-            .. model
-            .. ":streamGenerateContent?alt=sse"
-        end,
-        model_endpoint = function(self)
-          return { "https://generativelanguage.googleapis.com/v1beta/models?key=" .. self.api_key }
-        end,
-        api_key = gemini_key,
-        params = {
-          chat = { temperature = 1.1, topP = 1, topK = 10, maxOutputTokens = 8192 },
-          command = { temperature = 0.1, topP = 1, topK = 10, maxOutputTokens = 8192 },
-        },
-        topic = {
-          model = "gemini-2.0-flash-lite",
-          params = { maxOutputTokens = 64 },
-        },
-        headers = function(self)
-          return {
-            ["Content-Type"] = "application/json",
-            ["x-goog-api-key"] = self.api_key,
-          }
-        end,
-        models = {
-          "gemini-2.0-flash",
-          "gemini-2.0-flash-lite",
-          "gemini-2.0-pro-exp",
-        },
-        preprocess_payload = function(payload)
-          local contents = {}
-          local system_instruction = nil
-          for _, message in ipairs(payload.messages) do
-            if message.role == "system" then
-              system_instruction = { parts = { { text = message.content } } }
-            else
-              local role = message.role == "assistant" and "model" or "user"
-              table.insert(
-                contents,
-                { role = role, parts = { { text = message.content:gsub("^%s*(.-)%s*$", "%1") } } }
-              )
-            end
-          end
-          local gemini_payload = {
-            contents = contents,
-            generationConfig = {
-              temperature = payload.temperature,
-              topP = payload.topP or payload.top_p,
-              maxOutputTokens = payload.max_tokens or payload.maxOutputTokens,
-            },
-          }
-          if system_instruction then
-            gemini_payload.systemInstruction = system_instruction
-          end
-          return gemini_payload
-        end,
-        process_stdout = function(response)
-          if not response or response == "" then return nil end
-          local success, decoded = pcall(vim.json.decode, response)
-          if success and decoded.candidates and decoded.candidates[1] and decoded.candidates[1].content then
-            return decoded.candidates[1].content.parts[1].text
-          end
-          return nil
-        end,
-      }
-    end
+    -- -- 1. GEMINI PROVIDER
+    -- if gemini_key then
+    --   providers.gemini = {
+    --     name = "gemini",
+    --     endpoint = function(self)
+    --       local model = self._model or "gemini-1.5-flash-latest"
+    --       return "https://generativelanguage.googleapis.com/v1beta/models/"
+    --         .. model
+    --         .. ":streamGenerateContent?alt=sse"
+    --     end,
+    --     model_endpoint = function(self)
+    --       return { "https://generativelanguage.googleapis.com/v1beta/models?key=" .. self.api_key }
+    --     end,
+    --     api_key = gemini_key,
+    --     params = {
+    --       chat = { temperature = 1.1, topP = 1, topK = 10, maxOutputTokens = 8192 },
+    --       command = { temperature = 0.1, topP = 1, topK = 10, maxOutputTokens = 8192 },
+    --     },
+    --     topic = {
+    --       model = "gemini-1.5-flash-latest",
+    --       params = { maxOutputTokens = 64 },
+    --     },
+    --     headers = function(self)
+    --       return {
+    --         ["Content-Type"] = "application/json",
+    --         ["x-goog-api-key"] = self.api_key,
+    --       }
+    --     end,
+    --     models = {
+    --       "gemini-1.5-flash-latest",
+    --       "gemini-1.5-pro-latest",
+    --       "gemini-2.0-flash",
+    --       "gemini-2.0-flash-lite",
+    --     },
+    --     preprocess_payload = function(payload)
+    --       local contents = {}
+    --       local system_instruction = nil
+    --       for _, message in ipairs(payload.messages) do
+    --         if message.role == "system" then
+    --           system_instruction = { parts = { { text = message.content } } }
+    --         else
+    --           local role = message.role == "assistant" and "model" or "user"
+    --           table.insert(
+    --             contents,
+    --             { role = role, parts = { { text = message.content:gsub("^%s*(.-)%s*$", "%1") } } }
+    --           )
+    --         end
+    --       end
+    --       local gemini_payload = {
+    --         contents = contents,
+    --         generationConfig = {
+    --           temperature = payload.temperature,
+    --           topP = payload.topP or payload.top_p,
+    --           maxOutputTokens = payload.max_tokens or payload.maxOutputTokens,
+    --         },
+    --       }
+    --       if system_instruction then
+    --         gemini_payload.systemInstruction = system_instruction
+    --       end
+    --       return gemini_payload
+    --     end,
+    --     process_stdout = function(response)
+    --       if not response or response == "" then return nil end
+    --       local success, decoded = pcall(vim.json.decode, response)
+    --       if success
+    --         and decoded.candidates
+    --         and decoded.candidates[1]
+    --         and decoded.candidates[1].content
+    --         and decoded.candidates[1].content.parts
+    --         and decoded.candidates[1].content.parts[1] then
+    --         return decoded.candidates[1].content.parts[1].text
+    --       end
+    --       return nil
+    --     end,
+    --   }
+    -- end
+    --
 
     -- 2. OLLAMA PROVIDER (Fixed for local LLMs)
     providers.ollama = {
       name = "ollama",
       endpoint = "http://localhost:11434/api/chat",
-      api_key = "", -- not required for local Ollama
+      api_key = "", -- local, no key needed
+
+      -- Sane defaults for 8 GB RAM + tiny models
       params = {
-        chat = { temperature = 1.5, top_p = 1, num_ctx = 8192, min_p = 0.05 },
-        command = { temperature = 0.3, top_p = 1, num_ctx = 8192, min_p = 0.05 }, -- Lower temp for commands
+        chat = {
+          temperature = 0.8,   -- was 1.5 → too random on small models
+          top_p = 0.95,
+          num_ctx = 4096,      -- 8192 eats too much RAM on 1B/0.5B, 4k is plenty
+          min_p = 0.03,
+          num_predict = 512,   -- limit max output tokens (saves RAM when streaming)
+        },
+        command = {
+          temperature = 0.3,
+          top_p = 0.9,
+          num_ctx = 4096,
+          min_p = 0.03,
+          num_predict = 512,
+        },
       },
-      topic_prompt = [[
-      Summarize the chat above and only provide a short headline of 2 to 3
-      words without any opening phrase like "Sure, here is the summary".
-      ]],
+
+      -- Short headline for topic/tab title
+      topic_prompt = [[Summarize the chat above and only provide a short headline of 2 to 3 words without any opening phrase like "Sure, here is the summary".]],
       topic = {
-        model = "llama3.2",
-        params = { max_tokens = 32 },
+        model = "llama3.2:1b",            -- use the 1B for topic (fast & cheap)
+        params = { max_tokens = 20 },  -- was 32, 20 is enough for a headline
       },
+
       headers = {
         ["Content-Type"] = "application/json",
       },
-      -- Static fallback models (will be replaced by dynamic fetching)
-      models = {
-        "llama3.2:3b",
-        "llama3.2:1b",
-        "gemma2:2b",
-        "qwen2.5:3b",
-        "qwen2.5-coder:3b",
-        "deepseek-r1:1.5b",
-      },
-      resolve_api_key = function()
-        return true
-      end,
-      -- Fixed stdout processor for Ollama streaming format
-      process_stdout = function(response)
-        if not response or response == "" then
-          return nil
-        end
 
-        -- Ollama streams in format: {"message":{"content":"text"}}
+      -- Only expose the two models that actually run well on your toaster
+      models = {
+        "llama3.2:1b",               -- this is the official 1B tag (≈1.1 GB RAM @ q4)
+        "qwen2.5-coder:0.5b",     -- the real 0.5B coding model (≈600 MB RAM)
+      },
+
+      -- Dynamically fetch all available models from Ollama
+      get_available_models = function(self)
+        local base_url = self.endpoint:gsub("/api/chat$", "")
+        local tags_url = base_url .. "/api/tags"
+        local job = Job:new({
+          command = "curl",
+          args = { "-s", tags_url },
+        }):sync()
+        local result = table.concat(job:result(), "\n")
+        if result == "" then
+          vim.notify("Empty response from Ollama API", vim.log.levels.WARN)
+          return self.models
+        end
+        local success, data = pcall(vim.json.decode, result)
+        if not success or not data.models then
+          vim.notify("Failed to parse Ollama models list", vim.log.levels.WARN)
+          return self.models
+        end
+        local names = {}
+        for _, m in ipairs(data.models) do
+          -- Strip :latest suffix if present, but keep other tags
+          local name = m.name
+          table.insert(names, name)
+        end
+        if #names > 0 then
+          vim.notify(string.format("Found %d Ollama models", #names), vim.log.levels.INFO)
+          return names
+        else
+          return self.models
+        end
+      end,
+
+      process_stdout = function(response)
+        if not response or response == "" then return nil end
         if response:match('"message"') and response:match('"content"') then
           local ok, data = pcall(vim.json.decode, response)
           if ok and data.message and data.message.content then
             return data.message.content
           end
         end
-
         return nil
       end,
-      -- Fixed model fetching for Ollama
-      get_available_models = function(self)
-        -- Construct API endpoint for listing models
-        local base_url = self.endpoint:gsub("/api/chat$", "")
-        local tags_url = base_url .. "/api/tags"
 
-        -- Fetch models using curl
-        local handle = io.popen("curl -s " .. tags_url)
-        if not handle then
-          vim.notify("Failed to fetch Ollama models", vim.log.levels.WARN)
-          return {}
-        end
-
-        local result = handle:read("*a")
-        handle:close()
-
-        -- Check if we got a valid response
-        if not result or result == "" then
-          vim.notify("Empty response from Ollama API", vim.log.levels.WARN)
-          return {}
-        end
-
-        -- Parse JSON response
-        local success, parsed_data = pcall(vim.json.decode, result)
-        if not success or not parsed_data.models then
-          vim.notify("Failed to parse Ollama models list", vim.log.levels.WARN)
-          return {}
-        end
-
-        -- Extract model names
-        local names = {}
-        for _, model in ipairs(parsed_data.models) do
-          if model.name then
-            table.insert(names, model.name)
-          end
-        end
-
-        if #names > 0 then
-          vim.notify(string.format("Found %d Ollama models", #names), vim.log.levels.INFO)
-        end
-
-        return names
-      end,
+      resolve_api_key = function() return true end,
     }
 
     -- 3. SETUP PARROT

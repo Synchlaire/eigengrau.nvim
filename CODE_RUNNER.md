@@ -38,7 +38,7 @@ A smart terminal function that automatically detects your filetype and runs code
 | Keymap | Mode | Action |
 |--------|------|--------|
 | `<leader>rr` | n, v | **Smart run** - File in normal, selection in visual |
-| `<leader>rf` | n | Run entire file |
+r `<leader>rf` | n | Run entire file |
 | `<leader>rs` | n, v | Run selection or current line |
 | `<leader>rt` | n | Open REPL/interactive shell |
 | `<leader>rh` | n, v | Run in horizontal split |
