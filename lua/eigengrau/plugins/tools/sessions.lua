@@ -1,9 +1,16 @@
 return {
   {
     "jedrzejboczar/possession.nvim",
-    dependencies = { "nvim-lua/plenary.nvim", },
-    lazy = false,
-    cmd = {"Ssave", "Sload", "Sshow", "Slist", "Smigrate"},
+    dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
+    lazy = true,
+    cmd = {"Ssave", "Sload", "Sshow", "Slist", "Smigrate", "Srename", "Sclose", "Sdelete"},
+    keys = {
+      { "<leader>ss", "<cmd>Telescope possession list<CR>", desc = "Sessions list" },
+      { "<leader>sS", "<cmd>Ssave<CR>", desc = "Save session" },
+      { "<leader>sl", "<cmd>Sload<CR>", desc = "Load session" },
+      { "<leader>sd", "<cmd>Sdelete<CR>", desc = "Delete session" },
+      { "<leader>sr", "<cmd>Srename<CR>", desc = "Rename session" },
+    },
     config = function()
       require("possession").setup {
 	-- session_dir = (Path:new(vim.fn.stdpath('data')) / 'possession'):absolute(),
@@ -90,6 +97,9 @@ return {
 	  },
 	},
       }
+
+      -- Load telescope extension
+      require('telescope').load_extension('possession')
     end,
   },
 

@@ -60,6 +60,11 @@ return {
     },
     cmd = { "WindowsMaximize", "WindowsMaximizeVertically", "WindowsMaximizeHorizontally", "WindowsEqualize" },
     config = function()
+      vim.o.winwidth = 10      -- Allow true fullscreen (default 20 prevents it)
+      vim.o.winminwidth = 5    -- Minimum width for side windows
+      vim.o.winheight = 1      -- Allow vertical maximize
+      vim.o.winminheight = 1   -- Minimum height for splits
+
       require("windows").setup({
         equalalways = false,
         autowidth = {
@@ -72,7 +77,7 @@ return {
         },
         animation = {
           enable = true,
-          duration = 200,
+          duration = 150,  -- Snappier (was 200ms)
           fps = 60,
           easing = "in_out_sine",
         },

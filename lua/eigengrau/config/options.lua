@@ -93,15 +93,19 @@ opt.shell = "zsh" -- Default shell
 -- Clipboard
 opt.clipboard = "unnamedplus" -- Use system clipboard
 
--- Folding
-opt.foldenable = true                       -- Enable folding
-opt.foldmethod = "expr"                     -- Use expression for folding (Treesitter)
-opt.foldexpr = "nvim_treesitter#foldexpr()" -- Use Treesitter for folds
-opt.foldcolumn = "0"                        -- Hide fold column
-opt.foldnestmax = 99                        -- Max fold depth
-opt.foldlevel = 99                          -- Open all folds by default
-opt.foldlevelstart = 100                    -- Start fully unfolded
-g.markdown_folding = 1                      -- Fold markdown headings
+-- Folding (configured for nvim-ufo)
+opt.foldenable = true       -- Enable folding globally
+opt.foldlevel = 99          -- Open all folds by default (high number = more open)
+opt.foldlevelstart = 99     -- Start with all folds open when opening a buffer
+opt.foldcolumn = "0"        -- Hide fold column (ufo shows folds inline)
+
+-- Required for nvim-ufo to work properly
+opt.foldmethod = "manual"   -- ufo handles fold method internally
+opt.foldexpr = ""           -- ufo doesn't use foldexpr
+
+-- Optional: native folding settings (used as fallback)
+opt.foldnestmax = 10        -- Max fold depth (prevents over-nesting)
+g.markdown_folding = 1      -- Enable markdown heading folds (native)
 
 -- Fillchars (glyphs for UI bits)
 opt.fillchars = {

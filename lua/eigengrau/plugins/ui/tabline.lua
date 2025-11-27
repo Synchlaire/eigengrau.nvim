@@ -366,13 +366,7 @@ end, {
   desc = "Toggle battery and clock together"
 })
 
--- Keymaps (using <leader>T for tab-specific operations)
-vim.keymap.set("n", "<leader>Tr", function() _G.rename_tab() end, { desc = "Rename tab" })
-vim.keymap.set("n", "<leader>TR", function() _G.clear_tab_name() end, { desc = "Clear tab name" })
-vim.keymap.set("n", "<leader>Tc", function() _G.toggle_clock() end, { desc = "Toggle clock" })
-vim.keymap.set("n", "<leader>Tb", function() _G.toggle_battery() end, { desc = "Toggle battery" })
-vim.keymap.set("n", "<leader>Tn", function() _G.toggle_tab_names() end, { desc = "Toggle tab names" })
-vim.keymap.set("n", "<leader>Ti", function() _G.toggle_statusline_info() end, { desc = "Toggle statusline info" })
+-- Note: Keybinds are defined in lua/eigengrau/config/keymaps.lua under <leader><Tab>
 
 -- Return only the actual plugin
 return {

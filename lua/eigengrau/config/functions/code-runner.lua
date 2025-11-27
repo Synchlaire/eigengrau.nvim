@@ -5,6 +5,9 @@
 
 local M = {}
 
+-- Holds info about active REPLs { filetype -> { bufnr, job_id } }
+M.repl_info = {}
+
 -- Language execution configurations
 -- Each entry defines how to run code for that filetype
 local runners = {
@@ -100,13 +103,13 @@ local function get_text()
 end
 
 -- Build command based on mode and filetype
-local function build_command(mode)
-  local filetype = vim.bo.filetype
-  local runner = runners[filetype]
+local function build_command(mode, ft)
+  ft = ft or vim.bo.filetype
+  local runner = runners[ft]
 
   if not runner then
     vim.notify(
-      string.format("No runner configured for filetype: %s", filetype),
+      string.format("No runner configured for filetype: %s", ft),
       vim.log.levels.WARN,
       { title = "Code Runner" }
     )
@@ -212,12 +215,64 @@ function M.run_selection(split)
   end
 end
 
--- Open REPL
+-- Open REPL and track its session
 function M.open_repl(split)
   split = split or "vertical"
-  local cmd = build_command("repl")
+  local filetype = vim.bo.filetype  -- Capture filetype before switching buffers
+  local cmd = build_command("repl", filetype)
+
   if cmd then
     execute_in_terminal(cmd, split)
+    local term_bufnr = vim.api.nvim_get_current_buf()
+    M.repl_info[filetype] = {
+      bufnr = term_bufnr,
+      job_id = vim.b[term_bufnr].terminal_job_id,
+    }
+    vim.notify(
+      string.format("REPL for '%s' started in buffer %d", filetype, term_bufnr),
+      vim.log.levels.INFO,
+      { title = "Code Runner" }
+    )
+  end
+end
+
+-- Send selection/line to an active REPL
+function M.send_to_repl()
+  local filetype = vim.bo.filetype
+  local repl_info = M.repl_info[filetype]
+
+  if not repl_info or not repl_info.job_id then
+    vim.notify("No active REPL for " .. filetype, vim.log.levels.WARN, { title = "Code Runner" })
+    return
+  end
+
+  -- Check if buffer and job still exist
+  if not vim.api.nvim_buf_is_valid(repl_info.bufnr) or vim.fn.jobwait({ repl_info.job_id }, 0)[1] ~= -1 then
+    M.repl_info[filetype] = nil
+    vim.notify("REPL for " .. filetype .. " is no longer running.", vim.log.levels.WARN, { title = "Code Runner" })
+    return
+  end
+
+  local code = get_text()
+  if code == "" then
+    vim.notify("No code to send to REPL", vim.log.levels.WARN, { title = "Code Runner" })
+    return
+  end
+
+  -- Send code to the REPL's channel
+  vim.fn.chansend(repl_info.job_id, code .. "\n")
+
+  -- Optional: Focus the terminal window briefly
+  local origin_win = vim.api.nvim_get_current_win()
+  local win_id = vim.fn.bufwinid(repl_info.bufnr)
+  if win_id ~= -1 then
+    vim.api.nvim_set_current_win(win_id)
+    vim.cmd("redraw")
+    vim.defer_fn(function()
+      if vim.api.nvim_win_is_valid(origin_win) then
+        vim.api.nvim_set_current_win(origin_win)
+      end
+    end, 50)
   end
 end
 
@@ -256,6 +311,16 @@ function M.preview()
     vim.log.levels.INFO,
     { title = "Code Runner Info" }
   )
+end
+
+-- Dry run: show command for smart run without executing
+function M.dry_run()
+  local mode = vim.fn.mode()
+  local cmd_type = (mode == "v" or mode == "V" or mode == "") and "selection" or "file"
+  local cmd = build_command(cmd_type)
+  if cmd then
+    vim.notify(cmd, vim.log.levels.INFO, { title = "Code Runner (Dry Run)" })
+  end
 end
 
 -- Smart runner: tries to determine best execution mode
@@ -309,6 +374,8 @@ function M.setup_keymaps()
     desc = "Open REPL",
   })
 
+  vim.keymap.set(modes, "<leader>rp", M.send_to_repl, { desc = "Send to REPL" })
+
   -- Split variants
   vim.keymap.set(modes, "<leader>rh", function() M.smart_run("horizontal") end, {
     desc = "Run code (horizontal split)",
@@ -326,6 +393,8 @@ function M.setup_keymaps()
   vim.keymap.set("n", "<leader>re", M.edit_and_run, {
     desc = "Edit and run",
   })
+
+  vim.keymap.set(modes, "<leader>rd", M.dry_run, { desc = "Dry run" })
 end
 
 -- Auto-setup when required

@@ -11,9 +11,9 @@ return {
     lazy = true,
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
+      { "folke/snacks.nvim" },
       { "L3MON4D3/LuaSnip" },
       { "nvim-lua/plenary.nvim" },
-      { "folke/snacks.nvim" },
       { "MahanRahmati/blink-nerdfont.nvim" },
       { "mikavilpas/blink-ripgrep.nvim" },
       { "rafamadriz/friendly-snippets" },

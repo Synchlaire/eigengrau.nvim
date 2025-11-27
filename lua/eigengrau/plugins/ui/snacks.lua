@@ -1,3 +1,4 @@
+
 return {
   "folke/snacks.nvim",
   priority = 1000,
@@ -50,6 +51,7 @@ zen          - Zen mode • distraction-free coding
     scope = { enabled = true },  -- Better scope detection
     words = { enabled = true },  -- Auto-highlight LSP references under cursor
     dim = { enabled = true },    -- Focus mode for prose writing
+    lazygit = { enabled = true }, -- Git TUI integration
 
     -- Detailed setup
     notifier = {
@@ -129,32 +131,8 @@ zen          - Zen mode • distraction-free coding
 
     dashboard = {
       enabled = true,
-      pane_gap = 4,
+      pane_gap = 1,
       preset = {
-        --        header = [[
-        -- ⠀⠀⠀⠀⠀⠀⢀⣤⣶⣶⣖⣦⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀
-        -- ⠀⠀⠀⠀⢀⣾⡟⣉⣽⣿⢿⡿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀
-        -- ⠀⠀⠀⢠⣿⣿⣿⡗⠋⠙⡿⣷⢌⣿⣿⠀⠀⠀⠀⠀⠀⠀
-        -- ⣷⣄⣀⣿⣿⣿⣿⣷⣦⣤⣾⣿⣿⣿⡿⠀⠀⠀⠀⠀⠀⠀
-        -- ⠈⠙⠛⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⡀⠀⢀⠀⠀⠀⠀
-        -- ⠀⠀⠀⠸⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠻⠿⠿⠋⠀⠀⠀⠀
-        -- ⠀⠀⠀⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀
-        -- ⠀⠀⠀⠀⠀⠈⢿⣿⣿⣿⣿⣿⣿⣇⠀⠀⠀⠀⠀⠀⠀⡄
-        -- ⠀⠀⠀⠀⠀⠀⠀⠙⢿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⢀⡾⠀
-        -- ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣿⣿⣿⣿⣷⣶⣴⣾⠏⠀⠀
-        -- ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠛⠛⠛⠋⠁⠀⠀⠀
-        --      ]],
-
---         header = [[
---
--- ⣼⢧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
--- ⢻⡈⠻⣦⣀⣀⣀⣀⣀⠀⠀⠀⠀
--- ⡿⠳⣤⣀⡀⠀⠀⠉⠉⠉⠳⢦⠀
--- ⠻⣦⣀⠀⠀⠀⡴⠶⢦⡀⠀⠈⣿
--- ⠀⠸⣍⣉⣁⡀⣇⠀⠀⠑⠀⢠⡿
--- ⠀⠀⠀⠙⠷⠤⠿⠶⠦⠶⠞⠋⠀
--- ]],
-
         header = [[
 ⠀⠀⠀⠀⠀⠀⣾⠍⠁⠉⣷⠀⠀⠀⠀⠀⠀⣠⣤⣤⡀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⣿⡃⠀⠀⠀⢘⣿⠀⠀⠀⢠⣾⡟⠃⠀⠛⣿⡆⠀⠀⠀⠀⠀
@@ -168,17 +146,19 @@ zen          - Zen mode • distraction-free coding
 ]],
 
         keys = {
-          { key = "s", icon  = "", desc = "Sessions", action = "<cmd>Telescope possession list theme=dropdown initial_mode=normal<cr>" },
-          { key = "n", icon  = "", desc = "New file", action = "<cmd>ene<cr>" },
-          { key = "o", icon  = "", desc = "Obsidian", action = "<cmd>Obsidian<cr>" },
-          { key = "p", icon  = "󱅄", desc = "Projects", action = "<cmd>ProjectExplorer<cr>" },
-          { key = "l", icon  = "󱈼", desc = "Lazy Plugins", action = "<cmd>Lazy<cr>" },
-          { key = "f", icon  = "", desc = "Find file", action = "<cmd>lua Snacks.dashboard.pick('files')<cr>" },
-          { key = "d", icon  = "", desc = "Find Folders", action = "<cmd>FolderPicker<cr>" },
-          { key = "r", icon  = "", desc = "Recent files", action = "<cmd>lua Snacks.dashboard.pick('oldfiles')<cr>" },
-          { key = "cc", icon = "", desc = "system configs", action = "<cmd>cd $HOME/.config/ | lua Snacks.dashboard.pick('files')<cr>" },
-          { key = "cn", icon = "", desc = "nvim config", action = "<cmd>cd $HOME/.config/nvim/ | lua Snacks.dashboard.pick('files')<cr>" },
-          { key = "qq", icon = "", desc = "Quit NVIM", action = "<cmd>qa<cr>" },
+
+          { key = "t", icon  = " 󰤖 ", desc = "Tasks (capture)", action = function() require("eigengrau.config.functions.tasks").list_tasks() end },
+          { key = "s", icon  = "  ", desc = "Sessions", action = "<cmd>Telescope possession list theme=dropdown initial_mode=normal<cr>" },
+          { key = "n", icon  = "  ", desc = "New file", action = "<cmd>ene<cr>" },
+          { key = "f", icon  = "  ", desc = "Find file", action = "<cmd>lua Snacks.dashboard.pick('files')<cr>" },
+          { key = "r", icon  = "  ", desc = "Recent files", action = "<cmd>lua Snacks.dashboard.pick('oldfiles')<cr>" },
+          { key = "d", icon  = "  ", desc = "Find Folders", action = "<cmd>FolderPicker<cr>" },
+          { key = "o", icon  = "  ", desc = "Obsidian", action = "<cmd>ObsidianQuickSwitch<cr>" },
+          { key = "p", icon  = " 󱅄 ", desc = "Projects", action = "<cmd>ProjectExplorer<cr>" },
+          { key = "cc", icon = "  ", desc = "System configs", action = "<cmd>cd $HOME/.config/ | lua Snacks.dashboard.pick('files')<cr>" },
+          { key = "cn", icon = "  ", desc = "Nvim config", action = "<cmd>cd $HOME/.config/nvim/ | lua Snacks.dashboard.pick('files')<cr>" },
+          { key = "l", icon  = " 󱈼 ", desc = "Lazy Plugins", action = "<cmd>Lazy<cr>" },
+          { key = "qq", icon = "  ", desc = "Quit NVIM", action = "<cmd>qa<cr>" },
         },
       },
       formats = {
@@ -189,11 +169,10 @@ zen          - Zen mode • distraction-free coding
         footer = { "%s", align = "center" },
       },
       sections = {
-        { pane = 1, section = "header",       gap = 1 },
-        --        { pane = 1, section = "terminal", cmd = "", gap = 1 },
-        { pane = 2, title = "# Recent Files", section = "recent_files", limit = 5, indent = 2, padding = 1 },
-        { pane = 2, title = "# Keymaps",      section = "keys",         indent = 2, padding = 1 },
-        { pane = 2, section = "startup",      gap = 1 },
+        { pane = 1, section = "header", gap = 1 },
+        { pane = 2, title = "# Recent Files", section = "recent_files", limit = 8, indent = 2, padding = 1 },
+        { pane = 2, title = "# Keymaps", section = "keys", indent = 2, padding = 1 },
+        { pane = 2, section = "startup", gap = 1 },
       },
     },
   },

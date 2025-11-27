@@ -41,35 +41,6 @@ cmd({ "BufRead", "BufNewFile" }, {
 	command = "setlocal tw=88 spell" .. " tabstop=2 shiftwidth=2 expandtab",
 })
 
--- -- Don't auto comment new lines
--- cmd('BufEnter', {
---   pattern = '',
---   command = 'set fo-=c fo-=r fo-=o'
--- })
---
-
--- make the terminal fucking behave:
------------------------------------
-
--- its a terminal not a goddamn file
--- cmd({ "TermOpen" }, {
---   pattern = { "*" },
---   callback = function()
---     vim.o.relativenumber = false
---     vim.o.number = false
---     vim.o.cursorline = false
---     vim.cmd("startinsert")
---   end,
--- })
---
--- cmd({ "TermOpen" }, {command = [[setlocal scrolloff=0]]})
---
--- -- Close terminal buffer on process exit
--- cmd('BufLeave', {
---   pattern = 'term://*',
---   command = 'stopinsert'
--- })
---
 -- Create a dir when saving a file if it doesnt exist
 cmd("BufWritePre", {
 	group = augroup("auto_create_dir", { clear = true }),
@@ -85,13 +56,6 @@ cmd("BufWritePre", {
 -----------------------------------
 --             PLUGINS           --
 -----------------------------------
--- lsp opens automatically
---cmd("CursorHold", {
---    group = vim.api.nvim_create_augroup("lsp_float", {}),
---    callback = function()
---        vim.diagnostic.open_float()
---    end,
---})
 
 -- close some filetypes with <q>
 local close_q = augroup("close_q", {})

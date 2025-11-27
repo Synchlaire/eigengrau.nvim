@@ -1,0 +1,618 @@
+-- Task management for markdown files in Obsidian vault
+local M = {}
+
+-- Config
+M.config = {
+  vault_path = vim.fn.expand("$HOME/Vaults/Littlewing/"),
+  tasks_dir = vim.fn.expand("$HOME/Vaults/Littlewing/tasks/"),
+  inbox_dir = vim.fn.expand("$HOME/Vaults/Littlewing/inbox/"),
+  priorities = {
+    high = "!",
+    medium = "*",
+    low = "-",
+    none = "",
+  },
+  -- GTD structure
+  gtd = {
+    active = "tasks/active/",           -- Current work
+    backlog = "tasks/00 - backlog.md",  -- Future tasks
+    archive = "tasks/archive/",         -- Completed
+  }
+}
+
+-- Ensure GTD directories exist
+local function ensure_gtd_structure()
+  local base = M.config.vault_path
+  vim.fn.mkdir(base .. M.config.gtd.active, "p")
+  vim.fn.mkdir(base .. M.config.gtd.archive, "p")
+end
+
+-- Get GTD file paths
+function M.get_active_file(priority)
+  ensure_gtd_structure()
+  local priority_files = {
+    high = M.config.vault_path .. M.config.gtd.active .. "01 - high.md",
+    medium = M.config.vault_path .. M.config.gtd.active .. "02 - medium.md",
+    low = M.config.vault_path .. M.config.gtd.active .. "03 - low.md",
+  }
+  return priority_files[priority] or priority_files.high
+end
+
+function M.get_backlog_file()
+  ensure_gtd_structure()
+  return M.config.vault_path .. M.config.gtd.backlog
+end
+
+function M.get_archive_file()
+  ensure_gtd_structure()
+  local month = os.date("%Y-%m")
+  return M.config.vault_path .. M.config.gtd.archive .. month .. ".md"
+end
+
+-- Open active tasks (GTD)
+function M.open_active(priority)
+  priority = priority or "high"
+  local file = M.get_active_file(priority)
+
+  vim.schedule(function()
+    vim.cmd("vsplit " .. file)
+
+    -- Add template if empty
+    if vim.fn.getfsize(file) <= 0 then
+      local titles = {high = "! High Priority", medium = "* Medium Priority", low = "- Low Priority"}
+      local lines = {
+        "# Active: " .. titles[priority],
+        "",
+        "<!-- Tasks you're actively working on right now -->",
+        "",
+        "- [ ] ",
+        "",
+      }
+      vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+      vim.api.nvim_win_set_cursor(0, {5, 6}) -- Position cursor after checkbox
+    end
+  end)
+end
+
+-- Open backlog
+function M.open_backlog()
+  local file = M.get_backlog_file()
+
+  vim.schedule(function()
+    vim.cmd("vsplit " .. file)
+
+    if vim.fn.getfsize(file) <= 0 then
+      local lines = {
+        "# Backlog",
+        "",
+        "<!-- Future tasks, ideas, maybe-someday items -->",
+        "",
+        "## Upcoming",
+        "",
+        "- [ ] ",
+        "",
+        "## Someday",
+        "",
+      }
+      vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+      vim.api.nvim_win_set_cursor(0, {7, 6})
+    end
+  end)
+end
+
+-- Open archive (current month)
+function M.open_archive()
+  local file = M.get_archive_file()
+
+  vim.schedule(function()
+    vim.cmd("vsplit " .. file)
+
+    if vim.fn.getfsize(file) <= 0 then
+      local lines = {
+        "# Archive - " .. os.date("%B %Y"),
+        "",
+        "<!-- Completed tasks for reference -->",
+        "",
+      }
+      vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+    end
+  end)
+end
+
+-- Quick task capture with modal and priority routing
+function M.quick_capture()
+  vim.schedule(function()
+    local width = math.floor(vim.o.columns * 0.6)
+    local height = 3
+    local row = math.floor((vim.o.lines - height) / 2)
+    local col = math.floor((vim.o.columns - width) / 2)
+
+    local buf = vim.api.nvim_create_buf(false, true)
+
+    local win = vim.api.nvim_open_win(buf, true, {
+      relative = "editor",
+      width = width,
+      height = height,
+      row = row,
+      col = col,
+      style = "minimal",
+      border = "rounded",
+      title = " Quick Capture (end with: !|p1|p2|p3 or nothing for backlog) ",
+      title_pos = "center",
+    })
+
+    vim.api.nvim_win_set_option(win, "winblend", 5)
+
+    -- Set buffer options
+    vim.bo[buf].buftype = ""
+    vim.bo[buf].bufhidden = "wipe"
+    vim.bo[buf].filetype = "markdown"
+
+    -- Set initial prompt line
+    vim.api.nvim_buf_set_lines(buf, 0, -1, false, { "> " })
+
+    -- Helper to append task to file
+    local function append_task_to_file(file, task_text)
+      local hour = tonumber(os.date("%H"))
+      local minute = os.date("%M")
+      local ampm = hour >= 12 and "pm" or "am"
+      local display_hour = hour % 12
+      if display_hour == 0 then display_hour = 12 end
+      local timestamp = string.format("%s - %d:%s %s", os.date("%a"), display_hour, minute, ampm)
+      local task_line = "- [ ] " .. task_text .. " 󰅐 " .. timestamp
+
+      -- Ensure file exists
+      local f = io.open(file, "a+")
+      if f then
+        f:close()
+      end
+
+      -- Read current content
+      local lines = {}
+      for line in io.lines(file) do
+        table.insert(lines, line)
+      end
+
+      -- Append new task
+      table.insert(lines, task_line)
+
+      -- Write back
+      local file_handle = io.open(file, "w")
+      if file_handle then
+        for _, line in ipairs(lines) do
+          file_handle:write(line .. "\n")
+        end
+        file_handle:close()
+      end
+    end
+
+    -- Process input on submit
+    local function process_input()
+      local input = vim.api.nvim_buf_get_lines(buf, 0, -1, false)[1] or ""
+
+      -- Remove the prompt prefix
+      input = input:gsub("^> ", "")
+
+      if input == "" or input == ">" then
+        vim.api.nvim_win_close(win, true)
+        return
+      end
+
+      -- Extract priority flag
+      local task_text, priority
+      if input:match("%s+!%s*$") then
+        task_text = input:gsub("%s+!%s*$", "")
+        priority = "high"
+      elseif input:match("%s+p1%s*$") then
+        task_text = input:gsub("%s+p1%s*$", "")
+        priority = "high"
+      elseif input:match("%s+p2%s*$") then
+        task_text = input:gsub("%s+p2%s*$", "")
+        priority = "medium"
+      elseif input:match("%s+p3%s*$") then
+        task_text = input:gsub("%s+p3%s*$", "")
+        priority = "low"
+      else
+        task_text = input
+        priority = "backlog"
+      end
+
+      -- Get appropriate file
+      local target_file
+      if priority == "backlog" then
+        target_file = M.get_backlog_file()
+      else
+        target_file = M.get_active_file(priority)
+      end
+
+      -- Append task
+      append_task_to_file(target_file, task_text)
+
+      -- Close window
+      vim.api.nvim_win_close(win, true)
+
+      -- Notify user
+      vim.notify(
+        string.format("Task added to %s: %s", priority, task_text),
+        vim.log.levels.INFO
+      )
+    end
+
+    -- Set up keymaps for the modal
+    vim.keymap.set("i", "<CR>", process_input, { buffer = buf, nowait = true })
+    vim.keymap.set("n", "<CR>", process_input, { buffer = buf, nowait = true })
+    vim.keymap.set("n", "<Esc>", function()
+      vim.api.nvim_win_close(win, true)
+    end, { buffer = buf, nowait = true })
+    vim.keymap.set("i", "<Esc>", function()
+      vim.cmd("stopinsert")
+      vim.api.nvim_win_close(win, true)
+    end, { buffer = buf, nowait = true })
+
+    -- Prevent backspacing over the prompt
+    vim.keymap.set("i", "<BS>", function()
+      local line = vim.api.nvim_get_current_line()
+      local col = vim.api.nvim_win_get_cursor(0)[2]
+      if col > 2 then  -- Only backspace if past "> "
+        return "<BS>"
+      end
+      return ""
+    end, { buffer = buf, expr = true, nowait = true })
+
+    -- Start in insert mode at end of prompt
+    vim.cmd("startinsert!")
+    vim.api.nvim_win_set_cursor(win, {1, 2})
+  end)
+end
+
+-- Count tasks in vault (only tasks/ and inbox/)
+function M.count_tasks()
+  local cmd = string.format(
+    "rg --no-heading --count '^\\s*- \\[ \\]' %s %s 2>/dev/null | awk -F: '{sum+=$2} END {print sum}'",
+    M.config.tasks_dir,
+    M.config.inbox_dir
+  )
+  local handle = io.popen(cmd)
+  if not handle then return 0 end
+
+  local result = handle:read("*a")
+  handle:close()
+
+  return tonumber(result) or 0
+end
+
+-- Get high priority tasks (tasks with ! marker)
+function M.get_priority_tasks(limit)
+  limit = limit or 3
+
+  local cmd = string.format(
+    "rg --no-heading --line-number '^\\s*- \\[ \\].*!' %s %s 2>/dev/null | head -%d",
+    M.config.tasks_dir,
+    M.config.inbox_dir,
+    limit
+  )
+
+  local handle = io.popen(cmd)
+  if not handle then return {} end
+
+  local result = handle:read("*a")
+  handle:close()
+
+  local tasks = {}
+  for line in result:gmatch("[^\r\n]+") do
+    table.insert(tasks, line)
+  end
+
+  return tasks
+end
+
+-- Toggle task completion with timestamp
+function M.toggle_task()
+  local line = vim.api.nvim_get_current_line()
+  local row = vim.api.nvim_win_get_cursor(0)[1]
+
+  -- Check if line is a task
+  if line:match("^%s*- %[ %]") then
+    -- Mark as complete with timestamp
+    local hour = tonumber(os.date("%H"))
+    local minute = os.date("%M")
+    local ampm = hour >= 12 and "pm" or "am"
+    local display_hour = hour % 12
+    if display_hour == 0 then display_hour = 12 end
+    local timestamp = string.format("%s - %d:%s %s", os.date("%a"), display_hour, minute, ampm)
+    local new_line = line:gsub("^(%s*- )%[ %]", "%1[x]") .. " ✓ done::" .. timestamp
+    vim.api.nvim_buf_set_lines(0, row - 1, row, false, { new_line })
+  elseif line:match("^%s*- %[x%]") then
+    -- Unmark (remove done tag and timestamp)
+    local new_line = line:gsub("^(%s*- )%[x%]", "%1[ ]"):gsub(" ✓ done::.+", "")
+    vim.api.nvim_buf_set_lines(0, row - 1, row, false, { new_line })
+  end
+end
+
+-- Create new task at cursor with timestamp
+function M.new_task()
+  local row = vim.api.nvim_win_get_cursor(0)[1]
+  local indent = vim.api.nvim_get_current_line():match("^%s*") or ""
+  local task_line = indent .. "- [ ] "
+
+  vim.api.nvim_buf_set_lines(0, row, row, false, { task_line })
+  vim.api.nvim_win_set_cursor(0, { row + 1, #indent + 6 })
+  vim.cmd("startinsert!")
+
+  -- Auto-append timestamp on line leave
+  vim.api.nvim_create_autocmd("InsertLeave", {
+    buffer = 0,
+    once = true,
+    callback = function()
+      local current_line = vim.api.nvim_get_current_line()
+      local current_row = vim.api.nvim_win_get_cursor(0)[1]
+
+      -- Only add timestamp if line is still a task and doesn't have one
+      if current_line:match("^%s*- %[ %]") and not current_line:match("󰅐") then
+        local hour = tonumber(os.date("%H"))
+        local minute = os.date("%M")
+        local ampm = hour >= 12 and "pm" or "am"
+        local display_hour = hour % 12
+        if display_hour == 0 then display_hour = 12 end
+        local timestamp = string.format("%s - %d:%s %s", os.date("%a"), display_hour, minute, ampm)
+        local updated_line = current_line .. " 󰅐 " .. timestamp
+        vim.api.nvim_buf_set_lines(0, current_row - 1, current_row, false, { updated_line })
+      end
+    end,
+  })
+end
+
+-- Set task priority and move to appropriate file
+function M.set_priority(priority)
+  local line = vim.api.nvim_get_current_line()
+  local row = vim.api.nvim_win_get_cursor(0)[1]
+
+  if not line:match("^%s*- %[[ x]%]") then
+    vim.notify("Not a task line", vim.log.levels.WARN)
+    return
+  end
+
+  -- Extract just the task content (remove checkbox and existing priority markers)
+  local task_content = line:gsub("^%s*- %[[ x]%] ", "")
+  task_content = task_content:gsub("^[!*%-] ", "")  -- Remove old priority marker
+
+  -- Add timestamp if not present
+  local timestamp
+  if task_content:match("󰅐 .+") then
+    timestamp = task_content:match("󰅐 (.+)")
+  else
+    local hour = tonumber(os.date("%H"))
+    local minute = os.date("%M")
+    local ampm = hour >= 12 and "pm" or "am"
+    local display_hour = hour % 12
+    if display_hour == 0 then display_hour = 12 end
+    timestamp = string.format("%s - %d:%s %s", os.date("%a"), display_hour, minute, ampm)
+  end
+
+  -- Build new task line with priority marker
+  local icon = M.config.priorities[priority] or ""
+  local new_task_text
+  if icon ~= "" then
+    -- Remove timestamp first to rebuild properly
+    task_content = task_content:gsub("%s*󰅐 .+", "")
+    new_task_text = icon .. " " .. task_content
+  else
+    task_content = task_content:gsub("%s*󰅐 .+", "")
+    new_task_text = task_content
+  end
+
+  local new_line = "- [ ] " .. new_task_text .. " 󰅐 " .. timestamp
+
+  -- Get target file
+  local target_file
+  if priority == "backlog" or priority == "none" then
+    target_file = M.get_backlog_file()
+  else
+    target_file = M.get_active_file(priority)
+  end
+
+  -- Append to target file
+  local f = io.open(target_file, "a")
+  if f then
+    f:write(new_line .. "\n")
+    f:close()
+  end
+
+  -- Delete current line
+  vim.api.nvim_buf_set_lines(0, row - 1, row, false, {})
+
+  vim.notify(
+    string.format("Task moved to %s priority", priority),
+    vim.log.levels.INFO
+  )
+end
+
+
+-- List all incomplete tasks via fzf-lua (only tasks/ and inbox/)
+function M.list_tasks()
+  local cmd = string.format(
+    [[rg --no-heading --line-number '^\s*- \[ \]' %s %s 2>/dev/null | awk -F: '{
+      file=$1;
+      if (file ~ /01 - high\.md/) label="high";
+      else if (file ~ /02 - medium\.md/) label="med";
+      else if (file ~ /03 - low\.md/) label="low";
+      else if (file ~ /00 - backlog\.md/) label="backlog";
+      else if (file ~ /inbox/) label="inbox";
+      else label="other";
+      print $3 " --> " label " | " file
+    }']],
+    M.config.tasks_dir,
+    M.config.inbox_dir
+  )
+
+  require("fzf-lua").fzf_exec(cmd, {
+    prompt = "Tasks ❯ ",
+    preview = false,
+    winopts = {
+      height = 0.6,
+      width = 0.8,
+      preview = { hidden = "hidden" },
+    },
+    actions = {
+      ["default"] = function(selected)
+        if not selected or #selected == 0 then return end
+        -- Extract filepath from "task --> label | /path/to/file"
+        local file = selected[1]:match("| (.*)")
+        if file then
+          file = file:gsub("^%s+", "")
+          local task_content = selected[1]:match("^(.-)%s+%-%->")
+          if task_content then
+            vim.cmd("edit " .. file)
+            vim.fn.search(vim.pesc(task_content), "w")
+          end
+        end
+      end,
+    },
+  })
+end
+
+-- List completed tasks (only tasks/ and inbox/)
+function M.list_completed()
+  local cmd = string.format(
+    [[rg --no-heading --line-number 'done::' %s %s 2>/dev/null | awk -F: '{
+      file=$1;
+      if (file ~ /01 - high\.md/) label="high";
+      else if (file ~ /02 - medium\.md/) label="med";
+      else if (file ~ /03 - low\.md/) label="low";
+      else if (file ~ /00 - backlog\.md/) label="backlog";
+      else if (file ~ /inbox/) label="inbox";
+      else if (file ~ /archive/) label="archive";
+      else label="other";
+      print $3 " --> " label " | " file
+    }']],
+    M.config.tasks_dir,
+    M.config.inbox_dir
+  )
+
+  require("fzf-lua").fzf_exec(cmd, {
+    prompt = "Completed ❯ ",
+    preview = false,
+    winopts = {
+      height = 0.6,
+      width = 0.8,
+      preview = { hidden = "hidden" },
+    },
+    actions = {
+      ["default"] = function(selected)
+        if not selected or #selected == 0 then return end
+        local file = selected[1]:match("| (.*)")
+        if file then
+          file = file:gsub("^%s+", "")
+          local task_content = selected[1]:match("^(.-)%s+%-%->")
+          if task_content then
+            vim.cmd("edit " .. file)
+            vim.fn.search(vim.pesc(task_content), "w")
+          end
+        end
+      end,
+    },
+  })
+end
+
+-- List archive tasks
+function M.list_archive()
+  local archive_dir = M.config.vault_path .. M.config.gtd.archive
+  local cmd = string.format(
+    [[rg --no-heading --line-number '^\s*- \[[ x]\]' %s 2>/dev/null | awk -F: '{
+      file=$1;
+      gsub(/.*\//, "", file);
+      gsub(/\.md$/, "", file);
+      print $3 " --> " file " | " $1
+    }']],
+    archive_dir
+  )
+
+  require("fzf-lua").fzf_exec(cmd, {
+    prompt = "Archive ❯ ",
+    preview = false,
+    winopts = {
+      height = 0.6,
+      width = 0.8,
+      preview = { hidden = "hidden" },
+    },
+    actions = {
+      ["default"] = function(selected)
+        if not selected or #selected == 0 then return end
+        local file = selected[1]:match("| (.*)")
+        if file then
+          file = file:gsub("^%s+", "")
+          local task_content = selected[1]:match("^(.-)%s+%-%->")
+          if task_content then
+            vim.cmd("edit " .. file)
+            vim.fn.search(vim.pesc(task_content), "w")
+          end
+        end
+      end,
+    },
+  })
+end
+
+-- List backlog tasks
+function M.list_backlog()
+  local backlog_file = M.get_backlog_file()
+  local cmd = string.format(
+    [[rg --no-heading --line-number '^\s*- \[ \]' %s 2>/dev/null | awk -F: '{print $3 " --> backlog | " $1}']],
+    backlog_file
+  )
+
+  require("fzf-lua").fzf_exec(cmd, {
+    prompt = "Backlog ❯ ",
+    preview = false,
+    winopts = {
+      height = 0.6,
+      width = 0.8,
+      preview = { hidden = "hidden" },
+    },
+    actions = {
+      ["default"] = function(selected)
+        if not selected or #selected == 0 then return end
+        local file = selected[1]:match("| (.*)")
+        if file then
+          file = file:gsub("^%s+", "")
+          local task_content = selected[1]:match("^(.-)%s+%-%->")
+          if task_content then
+            vim.cmd("edit " .. file)
+            vim.fn.search(vim.pesc(task_content), "w")
+          end
+        end
+      end,
+    },
+  })
+end
+
+-- Toggle between task files (high -> medium -> low -> high)
+function M.toggle_tasks()
+  local current_file = vim.fn.expand("%:p")
+  local high_file = M.get_active_file("high")
+  local medium_file = M.get_active_file("medium")
+  local low_file = M.get_active_file("low")
+
+  if current_file == high_file then
+    vim.cmd("edit " .. medium_file)
+  elseif current_file == medium_file then
+    vim.cmd("edit " .. low_file)
+  elseif current_file == low_file then
+    vim.cmd("edit " .. high_file)
+  else
+    -- Not in a task file, open high by default
+    vim.cmd("edit " .. high_file)
+  end
+end
+
+-- Dashboard integration: get task summary
+function M.get_dashboard_summary()
+  local count = M.count_tasks()
+  local tasks = M.get_priority_tasks(3)
+
+  return {
+    count = count,
+    tasks = tasks,
+  }
+end
+
+return M
