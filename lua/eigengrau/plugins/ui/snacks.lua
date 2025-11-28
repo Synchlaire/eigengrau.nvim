@@ -48,7 +48,7 @@ zen          - Zen mode • distraction-free coding
     win = { enabled = true },
     toggle = { enabled = true },
     profiler = { enabled = true },
-    scope = { enabled = true },  -- Better scope detection
+    scope = { enabled = false },  -- Better scope detection
     words = { enabled = true },  -- Auto-highlight LSP references under cursor
     dim = { enabled = true },    -- Focus mode for prose writing
     lazygit = { enabled = true }, -- Git TUI integration
@@ -147,16 +147,16 @@ zen          - Zen mode • distraction-free coding
 
         keys = {
 
-          { key = "t", icon  = " 󰤖 ", desc = "Tasks (capture)", action = function() require("eigengrau.config.functions.tasks").list_tasks() end },
+          { key = "t", icon  = " 󰤖 ", desc = "Current Tasks", action = function() require("eigengrau.config.functions.tasks").list_tasks() end },
           { key = "s", icon  = "  ", desc = "Sessions", action = "<cmd>Telescope possession list theme=dropdown initial_mode=normal<cr>" },
-          { key = "n", icon  = "  ", desc = "New file", action = "<cmd>ene<cr>" },
-          { key = "f", icon  = "  ", desc = "Find file", action = "<cmd>lua Snacks.dashboard.pick('files')<cr>" },
-          { key = "r", icon  = "  ", desc = "Recent files", action = "<cmd>lua Snacks.dashboard.pick('oldfiles')<cr>" },
+          { key = "n", icon  = "  ", desc = "New File", action = "<cmd>ene<cr>" },
+          { key = "f", icon  = "  ", desc = "Find File", action = "<cmd>lua Snacks.dashboard.pick('files')<cr>" },
+          { key = "r", icon  = "  ", desc = "Recent Files", action = "<cmd>lua Snacks.dashboard.pick('oldfiles')<cr>" },
           { key = "d", icon  = "  ", desc = "Find Folders", action = "<cmd>FolderPicker<cr>" },
-          { key = "o", icon  = "  ", desc = "Obsidian", action = "<cmd>ObsidianQuickSwitch<cr>" },
+          { key = "o", icon  = "  ", desc = "Obsidian", action = "<cmd>Obsidian quick_switch<cr>" },
           { key = "p", icon  = " 󱅄 ", desc = "Projects", action = "<cmd>ProjectExplorer<cr>" },
-          { key = "cc", icon = "  ", desc = "System configs", action = "<cmd>cd $HOME/.config/ | lua Snacks.dashboard.pick('files')<cr>" },
-          { key = "cn", icon = "  ", desc = "Nvim config", action = "<cmd>cd $HOME/.config/nvim/ | lua Snacks.dashboard.pick('files')<cr>" },
+          { key = "cc", icon = "  ", desc = "System Configs", action = "<cmd>cd $HOME/.config/ | lua Snacks.dashboard.pick('files')<cr>" },
+          { key = "cn", icon = "  ", desc = "Nvim Config", action = "<cmd>cd $HOME/.config/nvim/ | lua Snacks.dashboard.pick('files')<cr>" },
           { key = "l", icon  = " 󱈼 ", desc = "Lazy Plugins", action = "<cmd>Lazy<cr>" },
           { key = "qq", icon = "  ", desc = "Quit NVIM", action = "<cmd>qa<cr>" },
         },
@@ -170,7 +170,7 @@ zen          - Zen mode • distraction-free coding
       },
       sections = {
         { pane = 1, section = "header", gap = 1 },
-        { pane = 2, title = "# Recent Files", section = "recent_files", limit = 8, indent = 2, padding = 1 },
+        { pane = 2, title = "# Recent Files", section = "recent_files", limit = 4, indent = 2, padding = 1 },
         { pane = 2, title = "# Keymaps", section = "keys", indent = 2, padding = 1 },
         { pane = 2, section = "startup", gap = 1 },
       },

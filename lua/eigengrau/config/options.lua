@@ -69,7 +69,7 @@ opt.lazyredraw = false                      -- Redraw during macros (false = saf
 opt.backspace = { "indent", "eol", "start" }
 opt.ttimeout = true                         -- Use timeouts for key mappings
 opt.ttimeoutlen = 50
-opt.virtualedit = "block"                   -- Allow cursor beyond EOL in visual block mode
+opt.virtualedit = ""                        -- Disable virtual columns entirely
 
 -- Whitespace visualization (toggle with :set list!)
 opt.listchars = {

@@ -129,9 +129,9 @@ return {
           ["Content-Type"] = "application/json",
         },
         models = {
-          "codestral",
-          "llama3.2",
-          "gemma3",
+          "phi3:3.8b",
+          "qwen2.5-coder:3b",
+          "gemma2:2b",
           "qwen2.5-coder:0.5b",     -- the real 0.5B coding model (≈600 MB RAM)
         },
         resolve_api_key = function()
@@ -317,6 +317,7 @@ Rules:
 2. RETURN RAW CODE ONLY. Do NOT use markdown code blocks (```).
 3. Do NOT add conversational text.
 4. If you have feedback, add it as a comment at the very bottom of the code using correct {{filetype}} syntax.
+5. If there's any issue in the code, fix it and leave the comment at the very bottom
 
 Code:
 {{selection}}]]

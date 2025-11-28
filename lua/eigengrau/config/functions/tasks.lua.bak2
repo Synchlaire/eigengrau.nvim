@@ -439,7 +439,7 @@ function M.list_tasks()
       else if (file ~ /00 - backlog\.md/) label="backlog";
       else if (file ~ /inbox/) label="inbox";
       else label="other";
-      filename=file; gsub(/.*\//, "", filename); print $3 "  " filename
+      print $3 "  " label " | " file
     }']],
     M.config.tasks_dir,
     M.config.inbox_dir
@@ -483,7 +483,7 @@ function M.list_completed()
       else if (file ~ /inbox/) label="inbox";
       else if (file ~ /archive/) label="archive";
       else label="other";
-      filename=file; gsub(/.*\//, "", filename); print $3 "  " filename
+      print $3 "  " label " | " file
     }']],
     M.config.tasks_dir,
     M.config.inbox_dir
@@ -522,7 +522,7 @@ function M.list_archive()
       file=$1;
       gsub(/.*\//, "", file);
       gsub(/\.md$/, "", file);
-      filename=file; gsub(/.*\//, "", filename); print $3 "  " filename
+      print $3 "  " file " | " $1
     }']],
     archive_dir
   )
@@ -556,7 +556,7 @@ end
 function M.list_backlog()
   local backlog_file = M.get_backlog_file()
   local cmd = string.format(
-    [[rg --no-heading --line-number '^\s*- \[ \]' %s 2>/dev/null | awk -F: '{filename=$1; gsub(/.*\//, "", filename); print $3 "  " filename}']],
+    [[rg --no-heading --line-number '^\s*- \[ \]' %s 2>/dev/null | awk -F: '{print $3 "  backlog | " $1}']],
     backlog_file
   )
 

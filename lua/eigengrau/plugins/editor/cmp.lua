@@ -86,7 +86,6 @@ return {
       },
       sources = {
         default = {
-          "parrot",
           "lsp",
           "path",
           "snippets",
@@ -125,15 +124,6 @@ return {
             module = "blink-nerdfont",
             name = "Nerd Fonts",
             opts = { insert = true },
-          },
-          parrot = {
-            module = "parrot.completion.blink",
-            name = "parrot",
-            score_offset = 20,
-            opts = {
-              show_hidden_files = false,
-              max_items = 50,
-            }
           },
         },
       },

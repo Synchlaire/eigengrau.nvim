@@ -207,6 +207,26 @@ keymap("n", "<leader>dd", "<cmd>lua require('snacks').bufdelete()<CR>", { desc =
 
 
 ----------
+-- Gen.nvim AI (<leader>g)
+----------
+
+-- -- Quick prompts
+-- keymap("n", "<leader>gg", ":Gen<CR>", { desc = "Gen prompt" })
+-- keymap("v", "<leader>gg", ":Gen<CR>", { desc = "Gen prompt" })
+--
+-- -- Style prompts (visual)
+-- keymap("v", "<leader>gsc", ":Gen Style_Critique<CR>", { desc = "Style critique" })
+-- keymap("v", "<leader>gsw", ":Gen Style_Chimera<CR>", { desc = "Style chimera" })
+--
+-- -- Code prompts (visual)
+-- keymap("v", "<leader>gcf", ":Gen Fix_Code_Fast<CR>", { desc = "Fix code fast" })
+-- keymap("v", "<leader>gce", ":Gen Explain_Simple<CR>", { desc = "Explain code" })
+--
+-- -- Personality chat
+-- keymap("v", "<leader>gb", ":Gen Bestie<CR>", { desc = "Bestie chat" })
+--
+
+----------
 -- Parrot AI (<leader>p)
 ----------
 
@@ -240,6 +260,9 @@ keymap("v", "<leader>pu", ":PrtUnfuckThis<CR>", { desc = "Unfuck" })
 keymap("v", "<leader>pc", ":PrtCodeReview<CR>", { desc = "Review" })
 keymap("v", "<leader>pf", ":PrtPrettify<CR>", { desc = "Prettify" })
 keymap("v", "<leader>po", ":PrtObsidianFormat<CR>", { desc = "Obsidian format" })
+
+
+
 
 -- Snacks.nvim functions (non-conflicting binds)
 vim.keymap.set("n", "<leader>bD", function() Snacks.bufdelete() end, { desc = "Delete buffer (smart)" })

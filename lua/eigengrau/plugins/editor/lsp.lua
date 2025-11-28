@@ -68,7 +68,7 @@ return {
     config = function()
       -- Minimal diagnostic configuration
       vim.diagnostic.config({
-        virtual_text = { prefix = "●" },
+        virtual_text = false, -- Disable inline diagnostic messages
         signs = {
           text = {
             [vim.diagnostic.severity.ERROR] = "",

@@ -66,15 +66,52 @@ return {
 			{ "mcauley-penney/techbase.nvim" },
 			{ "mcauley-penney/phobos-anomaly.nvim" },
 
+			-- plain
+			{
+				"Synchlaire/plain.nvim",
+				name = "plain",
+				whitelist = { "plain-dark", "plain-light" },
+				before = function(theme)
+					require("plain").setup({
+						theme = theme:match("light") and "light" or "dark",
+						transparent = true,
+						bold = true,
+						italic = true,
+						underline = true,
+						undercurl = true,
+						cursorline = true,
+						style = {
+							comments = "italic",
+							keywords = "bold",
+							functions = "NONE",
+							strings = "NONE",
+							variables = "NONE",
+						},
+					})
+				end,
+			},
+
 			-- black-atom
-			-- { "black-atom-mnml-mikado-dark" },
-			-- { "black-atom-mnml-47-dark" },
-			-- { "black-atom-mnml-47-light" },
-			-- { "black-atom-mnml-mono-dark" },
-			-- { "black-atom-mnml-mono-light" },
-			-- { "black-atom-stations-engineering" },
-			-- { "black-atom-stations-medical" },
-			-- { "black-atom-stations-operations" },
+			{
+				"black-atom-industries/nvim",
+				name = "black-atom",
+				whitelist = {
+					"black-atom-mnml-mikado-dark",
+					"black-atom-mnml-47-dark",
+					"black-atom-mnml-47-light",
+					"black-atom-mnml-mono-dark",
+					"black-atom-mnml-mono-light",
+					"black-atom-stations-engineering",
+					"black-atom-stations-medical",
+					"black-atom-stations-operations",
+				},
+				before = function(theme)
+					require("black-atom").setup({
+						transparent = true,
+						contrast = false,
+					})
+				end,
+			},
 
 			-- Lackluster
 			{
