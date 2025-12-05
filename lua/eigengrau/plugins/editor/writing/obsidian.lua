@@ -12,9 +12,9 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
     keys = {
-      { prefix .. "O", "<cmd>Obsidian open<CR>",   desc = "Open on App" },
+      { prefix .. "O", "<cmd>Obsidian open<CR>", desc = "Open on App" },
       { prefix .. "f", "<cmd>Obsidian search<CR>", desc = "Grep" },
-      { prefix .. "n", "<cmd>Obsidian new<CR>",    desc = "New Note" },
+      { prefix .. "n", "<cmd>Obsidian new<CR>", desc = "New Note" },
       {
         prefix .. "N",
         "<cmd>Obsidian new_from_template<CR>",
@@ -42,9 +42,9 @@ return {
         desc = "Create note (menu)",
       },
       { prefix .. "o", "<cmd>Obsidian quick_switch<CR>", desc = "Find Files" },
-      { prefix .. "t", "<cmd>Obsidian tags<CR>",         desc = "Tags" },
-      { prefix .. "T", "<cmd>Obsidian template<CR>",     desc = "Template" },
-      { prefix .. "l", "<cmd>Obsidian links<CR>",        desc = "Links" },
+      { prefix .. "t", "<cmd>Obsidian tags<CR>", desc = "Tags" },
+      { prefix .. "T", "<cmd>Obsidian template<CR>", desc = "Template" },
+      { prefix .. "l", "<cmd>Obsidian links<CR>", desc = "Links" },
       {
         prefix .. "L",
         function()
@@ -64,8 +64,8 @@ return {
         end,
         desc = "Link actions (menu)",
       },
-      { prefix .. "r", "<cmd>Obsidian rename<CR>",       desc = "Rename" },
-      { prefix .. "i", "<cmd>Obsidian paste_img<CR>",    desc = "Paste Image" },
+      { prefix .. "r", "<cmd>Obsidian rename<CR>", desc = "Rename" },
+      { prefix .. "i", "<cmd>Obsidian paste_img<CR>", desc = "Paste Image" },
       {
         prefix .. "dd",
         "<cmd>Obsidian today<CR>",
@@ -77,7 +77,7 @@ return {
         desc = "Check Daily Note",
       },
       { prefix .. "s", desc = "Open Link (Split)" }, -- Defined in callbacks
-      { "gs",          "<cmd>Obsidian follow_link vsplit<CR>", ft = "markdown", desc = "Open link in vsplit" },
+      { "gs", "<cmd>Obsidian follow_link vsplit<CR>", ft = "markdown", desc = "Open link in vsplit" },
 
       -- Visual mode keys
       {
@@ -214,38 +214,9 @@ return {
         end,
       },
 
+      -- UI disabled - render-markdown.nvim handles all visual rendering to avoid conflicts
       ui = {
-        enable = true,
-        max_file_length = 5000, -- disable UI features for files with more than this many lines
-        bullets = { char = "•", hl_group = "ObsidianBullet" },
-        external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
-        reference_text = { hl_group = "ObsidianRefText" },
-        highlight_text = { hl_group = "ObsidianHighlightText" },
-        tags = { hl_group = "ObsidianTag" },
-        block_ids = { hl_group = "ObsidianBlockID" },
-        hl_groups = {
-          -- The options are passed directly to `vim.api.nvim_set_hl()`. See `:help nvim_set_hl`.
-          -- Checkboxes & Tasks
-          ObsidianTodo = { link = "WarningMsg", bold = true },
-          ObsidianDone = { link = "DiagnosticOk", strikethrough = true },
-          ObsidianRightArrow = { link = "WarningMsg", bold = true },
-          ObsidianTilde = { link = "ErrorMsg" },
-          ObsidianImportant = { link = "Error" },
-
-          -- Text & Bullets
-          ObsidianBullet = { link = "Identifier", bold = true },
-
-          -- Links & References
-          ObsidianRefText = { link = "Function", underline = true },
-          ObsidianExtLinkIcon = { link = "Function", bold = true },
-
-          -- Tags & Metadata
-          ObsidianTag = { link = "Keyword", bold = true, italic = true },
-          ObsidianBlockID = { link = "Constant", italic = true },
-
-          -- Highlighting & Emphasis
-          ObsidianHighlightText = { link = "Search" },
-        },
+        enable = false,
       },
     },
   },
