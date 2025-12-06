@@ -51,7 +51,7 @@ return {
 						-- Custom color overrides (optional)
 						custom_colors = {
 							-- Example: override accent color
-							-- accent = "#FF0000",
+							 accent = "#577C7C",
 						},
 					})
 				end,
@@ -107,8 +107,8 @@ return {
 				},
 				before = function(theme)
 					require("black-atom").setup({
-						transparent = true,
-						contrast = false,
+						transparent = false,
+						contrast = true,
 					})
 				end,
 			},

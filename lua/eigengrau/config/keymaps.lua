@@ -1,6 +1,5 @@
 local opts = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
-local tasks = require("eigengrau.config.functions.tasks")
 
 -- Toggle background
 function ToggleNight()
@@ -129,56 +128,13 @@ keymap('n', 's', '<cmd>lua require("flash").jump()<CR>', opts)
 ----------
 
 ----------
--- Tasks (GTD: <leader>k)
-----------
-
--- Capture (works everywhere)
-vim.keymap.set("n", "<leader>kk", tasks.quick_capture, { desc = "Quick capture" })
-vim.keymap.set("n", "<leader>kp", tasks.quick_capture, { desc = "Quick capture (plan)" })
-
--- Toggle between task files
-vim.keymap.set("n", "<leader>kt", tasks.toggle_tasks, { desc = "Toggle task files" })
-
--- New task (markdown only)
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "markdown",
-  callback = function()
-    vim.keymap.set("n", "<leader>kn", tasks.new_task, { buffer = true, desc = "New task" })
-  end,
-})
-
--- Find/search submap (<leader>kf)
-vim.keymap.set("n", "<leader>kff", tasks.list_tasks, { desc = "Find: tasks" })
-vim.keymap.set("n", "<leader>kfa", tasks.list_archive, { desc = "Find: archive" })
-vim.keymap.set("n", "<leader>kfb", tasks.list_backlog, { desc = "Find: backlog" })
-vim.keymap.set("n", "<leader>kfd", tasks.list_completed, { desc = "Find: done" })
-
--- Open submap (<leader>ko)
-vim.keymap.set("n", "<leader>koo", function() tasks.open_active("high") end, { desc = "Open: tasks (high)" })
-vim.keymap.set("n", "<leader>koh", function() tasks.open_active("high") end, { desc = "Open: high" })
-vim.keymap.set("n", "<leader>kom", function() tasks.open_active("medium") end, { desc = "Open: medium" })
-vim.keymap.set("n", "<leader>kol", function() tasks.open_active("low") end, { desc = "Open: low" })
-vim.keymap.set("n", "<leader>koa", tasks.open_archive, { desc = "Open: archive" })
-vim.keymap.set("n", "<leader>kob", tasks.open_backlog, { desc = "Open: backlog" })
-
--- Task editing
-vim.keymap.set("n", "<M-x>", tasks.toggle_task, { desc = "Toggle done" })
-vim.keymap.set("n", "<leader>k1", function() tasks.set_priority("high") end, { desc = "Priority: ! (move)" })
-vim.keymap.set("n", "<leader>k2", function() tasks.set_priority("medium") end, { desc = "Priority: * (move)" })
-vim.keymap.set("n", "<leader>k3", function() tasks.set_priority("low") end, { desc = "Priority: - (move)" })
-vim.keymap.set("n", "<leader>k0", function() tasks.set_priority("backlog") end, { desc = "Priority: backlog (move)" })
 
 -- Git (<leader>g)
 ----------
 
--- Snacks git bindings (already defined below with other Snacks functions)
--- <leader>gb - Git blame line
--- <leader>gB - Git browse
-
--- LazyGit integration
-vim.keymap.set("n", "<leader>lg", function() Snacks.lazygit() end, { desc = "LazyGit" })
-vim.keymap.set("n", "<leader>lf", function() Snacks.lazygit.log_file() end, { desc = "LazyGit file history" })
-vim.keymap.set("n", "<leader>ll", function() Snacks.lazygit.log() end, { desc = "LazyGit log" })
+vim.keymap.set("n", "<leader>gl", function() Snacks.lazygit() end, { desc = "LazyGit" })
+vim.keymap.set("n", "<leader>gL", function() Snacks.lazygit.log() end, { desc = "LazyGit log" })
+vim.keymap.set("n", "<leader>gB", function() Snacks.gitbrowse() end, { desc = "Git browse" })
 
 ----------
 -- Fuzzy Finding (<leader>f)
@@ -222,56 +178,8 @@ keymap("n", "<leader>dd", "<cmd>lua require('snacks').bufdelete()<CR>", { desc =
 -- keymap("v", "<leader>gcf", ":Gen Fix_Code_Fast<CR>", { desc = "Fix code fast" })
 -- keymap("v", "<leader>gce", ":Gen Explain_Simple<CR>", { desc = "Explain code" })
 --
--- -- Personality chat
--- keymap("v", "<leader>gb", ":Gen Bestie<CR>", { desc = "Bestie chat" })
---
-
-----------
--- Parrot AI (<leader>p)
-----------
-
--- Chat
-keymap("n", "<leader>pcn", "<cmd>PrtChatNew<CR>", { desc = "New chat" })
-keymap("n", "<leader>pct", "<cmd>PrtChatToggle<CR>", { desc = "Toggle chat" })
-keymap("n", "<leader>pcr", "<cmd>PrtProvider<CR>", { desc = "Switch provider" })
-keymap("n", "<leader>pcm", "<cmd>PrtModel<CR>", { desc = "Switch model" })
-
--- Context
-keymap("n", "<leader>px", "<cmd>PrtCmd<CR>", { desc = "Execute vim cmd" })
-keymap("n", "<leader>p.", "<cmd>PrtContext<CR>", { desc = "Edit context" })
-
--- Transform (visual)
-keymap("v", "<leader>pr", ":PrtRewrite<CR>", { desc = "Rewrite" })
-keymap("v", "<leader>pa", ":PrtAppend<CR>", { desc = "Append" })
-keymap("v", "<leader>pi", ":PrtPrepend<CR>", { desc = "Prepend" })
-
--- Writing (visual)
-keymap("v", "<leader>pw", ":PrtWritingCritic<CR>", { desc = "Critique" })
-keymap("v", "<leader>pz", ":PrtTighten<CR>", { desc = "Tighten" })
-keymap("v", "<leader>ps", ":PrtSpell<CR>", { desc = "Fix spelling" })
-
--- Analysis (visual)
-keymap("v", "<leader>pd", ":PrtDeepDive<CR>", { desc = "Deep analysis" })
-keymap("v", "<leader>pt", ":PrtTaskBreakdown<CR>", { desc = "Tasks" })
-keymap("v", "<leader>pn", ":PrtNextAction<CR>", { desc = "Next action" })
-keymap("v", "<leader>pu", ":PrtUnfuckThis<CR>", { desc = "Unfuck" })
-
--- Code (visual)
-keymap("v", "<leader>pc", ":PrtCodeReview<CR>", { desc = "Review" })
-keymap("v", "<leader>pf", ":PrtPrettify<CR>", { desc = "Prettify" })
-keymap("v", "<leader>po", ":PrtObsidianFormat<CR>", { desc = "Obsidian format" })
-
-
 
 
 -- Snacks.nvim functions (non-conflicting binds)
-vim.keymap.set("n", "<leader>bD", function() Snacks.bufdelete() end, { desc = "Delete buffer (smart)" })
 vim.keymap.set("n", "<leader>lg", function() Snacks.lazygit() end, { desc = "LazyGit" })
-vim.keymap.set("n", "<leader>gB", function() Snacks.gitbrowse() end, { desc = "Git browse" })
-vim.keymap.set("n", "<leader>gL", function() Snacks.git.blame_line() end, { desc = "Git blame line" })
-vim.keymap.set("n", "<leader>sc", function() Snacks.scratch() end, { desc = "Scratch buffer" })
-vim.keymap.set("n", "<leader>sC", function() Snacks.scratch.select() end, { desc = "Select scratch" })
 vim.keymap.set("n", "<leader>nh", function() Snacks.notifier.show_history() end, { desc = "Notification history" })
-vim.keymap.set("n", "<leader>ps", function() Snacks.profiler.scratch() end, { desc = "Profiler scratch" })
--- Note: Removed ]] / [[ to avoid treesitter text object collisions
--- Note: Removed zen binds - use Goyo (<leader>zz) instead

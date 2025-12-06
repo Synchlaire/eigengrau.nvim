@@ -89,8 +89,13 @@ return {
   config = function(_, opts)
     require("render-markdown").setup(opts)
 
-    -- Link heading colors to your theme's accent colors (adapts automatically)
-    -- Using common highlight group names that most colorschemes define
+    -- Get theme colors for headings
+    local function get_hl_color(group, attr)
+      local hl = vim.api.nvim_get_hl(0, { name = group })
+      return hl[attr] and string.format("#%06x", hl[attr]) or nil
+    end
+
+    -- Set foreground colors (link to theme)
     vim.api.nvim_set_hl(0, "RenderMarkdownH1", { link = "Title", bold = true })
     vim.api.nvim_set_hl(0, "RenderMarkdownH2", { link = "Function", bold = true })
     vim.api.nvim_set_hl(0, "RenderMarkdownH3", { link = "String" })
@@ -98,13 +103,34 @@ return {
     vim.api.nvim_set_hl(0, "RenderMarkdownH5", { link = "Type" })
     vim.api.nvim_set_hl(0, "RenderMarkdownH6", { link = "Comment", italic = true })
 
-    -- Subtle background tints (very dark, barely visible)
-    vim.api.nvim_set_hl(0, "RenderMarkdownH1Bg", { bg = "#252535" })
-    vim.api.nvim_set_hl(0, "RenderMarkdownH2Bg", { bg = "#252530" })
-    vim.api.nvim_set_hl(0, "RenderMarkdownH3Bg", { bg = "#252528" })
-    vim.api.nvim_set_hl(0, "RenderMarkdownH4Bg", { bg = "#252525" })
-    vim.api.nvim_set_hl(0, "RenderMarkdownH5Bg", { bg = "#252525" })
-    vim.api.nvim_set_hl(0, "RenderMarkdownH6Bg", { bg = "#252525" })
+    -- Set backgrounds with inherited foreground colors (so text shows through)
+    vim.api.nvim_set_hl(0, "RenderMarkdownH1Bg", {
+      fg = get_hl_color("Title", "fg"),
+      bg = "#1a1a2e",
+      bold = true,
+    })
+    vim.api.nvim_set_hl(0, "RenderMarkdownH2Bg", {
+      fg = get_hl_color("Function", "fg"),
+      bg = "#1a1a28",
+      bold = true,
+    })
+    vim.api.nvim_set_hl(0, "RenderMarkdownH3Bg", {
+      fg = get_hl_color("String", "fg"),
+      bg = "#1a1a24",
+    })
+    vim.api.nvim_set_hl(0, "RenderMarkdownH4Bg", {
+      fg = get_hl_color("Identifier", "fg"),
+      bg = "#1a1a20",
+    })
+    vim.api.nvim_set_hl(0, "RenderMarkdownH5Bg", {
+      fg = get_hl_color("Type", "fg"),
+      bg = "#1a1a1e",
+    })
+    vim.api.nvim_set_hl(0, "RenderMarkdownH6Bg", {
+      fg = get_hl_color("Comment", "fg"),
+      bg = "#1a1a1c",
+      italic = true,
+    })
 
     -- Checkbox highlights
     vim.api.nvim_set_hl(0, "RenderMarkdownUnchecked", { fg = "#6C7086" })

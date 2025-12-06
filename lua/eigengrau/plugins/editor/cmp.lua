@@ -17,6 +17,7 @@ return {
       { "MahanRahmati/blink-nerdfont.nvim" },
       { "mikavilpas/blink-ripgrep.nvim" },
       { "rafamadriz/friendly-snippets" },
+
       -- { 'R-nvim/cmp-r' },
     },
     opts = {

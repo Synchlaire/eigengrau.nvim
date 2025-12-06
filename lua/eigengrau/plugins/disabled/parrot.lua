@@ -129,10 +129,10 @@ return {
           ["Content-Type"] = "application/json",
         },
         models = {
-          "phi3:3.8b",
           "qwen2.5-coder:3b",
           "gemma2:2b",
           "qwen2.5-coder:0.5b",     -- the real 0.5B coding model (≈600 MB RAM)
+          "gpt-oss:20b-cloud"
         },
         resolve_api_key = function()
           return true
@@ -277,6 +277,7 @@ Format: Inline comments with line references.
 Code:
 ````````{{filetype}}
 {{selection}}
+{{filecontent}}
 ```````]]
           local model_obj = prt.get_model("command")
           prt.Prompt(params, prt.ui.Target.vsplit, model_obj, nil, template)
