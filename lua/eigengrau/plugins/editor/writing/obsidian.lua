@@ -8,8 +8,8 @@ return {
     event = "BufReadPre " .. vim.fn.expand("~") .. "/Vaults/Littlewing/**.md",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
       "nvim-treesitter/nvim-treesitter",
+      "ibhagwan/fzf-lua",
     },
     keys = {
       { prefix .. "O", "<cmd>Obsidian open<CR>", desc = "Open on App" },
@@ -117,17 +117,13 @@ return {
       create_new = true,
 
       picker = {
-        name = "telescope.nvim",
+        name = "fzf-lua",
         note_mappings = {
-          -- Create a new note from your query.
           new = "<C-x>",
-          -- Insert a link to the selected note.
           insert_link = "<C-l>",
         },
         tag_mappings = {
-          -- Add tag(s) to current note.
           tag_note = "<C-x>",
-          -- Insert a tag at the current location.
           insert_tag = "<C-l>",
         },
       },
@@ -198,18 +194,15 @@ return {
         time_format = "%H:%M",
       },
 
-      follow_url_func = function(url)
-        vim.fn.jobstart({ "xdg-open", url })
-      end,
-
       attachments = {
-        img_folder = "resources/assets/",
+        folder = "resources/assets/",
       },
 
       image = {
         resolve = function(path, src)
-          if require("obsidian.api").path_is_note(path) then
-            return require("obsidian.api").resolve_image_path(src)
+          local api = require("obsidian.api")
+          if api.path_is_note(path) then
+            return api.resolve_attachment_path(src)
           end
         end,
       },

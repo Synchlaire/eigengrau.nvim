@@ -40,6 +40,7 @@ zen          - Zen mode • distraction-free coding
     -- [Module Settings]
 
     -- Easy setup
+    picker = { enabled = true },  -- Required for obsidian.nvim integration
     bigfile = { enabled = true, notify = true }, --performance for big files
     input = { enabled = false },
     notify = { enabled = true },
@@ -147,13 +148,13 @@ zen          - Zen mode • distraction-free coding
 
         keys = {
 
-          { key = "t", icon  = " 󰤖 ", desc = "Current Tasks", action = function() require("eigengrau.config.functions.tasks").list_tasks() end },
           { key = "s", icon  = "  ", desc = "Sessions", action = "<cmd>Telescope possession list theme=dropdown initial_mode=normal<cr>" },
           { key = "n", icon  = "  ", desc = "New File", action = "<cmd>ene<cr>" },
           { key = "f", icon  = "  ", desc = "Find File", action = "<cmd>lua Snacks.dashboard.pick('files')<cr>" },
           { key = "r", icon  = "  ", desc = "Recent Files", action = "<cmd>lua Snacks.dashboard.pick('oldfiles')<cr>" },
           { key = "d", icon  = "  ", desc = "Find Folders", action = "<cmd>FolderPicker<cr>" },
           { key = "o", icon  = "  ", desc = "Obsidian", action = "<cmd>Obsidian quick_switch<cr>" },
+          { key = "e", icon  = "  ", desc = "Open Ebook", action = "<cmd>InkLibrary<cr>" },
           { key = "p", icon  = " 󱅄 ", desc = "Projects", action = "<cmd>ProjectExplorer<cr>" },
           { key = "cc", icon = "  ", desc = "System Configs", action = "<cmd>cd $HOME/.config/ | lua Snacks.dashboard.pick('files')<cr>" },
           { key = "cn", icon = "  ", desc = "Nvim Config", action = "<cmd>cd $HOME/.config/nvim/ | lua Snacks.dashboard.pick('files')<cr>" },
