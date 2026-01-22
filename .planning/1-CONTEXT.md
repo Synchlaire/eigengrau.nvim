@@ -7,9 +7,9 @@
 
 ## Keymap Philosophy (KEY-01)
 *   **Obsidian:** `<leader>o` namespace.
-*   **AI:** `<leader>a` namespace (Decision: "a" for AI/Agent).
+*   **AI:** `<leader>c` namespace (Decision: "c" for Code/Chat).
 *   **General:** Mnemonic (<leader>f=file/find, <leader>g=git).
-*   **Goal:** Ensure no collisions with new `<leader>o` and `<leader>a` namespaces.
+*   **Goal:** Ensure no collisions with new `<leader>o` and `<leader>c` namespaces.
 
 ## Custom Functions (PERF-03)
 *   **Strategy:** Modernize existing functions (Terminal, Code Runner) rather than deleting.
