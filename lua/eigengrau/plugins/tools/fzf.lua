@@ -226,6 +226,9 @@ return {
         },
       },
     })
+    
+    -- Register as ui-select handler
+    fzf.register_ui_select()
 
     -- ========================================================================
     -- NOTE: Keybindings moved to 'keys' spec at top of file for proper
