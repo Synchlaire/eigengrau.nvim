@@ -261,19 +261,6 @@ function M.send_to_repl()
 
   -- Send code to the REPL's channel
   vim.fn.chansend(repl_info.job_id, code .. "\n")
-
-  -- Optional: Focus the terminal window briefly
-  local origin_win = vim.api.nvim_get_current_win()
-  local win_id = vim.fn.bufwinid(repl_info.bufnr)
-  if win_id ~= -1 then
-    vim.api.nvim_set_current_win(win_id)
-    vim.cmd("redraw")
-    vim.defer_fn(function()
-      if vim.api.nvim_win_is_valid(origin_win) then
-        vim.api.nvim_set_current_win(origin_win)
-      end
-    end, 50)
-  end
 end
 
 -- Preview command without running

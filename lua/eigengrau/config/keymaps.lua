@@ -161,24 +161,11 @@ keymap("n", "<leader>uh", "<cmd>lua require('snacks').notifier.show_history()<CR
 keymap("n", "<leader>rn", "<cmd>lua require('snacks').rename.rename_file()<CR>", { desc = "Rename file" })
 keymap("n", "<leader>dd", "<cmd>lua require('snacks').bufdelete()<CR>", { desc = "Delete buffer" })
 
-
 ----------
--- Gen.nvim AI (<leader>g)
+-- Namespaces
 ----------
-
--- -- Quick prompts
--- keymap("n", "<leader>gg", ":Gen<CR>", { desc = "Gen prompt" })
--- keymap("v", "<leader>gg", ":Gen<CR>", { desc = "Gen prompt" })
---
--- -- Style prompts (visual)
--- keymap("v", "<leader>gsc", ":Gen Style_Critique<CR>", { desc = "Style critique" })
--- keymap("v", "<leader>gsw", ":Gen Style_Chimera<CR>", { desc = "Style chimera" })
---
--- -- Code prompts (visual)
--- keymap("v", "<leader>gcf", ":Gen Fix_Code_Fast<CR>", { desc = "Fix code fast" })
--- keymap("v", "<leader>gce", ":Gen Explain_Simple<CR>", { desc = "Explain code" })
---
-
+-- <leader>o : Reserved for Obsidian
+-- <leader>c : Reserved for AI (Code/Chat)
 
 -- Snacks.nvim functions (non-conflicting binds)
 vim.keymap.set("n", "<leader>lg", function() Snacks.lazygit() end, { desc = "LazyGit" })
