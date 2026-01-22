@@ -31,6 +31,7 @@ A comprehensive optimization and modernization of the user's Neovim configuratio
     *   Markdown
 *   [ ] **Audit & Cleanup:** Identify and remove redundant plugins/code.
 *   [ ] **Performance Tuning:** Optimize custom functions and lazy-loading strategies for boot speed.
+*   [ ] **Ergonomics:** Ensure keybindings are ergonomic, mnemonic, and easy to reach.
 
 ### Out of Scope
 *   Full DAP (Debugger) setup (explicitly requested "just fast editing").
