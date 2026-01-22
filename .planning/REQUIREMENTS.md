@@ -15,10 +15,10 @@
 - [ ] **OBS-04**: Set up template support and image pasting.
 
 ### Language Support (LANG)
-- [ ] **LANG-01**: Python: Configure `Ruff` (lint/fmt) and `Basedpyright` (LSP).
-- [ ] **LANG-02**: Typst: Configure `Tinymist` (LSP/Preview).
-- [ ] **LANG-03**: Bash: Ensure `bash-language-server` is optimized.
-- [ ] **LANG-04**: Lua: Optimize `lua_ls` with `lazydev.nvim` for Neovim development.
+- [x] **LANG-01**: Python: Configure `Ruff` (lint/fmt) and `Basedpyright` (LSP).
+- [x] **LANG-02**: Typst: Configure `Tinymist` (LSP/Preview).
+- [x] **LANG-03**: Bash: Ensure `bash-language-server` is optimized.
+- [x] **LANG-04**: Lua: Optimize `lua_ls` with `lazydev.nvim` for Neovim development.
 
 ### Performance & Cleanup (PERF)
 - [ ] **PERF-01**: Implement aggressive lazy loading for AI and Obsidian plugins.
