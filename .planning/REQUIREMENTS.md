@@ -22,12 +22,12 @@
 
 ### Performance & Cleanup (PERF)
 - [ ] **PERF-01**: Implement aggressive lazy loading for AI and Obsidian plugins.
-- [ ] **PERF-02**: Audit existing plugins and remove redundant/useless ones.
-- [ ] **PERF-03**: Optimize custom functions in `lua/eigengrau/config/functions/`.
+- [x] **PERF-02**: Audit existing plugins and remove redundant/useless ones.
+- [x] **PERF-03**: Optimize custom functions in `lua/eigengrau/config/functions/`.
 - [ ] **PERF-04**: Benchmark startup time and ensure it remains low.
 
 ### Ergonomics (KEY)
-- [ ] **KEY-01**: Review and refactor keybindings for ergonomic and mnemonic consistency.
+- [x] **KEY-01**: Review and refactor keybindings for ergonomic and mnemonic consistency.
 - [ ] **KEY-02**: Implement `which-key` groups for new AI and Obsidian features.
 
 ## v2 Requirements (Deferred)

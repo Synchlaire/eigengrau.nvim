@@ -1,7 +1,7 @@
 # Project State
 
 ## Current Phase
-**Phase 1: Cleanup & Prep**
+**Phase 2: Language Modernization**
 
 ## Requirement Status
 | ID | Status | Phase |
@@ -19,10 +19,10 @@
 | LANG-03 | ⏳ Pending | 2 |
 | LANG-04 | ⏳ Pending | 2 |
 | PERF-01 | ⏳ Pending | 3, 4 |
-| PERF-02 | ⏳ Pending | 1 |
-| PERF-03 | ⏳ Pending | 1 |
+| PERF-02 | ✅ Complete | 1 |
+| PERF-03 | ✅ Complete | 1 |
 | PERF-04 | ⏳ Pending | 5 |
-| KEY-01 | ⏳ Pending | 1 |
+| KEY-01 | ✅ Complete | 1 |
 | KEY-02 | ⏳ Pending | 5 |
 
 ## Recent Changes
