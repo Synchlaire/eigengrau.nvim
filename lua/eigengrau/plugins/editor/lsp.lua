@@ -1,4 +1,5 @@
--- Streamlined LSP configuration (Neovim 0.11+ API)
+-- LSP configuration using stable lspconfig API
+-- Neovim 0.11+ vim.lsp.config API has bugs, using traditional setup
 -- Languages: Lua, Bash, Markdown, Typst
 
 return {
@@ -10,53 +11,13 @@ return {
     event = { "BufReadPost", "BufNewFile" },
     opts = {
       ensure_installed = {
-        "lua_ls",
         "bashls",
+        "ruff",
+        "lua_ls",
         "tinymist",
-        -- "harper_ls"
+        "basedpyright",
       },
-      automatic_installation = true,
-      handlers = {
-        -- Default handler - setup all servers with new API
-        function(server_name)
-          local capabilities =
-              require("blink.cmp").get_lsp_capabilities()
-
-          vim.lsp.config[server_name] = {
-            capabilities = capabilities,
-          }
-
-          vim.lsp.enable(server_name)
-        end,
-
-        -- Custom handler for lua_ls
-        ["lua_ls"] = function()
-          local capabilities =
-              require("blink.cmp").get_lsp_capabilities()
-
-          vim.lsp.config.lua_ls = {
-            capabilities = capabilities,
-            settings = {
-              Lua = {
-                diagnostics = { globals = { "vim" } },
-                workspace = {
-                  library = { vim.env.VIMRUNTIME },
-                  checkThirdParty = false,
-                },
-                telemetry = { enable = false },
-                format = { enable = false }, -- Use stylua instead
-              },
-            },
-          }
-
-          vim.lsp.enable("lua_ls")
-        end,
-
-        -- Harper-ls: Don't auto-enable, configured via lspconfig below
-        ["harper_ls"] = function()
-          -- Empty handler, we'll use lspconfig.setup() in nvim-lspconfig config
-        end,
-      },
+      automatic_enable = false, -- Disable auto vim.lsp.enable() (we handle it manually below)
     },
   },
 
@@ -66,6 +27,9 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "williamboman/mason-lspconfig.nvim" },
     config = function()
+      -- Get capabilities from blink.cmp
+      local capabilities = require("blink.cmp").get_lsp_capabilities()
+
       -- Minimal diagnostic configuration
       vim.diagnostic.config({
         virtual_text = false, -- Disable inline diagnostic messages
@@ -80,8 +44,50 @@ return {
         float = { border = "rounded" },
       })
 
-      -- Harper-ls: Disabled until proper 0.11+ migration
-      -- TODO: Migrate to vim.lsp.config API when ready
+      -- Server configurations using NEW vim.lsp.config API (0.11+)
+      local servers = {
+        lua_ls = {
+          capabilities = capabilities,
+        },
+        bashls = {
+          capabilities = capabilities,
+        },
+        ruff = {
+          capabilities = capabilities,
+          init_options = {
+            settings = {
+              lineLength = 88,
+            },
+          },
+        },
+        basedpyright = {
+          capabilities = capabilities,
+          settings = {
+            basedpyright = {
+              analysis = {
+                typeCheckingMode = "standard",
+              },
+            },
+          },
+        },
+        tinymist = {
+          capabilities = capabilities,
+        },
+      }
+
+      -- Setup all servers using new API with error handling
+      for server, config in pairs(servers) do
+        local ok, err = pcall(function()
+          vim.lsp.config(server, config)
+          vim.lsp.enable(server)
+        end)
+        if not ok then
+          vim.notify(
+            string.format("Failed to setup %s: %s", server, err),
+            vim.log.levels.ERROR
+          )
+        end
+      end
 
       -- LSP keymaps (only on attach)
       vim.api.nvim_create_autocmd("LspAttach", {
@@ -99,11 +105,7 @@ return {
           map("gd", vim.lsp.buf.definition, "Go to definition")
           map("gD", vim.lsp.buf.declaration, "Go to declaration")
           map("gr", vim.lsp.buf.references, "Show references")
-          map(
-            "gI",
-            vim.lsp.buf.implementation,
-            "Go to implementation"
-          )
+          map("gI", vim.lsp.buf.implementation, "Go to implementation")
 
           -- Actions
           map("K", vim.lsp.buf.hover, "Hover documentation")
@@ -117,14 +119,9 @@ return {
           map("]d", function()
             vim.diagnostic.jump({ count = 1, float = true })
           end, "Next diagnostic")
-          map(
-            "<leader>ld",
-            vim.diagnostic.open_float,
-            "Show diagnostics"
-          )
+          map("<leader>ld", vim.diagnostic.open_float, "Show diagnostics")
         end,
       })
-
     end,
   },
 }
