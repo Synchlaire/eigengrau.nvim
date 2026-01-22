@@ -3,10 +3,10 @@
 ## v1 Requirements
 
 ### AI Assistant (AI)
-- [ ] **AI-01**: Integrate `CodeCompanion.nvim` with chat and inline editing capabilities.
-- [ ] **AI-02**: Configure context awareness (buffers, selections).
-- [ ] **AI-03**: Set up slash commands for common tasks (commit, explain).
-- [ ] **AI-04**: Ensure model flexibility (Anthropic, Gemini, OpenAI).
+- [x] **AI-01**: Integrate `CodeCompanion.nvim` with chat and inline editing capabilities.
+- [x] **AI-02**: Configure context awareness (buffers, selections).
+- [x] **AI-03**: Set up slash commands for common tasks (commit, explain).
+- [x] **AI-04**: Ensure model flexibility (Anthropic, Gemini, OpenAI).
 
 ### Knowledge Management (OBS)
 - [ ] **OBS-01**: Integrate `obsidian.nvim` with deep vault support.
@@ -21,7 +21,7 @@
 - [x] **LANG-04**: Lua: Optimize `lua_ls` with `lazydev.nvim` for Neovim development.
 
 ### Performance & Cleanup (PERF)
-- [ ] **PERF-01**: Implement aggressive lazy loading for AI and Obsidian plugins.
+- [x] **PERF-01**: Implement aggressive lazy loading for AI and Obsidian plugins.
 - [x] **PERF-02**: Audit existing plugins and remove redundant/useless ones.
 - [x] **PERF-03**: Optimize custom functions in `lua/eigengrau/config/functions/`.
 - [ ] **PERF-04**: Benchmark startup time and ensure it remains low.
