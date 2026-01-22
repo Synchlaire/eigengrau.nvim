@@ -39,4 +39,8 @@
 - Multi-device sync for Obsidian (assumed handled by user/external tools).
 
 ## Traceability
-*(To be filled by roadmap)*
+- **Phase 1**: PERF-02, PERF-03, KEY-01
+- **Phase 2**: LANG-01, LANG-02, LANG-03, LANG-04
+- **Phase 3**: AI-01, AI-02, AI-03, AI-04, PERF-01
+- **Phase 4**: OBS-01, OBS-02, OBS-03, OBS-04, PERF-01
+- **Phase 5**: PERF-04, KEY-02
