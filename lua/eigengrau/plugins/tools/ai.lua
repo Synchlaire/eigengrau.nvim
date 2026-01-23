@@ -15,6 +15,7 @@ return {
   },
   config = function()
     require("codecompanion").setup({
+      prompt_library = {},
       strategies = {
         chat = {
           adapter = "gemini",
