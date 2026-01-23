@@ -15,7 +15,7 @@ vim.keymap.set("n", "<localleader>p", "<cmd>MarkdownPreview<CR>", {
   desc = "Markdown preview",
 })
 
-vim.keymap.set("n", "<localleader>t", "<cmd>ObsidianTags<CR>", {
+vim.keymap.set("n", "<localleader>t", "<cmd>Obsidian tags<CR>", {
   buffer = true,
   desc = "Search tags",
 })
