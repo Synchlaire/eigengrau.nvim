@@ -9,10 +9,10 @@
 - [x] **AI-04**: Ensure model flexibility (Anthropic, Gemini, OpenAI).
 
 ### Knowledge Management (OBS)
-- [ ] **OBS-01**: Integrate `obsidian.nvim` with deep vault support.
-- [ ] **OBS-02**: Enable wiki-link navigation (`gf`).
-- [ ] **OBS-03**: Configure daily note workflow (hotkey to open/create).
-- [ ] **OBS-04**: Set up template support and image pasting.
+- [x] **OBS-01**: Integrate `obsidian.nvim` with deep vault support.
+- [x] **OBS-02**: Enable wiki-link navigation (`gf`).
+- [x] **OBS-03**: Configure daily note workflow (hotkey to open/create).
+- [x] **OBS-04**: Set up template support and image pasting.
 
 ### Language Support (LANG)
 - [x] **LANG-01**: Python: Configure `Ruff` (lint/fmt) and `Basedpyright` (LSP).

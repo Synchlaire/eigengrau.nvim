@@ -1,7 +1,7 @@
 # Project State
 
 ## Current Phase
-**Phase 4: Deep Obsidian**
+**Phase 5: Performance & UX**
 
 ## Requirement Status
 | ID | Status | Phase |
@@ -10,10 +10,10 @@
 | AI-02 | ✅ Complete | 3 |
 | AI-03 | ✅ Complete | 3 |
 | AI-04 | ✅ Complete | 3 |
-| OBS-01 | ⏳ Pending | 4 |
-| OBS-02 | ⏳ Pending | 4 |
-| OBS-03 | ⏳ Pending | 4 |
-| OBS-04 | ⏳ Pending | 4 |
+| OBS-01 | ✅ Complete | 4 |
+| OBS-02 | ✅ Complete | 4 |
+| OBS-03 | ✅ Complete | 4 |
+| OBS-04 | ✅ Complete | 4 |
 | LANG-01 | ✅ Complete | 2 |
 | LANG-02 | ✅ Complete | 2 |
 | LANG-03 | ✅ Complete | 2 |
@@ -26,6 +26,6 @@
 | KEY-02 | ⏳ Pending | 5 |
 
 ## Recent Changes
-- Phase 3 (AI Intelligence) complete.
-- Installed `codecompanion.nvim` with Gemini adapter.
-- Configured custom slash commands (`/tasks`, `/proofread`).
+- Phase 4 (Deep Obsidian) complete.
+- Configured `obsidian.nvim` for Littlewing vault.
+- Set up daily notes, templates, and blink completion.
