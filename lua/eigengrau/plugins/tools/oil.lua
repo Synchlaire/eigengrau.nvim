@@ -67,7 +67,7 @@ return {
         },
         ["<leader><leader>"] = {
           function()
-            require("telescope.builtin").find_files({
+            require("fzf-lua").files({
               cwd = require("oil").get_current_dir()
             })
           end,

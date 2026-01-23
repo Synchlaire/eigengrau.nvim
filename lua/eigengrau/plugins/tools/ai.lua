@@ -3,7 +3,7 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
-    "nvim-telescope/telescope.nvim", -- Optional: for using Telescope in slash commands
+    -- "nvim-telescope/telescope.nvim", -- Optional: for using Telescope in slash commands
     { "stevearc/dressing.nvim", opts = {} }, -- Optional: improves the UI
   },
   cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions" },

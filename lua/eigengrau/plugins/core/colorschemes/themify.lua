@@ -11,6 +11,15 @@ return {
 			-- my list of colorschemes.
 			-- uncomment the ones you'd like to install
 
+			{
+				"Synchlaire/compline.nvim",
+				whitelist = { "compline", "compline-dark", "compline-lauds" },
+			},
+
+      {
+        "serhez/teide.nvim",
+      },
+
 			-- Plain (local colorscheme - auto-switching)
 			-- Variants: plain (auto), plain-dark (forced dark), plain-light (forced light)
 			{
@@ -44,53 +53,30 @@ return {
 						styles = {
 							comments = { italic = true },
 							keywords = { bold = true },
-							functions = {bold = true },
-							variables = {bold = true, italic = true },
+							functions = { bold = true },
+							variables = { bold = true, italic = true },
 						},
 
 						-- Custom color overrides (optional)
 						custom_colors = {
 							-- Example: override accent color
-							 accent = "#577C7C",
+							accent = "#577C7C",
 						},
 					})
 				end,
 			},
 			-- Neopywal
 			-- { "neopywal" },
+
+			-- yugen
 			-- { "bettervim/yugen.nvim" },
+
 			-- monoglow
 			-- { "wnkz/monoglow.nvim" },
 
-			-- techbase
-			{ "mcauley-penney/techbase.nvim" },
-			{ "mcauley-penney/phobos-anomaly.nvim" },
 
-			-- plain
-			{
-				"Synchlaire/plain.nvim",
-				name = "plain",
-				whitelist = { "plain-dark", "plain-light" },
-				before = function(theme)
-					require("plain").setup({
-						theme = theme:match("light") and "light" or "dark",
-						transparent = true,
-						bold = true,
-						italic = true,
-						underline = true,
-						undercurl = true,
-						cursorline = true,
-						style = {
-							comments = "italic",
-							keywords = "bold",
-							functions = "NONE",
-							strings = "NONE",
-							variables = "NONE",
-						},
-					})
-				end,
-			},
 
+      { "sontungexpt/witch" },
 			-- black-atom
 			{
 				"black-atom-industries/nvim",
@@ -101,6 +87,7 @@ return {
 					"black-atom-mnml-47-light",
 					"black-atom-mnml-mono-dark",
 					"black-atom-mnml-mono-light",
+					"black-atom-mnml-jpn-tsuki-yoru",
 					"black-atom-stations-engineering",
 					"black-atom-stations-medical",
 					"black-atom-stations-operations",

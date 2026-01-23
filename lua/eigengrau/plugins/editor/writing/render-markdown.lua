@@ -3,16 +3,16 @@ return {
   ft = "markdown",
   dependencies = { "nvim-treesitter/nvim-treesitter" },
   opts = {
-    file_types = { "markdown" },
+    file_types = { "markdown", "codecompanion" }, -- Enable in chat buffers
     render_modes = { "n", "c" }, -- Not in insert/visual
     anti_conceal = {
       enabled = true, -- Show raw markdown on cursor line
     },
     heading = {
       enabled = true,
-      icons = {}, -- No ### icons in text
+      icons = {" "}, -- No ### icons in text
       sign = true, -- Enable gutter icons
-      signs = { "󰎤 ", "󰎧 ", "󰎪 ", "󰎭 ", "󰎰 ", "󰎳 " }, -- Gutter icons for H1-H6
+      signs = { "󰎦 ", "󰎩 ", "󰎬 ", "󰎮 ", "󰎰 ", "󰎵 " }, -- Gutter icons for H1-H6
       width = "block", -- Partial background (just heading text, not full line)
       -- Background highlight groups
       backgrounds = {
@@ -50,11 +50,11 @@ return {
       enabled = true,
       position = "inline", -- Don't replace, render inline to avoid eating characters
       unchecked = {
-        icon = "☐ ",
+        icon = "󰄰 ",
         highlight = "RenderMarkdownUnchecked",
       },
       checked = {
-        icon = "☑ ",
+        icon = "󰗡 ",
         highlight = "RenderMarkdownChecked",
       },
     },
@@ -76,7 +76,7 @@ return {
     link = {
       enabled = true, -- Enable to conceal brackets
       image = "󰥶 ",
-      hyperlink = "", -- No icon for links
+      hyperlink = " ", -- No icon for links
       highlight = "RenderMarkdownLink",
     },
     win_options = {

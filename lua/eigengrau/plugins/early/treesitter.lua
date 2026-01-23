@@ -5,7 +5,7 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	build = ":TSUpdate",
 	config = function()
-		require("nvim-treesitter.configs").setup({
+		require("nvim-treesitter").setup({
 			ensure_installed = {
 				"bash",
 				"r",
@@ -16,7 +16,7 @@ return {
 				"vimdoc",
 			},
 			-- ignore_install = { "c", "lua", "markdown_inline", "query", "vim", "vimdoc" },
-			sync_install = false,
+			sync_install = true,
 			-- Automatically install missing parsers when entering buffer
 			auto_install = true,
 			highlight = { -- False will disable the whole extension
@@ -33,7 +33,7 @@ return {
 					end
 				end,
 			},
-			indent = { enable = true },
+			indent = { enable = false },
 		})
 	end,
 }

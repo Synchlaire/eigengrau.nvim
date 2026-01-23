@@ -1,27 +1,50 @@
--- Minimal formatter configuration
--- Only for: Lua, Shell, Markdown, Typst
+-- Code formatter using conform.nvim
+-- Languages: Lua, Bash, Python, Markdown, Typst
 
 return {
   "stevearc/conform.nvim",
   event = { "BufReadPre", "BufNewFile" },
   config = function()
     local conform = require("conform")
+    local format_on_save_enabled = true
 
     conform.setup({
       formatters_by_ft = {
         lua = { "stylua" },
         sh = { "shfmt" },
         bash = { "shfmt" },
+        python = { "ruff_format" }, -- Uses ruff for formatting (fast!)
+        markdown = { "prettier" }, -- Optional: format markdown tables/lists
         typst = { "tinymist" },
-        -- Markdown: use prose formatting tools instead (<leader>pc, <leader>pj)
-        -- Typst: LSP handles formatting
       },
 
       formatters = {
         shfmt = {
           prepend_args = { "-i", "2", "-ci" }, -- 2-space indent, indent switch cases
         },
+        ruff_format = {
+          command = "ruff",
+          args = { "format", "--stdin-filename", "$FILENAME", "-" },
+          stdin = true,
+        },
       },
+
+      -- Format on save (can toggle with <leader>tf)
+      format_on_save = function(bufnr)
+        -- Check if format on save is disabled globally
+        if not format_on_save_enabled then
+          return
+        end
+        -- Disable for certain filetypes if needed
+        local disable_filetypes = { c = true, cpp = true }
+        if disable_filetypes[vim.bo[bufnr].filetype] then
+          return
+        end
+        return {
+          timeout_ms = 500,
+          lsp_fallback = true,
+        }
+      end,
     })
 
     -- Manual format keymap
@@ -32,5 +55,15 @@ return {
         timeout_ms = 1000,
       })
     end, { desc = "Format buffer/selection" })
+
+    -- Toggle format on save
+    vim.keymap.set("n", "<leader>tf", function()
+      format_on_save_enabled = not format_on_save_enabled
+      if format_on_save_enabled then
+        vim.notify("Format on save: ENABLED", vim.log.levels.INFO)
+      else
+        vim.notify("Format on save: DISABLED", vim.log.levels.INFO)
+      end
+    end, { desc = "Toggle format on save" })
   end,
 }

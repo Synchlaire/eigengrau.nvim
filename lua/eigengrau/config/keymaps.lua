@@ -126,9 +126,6 @@ keymap('n', 's', '<cmd>lua require("flash").jump()<CR>', opts)
 
 
 ----------
-
-----------
-
 -- Git (<leader>g)
 ----------
 
@@ -137,19 +134,12 @@ vim.keymap.set("n", "<leader>gL", function() Snacks.lazygit.log() end, { desc = 
 vim.keymap.set("n", "<leader>gB", function() Snacks.gitbrowse() end, { desc = "Git browse" })
 
 ----------
--- Fuzzy Finding (<leader>f)
+-- Fuzzy Finding (<leader>f) - Migrated to fzf.lua
 ----------
-
+-- See lua/eigengrau/plugins/tools/fzf.lua for keys
 keymap('n', '<leader>fc', '<cmd>Themify<cr>', { desc = 'Colorscheme' })
-keymap('n', '<leader>fD', '<cmd>FolderPicker<cr>', { desc = 'Directory picker' })
-keymap('n', '<leader>ff', '<cmd>lua require("fzf-lua").files({ cwd = vim.fn.expand("~") })<cr>', { desc = 'Files (global)' })
-keymap('n', '<leader>fd', '<cmd>lua require("fzf-lua").files({ cwd = vim.fn.getcwd() })<cr>', { desc = 'Files (cwd)' })
-keymap('n', '<leader>fg', '<cmd>lua require("fzf-lua").live_grep()<cr>', { desc = 'Grep' })
-keymap('n', '<leader>fr', '<cmd>lua require("fzf-lua").oldfiles()<cr>', { desc = 'Recent' })
-keymap('n', '<leader>fb', '<cmd>lua require("fzf-lua").buffers()<cr>', { desc = 'Buffers' })
-keymap('n', '<leader>fx', '<cmd>lua require("fzf-lua").commands()<cr>', { desc = 'Commands' })
-keymap('n', '<leader>fw', '<cmd>lua require("fzf-lua").grep_cword()<cr>', { desc = 'Word under cursor' })
-keymap('v', '<leader>fw', '<cmd>lua require("fzf-lua").grep_visual()<cr>', { desc = 'Grep selection' })
+-- Folder picker is a custom command
+-- keymap('n', '<leader>fD', '<cmd>FolderPicker<cr>', { desc = 'Directory picker' })
 
 ----------
 -- Terminal & Buffers

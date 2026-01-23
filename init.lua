@@ -52,7 +52,6 @@ local plugins = {
   { import = "eigengrau.plugins.editor" },            -- Editor features (LSP, completion)
   { import = "eigengrau.plugins.editor.writing" },    -- Prose writing tools
   { import = "eigengrau.plugins.tools" },             -- Utilities & navigation
-  { import = "eigengrau.plugins.ai" },                -- AI tools
   { import = "eigengrau.plugins.optional" },          -- Optional features
 }
 

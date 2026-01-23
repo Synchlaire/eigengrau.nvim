@@ -13,13 +13,13 @@ return {
   },
 
   -- Limelight: Focus on current section
-  {
-    "junegunn/limelight.vim",
-    cmd = "Limelight",
-    keys = {
-      { "<leader>zl", "<cmd>Limelight!!<CR>", desc = "Toggle Limelight" },
-    },
-  },
+  -- {
+  --   "junegunn/limelight.vim",
+  --   cmd = "Limelight",
+  --   keys = {
+  --     { "<leader>zl", "<cmd>Limelight!!<CR>", desc = "Toggle Limelight" },
+  --   },
+  -- },
 
   -- Twilight: Treesitter-based dimming
   {
@@ -47,3 +47,4 @@ return {
     },
   },
 }
+
