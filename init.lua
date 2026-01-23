@@ -1,4 +1,9 @@
 ---@diagnostic disable: undefined-field
+-- Enable the experimental Lua module loader for faster startup
+if vim.loader then
+  vim.loader.enable()
+end
+
 -- Ensure lazy.nvim is installed
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

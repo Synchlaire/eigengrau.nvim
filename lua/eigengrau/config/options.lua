@@ -119,7 +119,7 @@ opt.fillchars = {
 }
 
 -- Better diffs
-opt.diffopt:append({ "vertical", "iwhite", "algorithm:patience", "indent-heuristic" })
+opt.diffopt:append({ "vertical", "iwhite", "algorithm:patience", "indent-heuristic", "linematch:60" })
 
 -- Search
 opt.ignorecase = true        -- Case-insensitive by default
@@ -165,7 +165,8 @@ if vim.fn.has("nvim-0.9") == 1 then
 end
 
 if vim.fn.has("nvim-0.10") == 1 then
-  opt.foldtext = "" -- Use default text for folds
+  opt.foldtext = ""     -- Use default text for folds
+  opt.smoothscroll = true -- Smooth scrolling for <C-u> / <C-d>
 end
 
 
