@@ -96,28 +96,25 @@ return {
       },
     })
 
-    -- take extra note that i have visual selection only in v mode
-    -- technically whatever your last visual selection is, will be used
-    -- so i have this set to visual mode so i dont screw up and use an
-    -- old visual selection
-    --
-    -- likely ill add a mode check and assert on required visual mode
-    -- so just prepare for it now
-    vim.keymap.set("v", "<leader>9v", function()
+    -- ============================================
+    -- <leader>i prefix for 99 / Kimi integration
+    -- ============================================
+
+    -- iv: visual selection -> send to Kimi
+    vim.keymap.set("v", "<leader>iv", function()
       _99.visual()
     end, { desc = "99: Call Kimi on visual selection" })
 
-    --- if you have a request you dont want to make any changes, just cancel it
-    vim.keymap.set("v", "<leader>9s", function()
+    -- is: stop all running requests
+    vim.keymap.set({ "n", "v" }, "<leader>is", function()
       _99.stop_all_requests()
     end, { desc = "99: Stop all requests" })
 
-    -- Additional keymaps for calling Kimi
-    vim.keymap.set("n", "<leader>9k", function()
+    -- ia: ask Kimi about current buffer
+    vim.keymap.set("n", "<leader>ia", function()
       -- Get the current buffer content as context
       local buf = vim.api.nvim_get_current_buf()
       local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
-      local content = table.concat(lines, "\n")
 
       -- Use vim.ui.input to get the prompt
       vim.ui.input({ prompt = "Ask Kimi: " }, function(input)
@@ -130,5 +127,13 @@ return {
         _99.visual({ additional_prompt = input })
       end)
     end, { desc = "99: Ask Kimi about current buffer" })
+
+    -- Legacy keymaps (kept for backwards compatibility)
+    vim.keymap.set("v", "<leader>9v", function()
+      _99.visual()
+    end, { desc = "99: Call Kimi on visual selection (legacy)" })
+    vim.keymap.set("v", "<leader>9s", function()
+      _99.stop_all_requests()
+    end, { desc = "99: Stop all requests (legacy)" })
   end,
 }
