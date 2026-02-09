@@ -1,7 +1,41 @@
-return	{
+return {
   "ThePrimeagen/99",
   config = function()
     local _99 = require("99")
+
+    -- Create a custom Kimi Provider
+    local BaseProvider = _99.Providers.OpenCodeProvider
+
+    --- @class KimiProvider : _99.Providers.BaseProvider
+    local KimiProvider = setmetatable({}, { __index = BaseProvider })
+
+    --- @param query string
+    --- @param request _99.Request
+    --- @return string[]
+    function KimiProvider._build_command(_, query, request)
+      local tmp_file = request.context.tmp_file
+      -- Kimi CLI doesn't have a direct output file option, so we use shell redirection
+      -- Using a shell command to capture output to the temp file
+      return {
+        "bash",
+        "-c",
+        string.format(
+          'kimi --print --yolo %s > %s 2>&1',
+          vim.fn.shellescape(query),
+          vim.fn.shellescape(tmp_file)
+        ),
+      }
+    end
+
+    --- @return string
+    function KimiProvider._get_provider_name()
+      return "KimiProvider"
+    end
+
+    --- @return string
+    function KimiProvider._get_default_model()
+      return "kimi-k2.5"
+    end
 
     -- For logging that is to a file if you wish to trace through requests
     -- for reporting bugs, i would not rely on this, but instead the provided
@@ -9,6 +43,9 @@ return	{
     local cwd = vim.uv.cwd()
     local basename = vim.fs.basename(cwd)
     _99.setup({
+      -- Use the custom Kimi provider
+      provider = KimiProvider,
+
       logger = {
         level = _99.DEBUG,
         path = "/tmp/" .. basename .. ".99.debug",
@@ -68,11 +105,30 @@ return	{
     -- so just prepare for it now
     vim.keymap.set("v", "<leader>9v", function()
       _99.visual()
-    end)
+    end, { desc = "99: Call Kimi on visual selection" })
 
     --- if you have a request you dont want to make any changes, just cancel it
     vim.keymap.set("v", "<leader>9s", function()
       _99.stop_all_requests()
-    end)
+    end, { desc = "99: Stop all requests" })
+
+    -- Additional keymaps for calling Kimi
+    vim.keymap.set("n", "<leader>9k", function()
+      -- Get the current buffer content as context
+      local buf = vim.api.nvim_get_current_buf()
+      local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+      local content = table.concat(lines, "\n")
+
+      -- Use vim.ui.input to get the prompt
+      vim.ui.input({ prompt = "Ask Kimi: " }, function(input)
+        if not input or input == "" then
+          return
+        end
+        -- Use visual mode on the whole buffer with the prompt
+        vim.api.nvim_buf_set_mark(buf, "<", 1, 0, {})
+        vim.api.nvim_buf_set_mark(buf, ">", #lines, 0, {})
+        _99.visual({ additional_prompt = input })
+      end)
+    end, { desc = "99: Ask Kimi about current buffer" })
   end,
-},
+}
