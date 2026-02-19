@@ -1,162 +1,145 @@
-local opts = { noremap = true, silent = true }
-local keymap = vim.api.nvim_set_keymap
-
--- Toggle background
-function ToggleNight()
-  vim.o.background = (vim.o.background == 'dark' and 'light' or 'dark')
-  local current = vim.g.colors_name
-  if current and current ~= '' then
-    pcall(vim.cmd.colorscheme, current)
-  end
-  vim.notify('Background: ' .. (vim.o.background == 'dark' and 'Dark' or 'Light'), vim.log.levels.INFO)
-end
+local map = vim.keymap.set
 
 -- Clear defaults
-keymap('n', '<SPACE>', '<Nop>', opts)
-keymap('v', '<SPACE>', '<Nop>', opts)
-keymap('n', '<f1>', '<Nop>', opts)
-vim.keymap.set("x", "r", "r", { noremap = true })
+map("n", "<SPACE>", "<Nop>", { silent = true })
+map("v", "<SPACE>", "<Nop>", { silent = true })
+map("n", "<f1>", "<Nop>", { silent = true })
+map("x", "r", "r", { noremap = true })
+
 -- Save/Exit
-keymap('n', '<leader>Qs', '<cmd>x<cr>', { desc = "Save and exit" })
-keymap('n', '<leader>QQ', '<cmd>qall<cr>', { desc = "Exit without saving" })
-keymap('n', '<leader><Enter>', '<cmd>write | echo "saved changes."<cr>', { desc = "Save" })
+map("n", "<leader>Qs", "<cmd>x<cr>", { desc = "Save and exit" })
+map("n", "<leader>QQ", "<cmd>qall<cr>", { desc = "Exit without saving" })
+map("n", "<leader><Enter>", '<cmd>write | echo "saved changes."<cr>', { desc = "Save" })
 
 -- Editing enhancements
-keymap('v', '<TAB>', '=', opts) -- Autoindent in visual
-keymap('n', 'U', '<cmd>redo<cr>', opts) -- Intuitive redo
-keymap('n', 'ñ', '~', opts) -- Spanish keyboard sanity
+map("v", "<TAB>", "=", { silent = true }) -- Autoindent in visual
+map("n", "U", "<cmd>redo<cr>", { silent = true }) -- Intuitive redo
+map("n", "ñ", "~", { silent = true }) -- Spanish keyboard sanity
 
 -- Navigation
-keymap('n', '<S-l>', '$', { desc = 'End of line' })
-keymap('n', '<S-h>', '0', { desc = 'Start of line' })
-keymap('v', '<S-l>', '$', { desc = 'End of line' })
-keymap('v', '<S-h>', '0', { desc = 'Start of line' })
-keymap('n', 'n', 'nzzzv', { desc = 'Next search (centered)' })
-keymap('n', 'N', 'Nzzzv', { desc = 'Prev search (centered)' })
+map("n", "<S-l>", "$", { desc = "End of line" })
+map("n", "<S-h>", "0", { desc = "Start of line" })
+map("v", "<S-l>", "$", { desc = "End of line" })
+map("v", "<S-h>", "0", { desc = "Start of line" })
+map("n", "n", "nzzzv", { desc = "Next search (centered)" })
+map("n", "N", "Nzzzv", { desc = "Prev search (centered)" })
 
 -- Keep cursor in place when joining lines
-keymap("n", "J", "mzJ`z", opts)
+map("n", "J", "mzJ`z", { silent = true })
 
 -- Yank/Delete behavior
-keymap("n", "x", '"_x', opts) -- Delete char without yank
-keymap("n", "X", '"_X', opts)
-keymap("v", "x", '"_x', opts)
-keymap("v", "X", '"_X', opts)
-keymap("v", "p", '"_dP', opts) -- Paste without yanking replaced text
-keymap("n", "<C-y>", "<cmd>%y+<CR>", { desc = "Yank whole file" })
+map("n", "x", '"_x', { silent = true }) -- Delete char without yank
+map("n", "X", '"_X', { silent = true })
+map("v", "x", '"_x', { silent = true })
+map("v", "X", '"_X', { silent = true })
+map("v", "p", '"_dP', { silent = true }) -- Paste without yanking replaced text
+map("n", "<C-y>", "<cmd>%y+<CR>", { desc = "Yank whole file" })
 
 -- Paste variations
-keymap("n", "]p", "o<Esc>p", { desc = "Paste below" })
-keymap("n", "[p", "O<Esc>p", { desc = "Paste above" })
+map("n", "]p", "o<Esc>p", { desc = "Paste below" })
+map("n", "[p", "O<Esc>p", { desc = "Paste above" })
 
 ----------
 -- Window Management
 ----------
 
 -- Window maximization
-keymap('n', '<A-f>', '<cmd>WindowsMaximize<cr>', { desc = 'Maximize window' })
-keymap('n', '<A-t>', '<cmd>WindowsMaximizeVertically<cr>', { desc = 'Maximize vertically' })
-keymap('n', '<A-w>', '<cmd>WindowsMaximizeHorizontally<cr>', { desc = 'Maximize horizontally' })
-keymap('n', '<A-0>', '<cmd>WindowsEqualize<cr>', { desc = 'Equalize windows' })
+map("n", "<A-f>", "<cmd>WindowsMaximize<cr>", { desc = "Maximize window" })
+map("n", "<A-t>", "<cmd>WindowsMaximizeVertically<cr>", { desc = "Maximize vertically" })
+map("n", "<A-w>", "<cmd>WindowsMaximizeHorizontally<cr>", { desc = "Maximize horizontally" })
+map("n", "<A-0>", "<cmd>WindowsEqualize<cr>", { desc = "Equalize windows" })
 
 -- Window resizing (Ctrl+hjkl)
-keymap('n', '<C-k>', '<cmd>resize +1<cr>', { desc = 'Increase height' })
-keymap('n', '<C-j>', '<cmd>resize -1<cr>', { desc = 'Decrease height' })
-keymap('n', '<C-l>', '<cmd>vertical resize +1<cr>', { desc = 'Increase width' })
-keymap('n', '<C-h>', '<cmd>vertical resize -1<cr>', { desc = 'Decrease width' })
+map("n", "<C-k>", "<cmd>resize +1<cr>", { desc = "Increase height" })
+map("n", "<C-j>", "<cmd>resize -1<cr>", { desc = "Decrease height" })
+map("n", "<C-l>", "<cmd>vertical resize +1<cr>", { desc = "Increase width" })
+map("n", "<C-h>", "<cmd>vertical resize -1<cr>", { desc = "Decrease width" })
 
 -- Window navigation (Alt+hjkl)
-keymap('n', '<leader>w', '<cmd>WinShift<CR>', { desc = 'Window move mode' })
-keymap('n', '<A-h>', '<C-w>h', { desc = 'Focus left' })
-keymap('n', '<A-j>', '<C-w>j', { desc = 'Focus down' })
-keymap('n', '<A-k>', '<C-w>k', { desc = 'Focus up' })
-keymap('n', '<A-l>', '<C-w>l', { desc = 'Focus right' })
+map("n", "<leader>w", "<cmd>WinShift<CR>", { desc = "Window move mode" })
+map("n", "<A-h>", "<C-w>h", { desc = "Focus left" })
+map("n", "<A-j>", "<C-w>j", { desc = "Focus down" })
+map("n", "<A-k>", "<C-w>k", { desc = "Focus up" })
+map("n", "<A-l>", "<C-w>l", { desc = "Focus right" })
 
 -- Splits
-keymap('n', '<leader>sv', '<cmd>vs| echo "split |  "<CR>', { desc = 'Vertical split' })
-keymap('n', '<leader>sh', '<cmd>split | echo "split -- "<CR>', { desc = 'Horizontal split' })
-keymap('n', '<leader>ds', '<cmd>close| echo "killed window 󰚌 "<CR>', { desc = 'Close split' })
+map("n", "<leader>sv", '<cmd>vs| echo "split |  "<CR>', { desc = "Vertical split" })
+map("n", "<leader>sh", '<cmd>split | echo "split -- "<CR>', { desc = "Horizontal split" })
+map("n", "<leader>ds", '<cmd>close| echo "killed window 󰚌 "<CR>', { desc = "Close split" })
 
 -- Tabs (Alt+np for quick navigation, <leader><Tab> for management)
-keymap("n", "<A-n>", "<cmd>tabn<CR>", { desc = "Next tab" })
-keymap("n", "<A-p>", "<cmd>tabp<CR>", { desc = "Prev tab" })
-keymap("n", "<leader><Tab>n", "<cmd>tabnew<CR>", { desc = "New tab" })
-keymap("n", "<leader><Tab>d", "<cmd>tabclose<CR>", { desc = "Close tab" })
-keymap("n", "<leader><Tab>f", "<cmd>tabnew %<CR>", { desc = "Buffer in new tab" })
+map("n", "<A-n>", "<cmd>tabn<CR>", { desc = "Next tab" })
+map("n", "<A-p>", "<cmd>tabp<CR>", { desc = "Prev tab" })
+map("n", "<leader><Tab>n", "<cmd>tabnew<CR>", { desc = "New tab" })
+map("n", "<leader><Tab>d", "<cmd>tabclose<CR>", { desc = "Close tab" })
+map("n", "<leader><Tab>f", "<cmd>tabnew %<CR>", { desc = "Buffer in new tab" })
 
 -- Tabline customization (<leader><Tab> + modifier)
-vim.keymap.set("n", "<leader><Tab>r", function() _G.rename_tab() end, { desc = "Rename tab" })
-vim.keymap.set("n", "<leader><Tab>R", function() _G.clear_tab_name() end, { desc = "Clear tab name" })
-vim.keymap.set("n", "<leader><Tab>c", function() _G.toggle_clock() end, { desc = "Toggle clock" })
-vim.keymap.set("n", "<leader><Tab>b", function() _G.toggle_battery() end, { desc = "Toggle battery" })
-vim.keymap.set("n", "<leader><Tab>t", function() _G.toggle_tab_names() end, { desc = "Toggle tab names" })
-vim.keymap.set("n", "<leader><Tab>i", function() _G.toggle_statusline_info() end, { desc = "Toggle info" })
-
+map("n", "<leader><Tab>r", function() _G.rename_tab() end, { desc = "Rename tab" })
+map("n", "<leader><Tab>R", function() _G.clear_tab_name() end, { desc = "Clear tab name" })
+map("n", "<leader><Tab>c", function() _G.toggle_clock() end, { desc = "Toggle clock" })
+map("n", "<leader><Tab>b", function() _G.toggle_battery() end, { desc = "Toggle battery" })
+map("n", "<leader><Tab>t", function() _G.toggle_tab_names() end, { desc = "Toggle tab names" })
+map("n", "<leader><Tab>i", function() _G.toggle_statusline_info() end, { desc = "Toggle info" })
 
 ----------
 -- Toggles (<leader>t)
 ----------
 
-keymap('n', '<leader>ts', '<cmd>set spell!<CR>', { desc = "Spellcheck" })
-keymap("n", "<leader>tn", '<cmd>set rnu! number!<CR>', { desc = 'Line numbers' })
-keymap("n", "<leader>tb", '<cmd>lua ToggleNight()<CR>', { desc = 'Background' })
-keymap("n", "<leader>tr", '<cmd>TransparentToggle<CR>', { desc = 'Transparency' })
-keymap('n', '<leader>tp', '<cmd>PlayerOneToggle<cr>', { desc = 'UI sounds' })
-keymap('n', '<leader>tw', '<cmd>set wrap!<CR>', { desc = 'Word wrap' })
+map("n", "<leader>ts", "<cmd>set spell!<CR>", { desc = "Spellcheck" })
+map("n", "<leader>tn", "<cmd>set rnu! number!<CR>", { desc = "Line numbers" })
+map("n", "<leader>tb", function()
+  require("eigengrau.config.functions.toggle-night").toggle()
+end, { desc = "Background" })
+map("n", "<leader>tr", "<cmd>TransparentToggle<CR>", { desc = "Transparency" })
+map("n", "<leader>tp", "<cmd>PlayerOneToggle<cr>", { desc = "UI sounds" })
+map("n", "<leader>tw", "<cmd>set wrap!<CR>", { desc = "Word wrap" })
 
-vim.keymap.set('n', '<leader>tc', function()
+map("n", "<leader>tc", function()
   vim.o.conceallevel = (vim.o.conceallevel == 0) and 2 or 0
   vim.notify("Conceal: " .. (vim.o.conceallevel == 0 and "OFF" or "ON"), vim.log.levels.INFO)
-end, { desc = 'Conceal' })
+end, { desc = "Conceal" })
 
-vim.keymap.set('n', '<leader>td', function()
+map("n", "<leader>td", function()
   vim.diagnostic.enable(not vim.diagnostic.is_enabled())
   vim.notify("Diagnostics: " .. (vim.diagnostic.is_enabled() and "ON" or "OFF"), vim.log.levels.INFO)
-end, { desc = 'Diagnostics' })
+end, { desc = "Diagnostics" })
 
 ----------
 -- Utilities
 ----------
 
-keymap('n', '  ', '<cmd>nohl<CR>', { desc = 'Clear search' })
-keymap("n", "<leader>lz", "<cmd>Lazy<cr>", { desc = 'Lazy' })
-keymap("n", "<leader>mm", "<cmd>Mason<cr>", { desc = 'Mason' })
-keymap("n", "<leader>hh", "<cmd>lua Snacks.dashboard()<cr>", { desc = 'Dashboard' })
-keymap('n', 's', '<cmd>lua require("flash").jump()<CR>', opts)
-
+map("n", "  ", "<cmd>nohl<CR>", { desc = "Clear search" })
+map("n", "<leader>lz", "<cmd>Lazy<cr>", { desc = "Lazy" })
+map("n", "<leader>mm", "<cmd>Mason<cr>", { desc = "Mason" })
+map("n", "<leader>hh", "<cmd>lua Snacks.dashboard()<cr>", { desc = "Dashboard" })
+map("n", "s", function() require("flash").jump() end, { silent = true })
 
 ----------
 -- Git (<leader>g)
 ----------
 
-vim.keymap.set("n", "<leader>gl", function() Snacks.lazygit() end, { desc = "LazyGit" })
-vim.keymap.set("n", "<leader>gL", function() Snacks.lazygit.log() end, { desc = "LazyGit log" })
-vim.keymap.set("n", "<leader>gB", function() Snacks.gitbrowse() end, { desc = "Git browse" })
+map("n", "<leader>gl", function() Snacks.lazygit() end, { desc = "LazyGit" })
+map("n", "<leader>gL", function() Snacks.lazygit.log() end, { desc = "LazyGit log" })
+map("n", "<leader>gB", function() Snacks.gitbrowse() end, { desc = "Git browse" })
 
 ----------
--- Fuzzy Finding (<leader>f) - Migrated to fzf.lua
+-- Fuzzy Finding (<leader>f)
 ----------
--- See lua/eigengrau/plugins/tools/fzf.lua for keys
-keymap('n', '<leader>fc', '<cmd>Themify<cr>', { desc = 'Colorscheme' })
--- Folder picker is a custom command
--- keymap('n', '<leader>fD', '<cmd>FolderPicker<cr>', { desc = 'Directory picker' })
+map("n", "<leader>fc", "<cmd>Themify<cr>", { desc = "Colorscheme" })
 
 ----------
 -- Terminal & Buffers
 ----------
 
-keymap("n", "<A-.>", "<cmd>Vterm<CR>", { desc = "Terminal (vsplit)" })
-keymap("n", "<A-,>", "<cmd>Sterm<CR>", { desc = "Terminal (hsplit)" })
-keymap("n", "<leader>uh", "<cmd>lua require('snacks').notifier.show_history()<CR>", { desc = "Notifications" })
-keymap("n", "<leader>rn", "<cmd>lua require('snacks').rename.rename_file()<CR>", { desc = "Rename file" })
-keymap("n", "<leader>dd", "<cmd>lua require('snacks').bufdelete()<CR>", { desc = "Delete buffer" })
+map("n", "<A-.>", "<cmd>Vterm<CR>", { desc = "Terminal (vsplit)" })
+map("n", "<A-,>", "<cmd>Sterm<CR>", { desc = "Terminal (hsplit)" })
+map("n", "<leader>uh", function() require("snacks").notifier.show_history() end, { desc = "Notifications" })
+map("n", "<leader>rn", function() require("snacks").rename.rename_file() end, { desc = "Rename file" })
+map("n", "<leader>dd", function() require("snacks").bufdelete() end, { desc = "Delete buffer" })
 
 ----------
 -- Namespaces
 ----------
 -- <leader>o : Reserved for Obsidian
--- <leader>c : Reserved for AI (Code/Chat)
-
--- Snacks.nvim functions (non-conflicting binds)
-vim.keymap.set("n", "<leader>lg", function() Snacks.lazygit() end, { desc = "LazyGit" })
-vim.keymap.set("n", "<leader>nh", function() Snacks.notifier.show_history() end, { desc = "Notification history" })
+-- <leader>i : Reserved for AI

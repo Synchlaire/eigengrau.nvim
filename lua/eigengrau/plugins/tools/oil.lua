@@ -67,7 +67,7 @@ return {
         },
         ["<leader><leader>"] = {
           function()
-            require("fzf-lua").files({
+            Snacks.picker.files({
               cwd = require("oil").get_current_dir()
             })
           end,
@@ -131,10 +131,9 @@ return {
         win_options = {
           winblend = 0,
         },
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-
       },
-      vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
     })
+
+    vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
   end,
 }

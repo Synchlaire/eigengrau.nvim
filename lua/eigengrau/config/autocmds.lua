@@ -68,7 +68,6 @@ cmd("FileType", {
 		"fugitive",
 		"diagmsg",
 		"help",
-		"lir",
 		"lspinfo",
 		"man",
 		"messages_buffer",
@@ -116,12 +115,15 @@ vim.api.nvim_create_autocmd("BufReadCmd", {
 --          Colorscheme          --
 -----------------------------------
 
--- Reload colorscheme when background changes
+-- Reload colorscheme when background changes (with reentrancy guard to prevent cascading reloads)
 vim.api.nvim_create_autocmd("OptionSet", {
 	pattern = "background",
 	callback = function()
+		if vim.g._colorscheme_reloading then return end
 		if vim.g.colors_name then
+			vim.g._colorscheme_reloading = true
 			vim.cmd("colorscheme " .. vim.g.colors_name)
+			vim.g._colorscheme_reloading = nil
 		end
 	end,
 	desc = "Reload colorscheme on background change",

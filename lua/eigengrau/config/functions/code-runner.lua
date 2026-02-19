@@ -94,7 +94,7 @@ local function get_text()
   if mode == "v" or mode == "V" or mode == "\22" then
     -- Visual mode: get selection
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "x", false)
-    vim.cmd('noau normal! gv"vy')
+    vim.cmd({ cmd = 'normal', args = { 'gv"vy' }, bang = true, mods = { noautocmd = true } })
     return vim.fn.getreg("v")
   else
     -- Normal mode: get current line
@@ -167,23 +167,23 @@ local function execute_in_terminal(cmd, split)
 
   -- Save the file first if modified
   if vim.bo.modified then
-    vim.cmd("write")
+    vim.cmd.write()
   end
 
   -- Create terminal split
   if split == "vertical" then
-    vim.cmd("vsplit")
+    vim.cmd.vsplit()
   elseif split == "horizontal" then
-    vim.cmd("split")
+    vim.cmd.split()
   elseif split == "tab" then
-    vim.cmd("tabnew")
+    vim.cmd.tabnew()
   end
 
   -- Open terminal with command
-  vim.cmd("terminal " .. cmd)
+  vim.fn.termopen(cmd)
 
   -- Auto-insert mode in terminal
-  vim.cmd("startinsert")
+  vim.cmd.startinsert()
 
   -- Set terminal buffer options
   vim.bo.buflisted = false

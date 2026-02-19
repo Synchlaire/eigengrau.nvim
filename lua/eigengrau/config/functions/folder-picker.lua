@@ -130,35 +130,24 @@ function folder_cache.get_sorted_folders()
   return folders
 end
 
--- Helper to build find command string for fzf-lua
-local function get_find_command_str()
+-- Helper to build find command as list for jobstart
+local function get_find_command_list()
   local search_path = vim.fn.expand("~")
   local cfg = folder_cache.config
   local has_fd = vim.fn.executable("fd") == 1
-  
+
   if has_fd then
-    local parts = { "fd", "--type", "d", "--max-depth", tostring(cfg.max_depth), "--no-ignore" }
-    
-    if cfg.search_hidden then
-      table.insert(parts, "--hidden")
-    end
-    
+    local cmd = { "fd", "--type", "d", "--max-depth", tostring(cfg.max_depth), "--no-ignore" }
+    if cfg.search_hidden then table.insert(cmd, "--hidden") end
     for _, pattern in ipairs(cfg.exclude_patterns) do
-      table.insert(parts, "--exclude")
-      table.insert(parts, "'" .. pattern .. "'")
+      table.insert(cmd, "--exclude")
+      table.insert(cmd, pattern)
     end
-    
-    table.insert(parts, ".")
-    table.insert(parts, search_path)
-    return table.concat(parts, " ")
+    table.insert(cmd, ".")
+    table.insert(cmd, search_path)
+    return cmd
   else
-    -- Fallback to find
-    local parts = { "find", search_path, "-maxdepth", tostring(cfg.max_depth), "-type", "d" }
-    
-    for _, pattern in ipairs(cfg.exclude_patterns) do
-      table.insert(parts, "-not -path '*/" .. pattern .. "/*'")
-    end
-    return table.concat(parts, " ")
+    return { "find", search_path, "-maxdepth", tostring(cfg.max_depth), "-type", "d" }
   end
 end
 
@@ -169,33 +158,7 @@ function folder_cache.refresh_async(callback)
   end
 
   folder_cache.is_refreshing = true
-  local cmd_str = get_find_command_str()
-  
-  -- Use jobstart with 'sh -c' to handle the command string properly if needed,
-  -- but jobstart expects a list if we don't use shell.
-  -- Re-building list for jobstart specifically to match original logic safely
-  
-  local search_path = vim.fn.expand("~")
-  local cfg = folder_cache.config
-  local has_fd = vim.fn.executable("fd") == 1
-  local find_command_list
-  
-  if has_fd then
-    find_command_list = {
-      "fd", "--type", "d", "--max-depth", tostring(cfg.max_depth), "--no-ignore",
-    }
-    if cfg.search_hidden then table.insert(find_command_list, "--hidden") end
-    for _, pattern in ipairs(cfg.exclude_patterns) do
-      table.insert(find_command_list, "--exclude")
-      table.insert(find_command_list, pattern)
-    end
-    table.insert(find_command_list, ".")
-    table.insert(find_command_list, search_path)
-  else
-    find_command_list = { "find", search_path, "-maxdepth", tostring(cfg.max_depth), "-type", "d" }
-    -- find command exclusions logic is more complex for list, simplifying for now to match find command structure
-    -- Realistically, users should have fd. 
-  end
+  local find_command_list = get_find_command_list()
 
   local stdout_lines = {}
   local stderr_lines = {}
@@ -225,55 +188,49 @@ function folder_cache.refresh_async(callback)
   })
 end
 
--- Fzf-lua folder picker
+-- Snacks.picker folder picker
 function _G.folder_picker(opts)
   opts = opts or {}
-  local fzf = require("fzf-lua")
-  
-  -- Action to open folder
-  local function open_folder(selected, opts)
-    local folder = selected[1]
-    if folder then
-      folder_cache.mark_recent(folder)
-      vim.cmd("cd " .. vim.fn.fnameescape(folder))
-      require("oil").open(folder)
-      vim.notify("Opened: " .. folder, vim.log.levels.INFO)
-    end
-  end
 
   folder_cache.load()
   local cached_folders = folder_cache.get_sorted_folders()
 
   if cached_folders and #cached_folders > 0 then
-    -- Use cached folders
-    fzf.fzf_exec(cached_folders, {
-      prompt = "Folders> ",
-      actions = { ["default"] = open_folder },
-      previewer = false,
-      winopts = {
-        height = 0.6,
-        width = 0.6,
-        preview = { hidden = "hidden" } 
-      }
+    -- Build items from cached folders
+    local items = {}
+    for idx, folder in ipairs(cached_folders) do
+      table.insert(items, { idx = idx, text = folder, file = folder })
+    end
+
+    Snacks.picker({
+      title = "Folders",
+      items = items,
+      format = function(item)
+        return { { item.text } }
+      end,
+      confirm = function(picker, item)
+        picker:close()
+        if item then
+          folder_cache.mark_recent(item.text)
+          vim.cmd("cd " .. vim.fn.fnameescape(item.text))
+          require("oil").open(item.text)
+          vim.notify("Opened: " .. item.text, vim.log.levels.INFO)
+        end
+      end,
     })
-    
+
     -- Refresh in background
     if not folder_cache.is_refreshing then
       vim.schedule(folder_cache.refresh_async)
     end
   else
-    -- Fallback to live command
+    -- No cache yet, build it first then open picker
     vim.notify("Building folder cache...", vim.log.levels.INFO)
-    local cmd = get_find_command_str()
-    
-    fzf.fzf_exec(cmd, {
-      prompt = "Folders (Building)> ",
-      actions = { ["default"] = open_folder },
-      previewer = false
-    })
-    
-    -- Refresh to save cache
-    folder_cache.refresh_async()
+    folder_cache.refresh_async(function(folders)
+      vim.schedule(function()
+        _G.folder_picker()
+      end)
+    end)
   end
 end
 

@@ -1,6 +1,5 @@
--- LSP configuration using stable lspconfig API
--- Neovim 0.11+ vim.lsp.config API has bugs, using traditional setup
--- Languages: Lua, Bash, Markdown, Typst
+-- LSP configuration using Neovim 0.11+ native vim.lsp.config/vim.lsp.enable API
+-- Languages: Lua, Bash, Python, Typst
 
 return {
   -- Mason LSP installer (load first)

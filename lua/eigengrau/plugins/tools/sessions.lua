@@ -13,7 +13,7 @@ return {
     },
     config = function()
       require("possession").setup {
-        session_dir = "/home/claroscuro/.nvim-sessions",
+        session_dir = os.getenv("HOME") .. "/.nvim-sessions",
         silent = false,
         load_silent = true,
         debug = false,

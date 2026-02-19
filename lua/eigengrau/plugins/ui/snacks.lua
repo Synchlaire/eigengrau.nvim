@@ -1,8 +1,15 @@
-
 return {
   "folke/snacks.nvim",
   priority = 1000,
   lazy = false,
+  keys = {
+    { "<leader>fg", function() Snacks.picker.grep() end,        desc = "Live Grep" },
+    { "<leader>fr", function() Snacks.picker.recent() end,      desc = "Recent Files" },
+    { "<leader>fw", function() Snacks.picker.grep_word() end,   desc = "Grep Word" },
+    { "<leader>fx", function() Snacks.picker.commands() end,    desc = "Commands" },
+    { "<leader>fk", function() Snacks.picker.keymaps() end,     desc = "Keymaps" },
+    { "<leader>fs", function() Snacks.picker.lsp_symbols() end, desc = "Document Symbols" },
+  },
   opts = {
 
     --[[
@@ -40,7 +47,7 @@ zen          - Zen mode • distraction-free coding
     -- [Module Settings]
 
     -- Easy setup
-    picker = { enabled = true },  -- Required for obsidian.nvim integration
+    picker = { enabled = true },                 -- Required for obsidian.nvim picker backend
     bigfile = { enabled = true, notify = true }, --performance for big files
     input = { enabled = false },
     notify = { enabled = true },
@@ -50,8 +57,8 @@ zen          - Zen mode • distraction-free coding
     toggle = { enabled = true },
     profiler = { enabled = true },
     scope = { enabled = false },  -- Better scope detection
-    words = { enabled = true },  -- Auto-highlight LSP references under cursor
-    dim = { enabled = true },    -- Focus mode for prose writing
+    words = { enabled = true },   -- Auto-highlight LSP references under cursor
+    dim = { enabled = false },    -- Focus mode for prose writing
     lazygit = { enabled = true }, -- Git TUI integration
 
     -- Detailed setup
@@ -148,17 +155,17 @@ zen          - Zen mode • distraction-free coding
 
         keys = {
 
-          { key = "s", icon  = "  ", desc = "Sessions", action = "<cmd>Telescope possession list theme=dropdown initial_mode=normal<cr>" },
-          { key = "n", icon  = "  ", desc = "New File", action = "<cmd>ene<cr>" },
-          { key = "f", icon  = "  ", desc = "Find File", action = "<cmd>lua Snacks.dashboard.pick('files')<cr>" },
-          { key = "r", icon  = "  ", desc = "Recent Files", action = "<cmd>lua Snacks.dashboard.pick('oldfiles')<cr>" },
-          { key = "d", icon  = "  ", desc = "Find Folders", action = "<cmd>FolderPicker<cr>" },
-          { key = "o", icon  = "  ", desc = "Obsidian", action = "<cmd>Obsidian quick_switch<cr>" },
-          { key = "e", icon  = "  ", desc = "Open Ebook", action = "<cmd>InkLibrary<cr>" },
-          { key = "p", icon  = " 󱅄 ", desc = "Projects", action = "<cmd>ProjectExplorer<cr>" },
-          { key = "cc", icon = "  ", desc = "System Configs", action = "<cmd>cd $HOME/.config/ | lua Snacks.dashboard.pick('files')<cr>" },
-          { key = "cn", icon = "  ", desc = "Nvim Config", action = "<cmd>cd $HOME/.config/nvim/ | lua Snacks.dashboard.pick('files')<cr>" },
-          { key = "l", icon  = " 󱈼 ", desc = "Lazy Plugins", action = "<cmd>Lazy<cr>" },
+          { key = "s", icon = "  ", desc = "Sessions", action = "<cmd>Slist<cr>" },
+          { key = "n", icon = "  ", desc = "New File", action = "<cmd>ene<cr>" },
+          { key = "f", icon = "  ", desc = "Find File", action = "<cmd>FFFFind<cr>" },
+          { key = "r", icon = "  ", desc = "Recent Files", action = "<cmd>lua Snacks.dashboard.pick('oldfiles')<cr>" },
+          { key = "d", icon = "  ", desc = "Find Folders", action = "<cmd>FolderPicker<cr>" },
+          { key = "o", icon = "  ", desc = "Obsidian", action = "<cmd>Obsidian quick_switch<cr>" },
+          { key = "e", icon = "  ", desc = "Open Ebook", action = "<cmd>InkLibrary<cr>" },
+          { key = "p", icon = " 󱅄 ", desc = "Projects", action = "<cmd>Project<cr>" },
+          { key = "cc", icon = "  ", desc = "System Configs", action = "<cmd>cd $HOME/.config/ | FFFFind<cr>" },
+          { key = "cn", icon = "  ", desc = "Nvim Config", action = "<cmd>cd $HOME/.config/nvim/ | FFFFind<cr>" },
+          { key = "l", icon = " 󱈼 ", desc = "Lazy Plugins", action = "<cmd>Lazy<cr>" },
           { key = "qq", icon = "  ", desc = "Quit NVIM", action = "<cmd>qa<cr>" },
         },
       },
@@ -170,10 +177,10 @@ zen          - Zen mode • distraction-free coding
         footer = { "%s", align = "center" },
       },
       sections = {
-        { pane = 1, section = "header", gap = 1 },
-        { pane = 2, title = "# Recent Files", section = "recent_files", limit = 4, indent = 2, padding = 1 },
-        { pane = 2, title = "# Keymaps", section = "keys", indent = 2, padding = 1 },
-        { pane = 2, section = "startup", gap = 1 },
+        { pane = 1, section = "header",       gap = 1 },
+        { pane = 2, title = "# Recent Files", section = "recent_files", limit = 4,  indent = 2, padding = 1 },
+        { pane = 2, title = "# Keymaps",      section = "keys",         indent = 2, padding = 1 },
+        { pane = 2, section = "startup",      gap = 1 },
       },
     },
   },

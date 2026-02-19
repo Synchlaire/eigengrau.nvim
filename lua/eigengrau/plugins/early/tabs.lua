@@ -119,7 +119,7 @@ end
 local function toggle_clock()
   _G.show_clock = not _G.show_clock
   update_showtabline()
-  vim.cmd("redrawtabline")
+  vim.cmd.redrawtabline()
   vim.notify("Clock " .. (_G.show_clock and "enabled" or "disabled"), vim.log.levels.INFO)
 end
 
@@ -127,14 +127,14 @@ end
 local function toggle_battery()
   _G.show_battery = not _G.show_battery
   update_showtabline()
-  vim.cmd("redrawtabline")
+  vim.cmd.redrawtabline()
   vim.notify("Battery " .. (_G.show_battery and "enabled" or "disabled"), vim.log.levels.INFO)
 end
 
 -- Toggle tab names display
 local function toggle_tab_names()
   _G.show_tab_names = not _G.show_tab_names
-  vim.cmd("redrawtabline")
+  vim.cmd.redrawtabline()
   vim.notify("Tab names " .. (_G.show_tab_names and "enabled" or "disabled"), vim.log.levels.INFO)
 end
 
@@ -144,7 +144,7 @@ local function toggle_statusline_info()
   _G.show_battery = new_state
   _G.show_clock = new_state
   update_showtabline()
-  vim.cmd("redrawtabline")
+  vim.cmd.redrawtabline()
   vim.notify("Statusline info " .. (new_state and "enabled" or "disabled"), vim.log.levels.INFO)
 end
 
@@ -268,7 +268,7 @@ local function rename_tab()
   }, function(input)
     if input and input ~= "" then
       _G.tab_names[current_tab] = input
-      vim.cmd("redrawtabline")
+      vim.cmd.redrawtabline()
       vim.notify("Tab renamed to: " .. input, vim.log.levels.INFO)
     end
   end)
@@ -278,7 +278,7 @@ end
 local function clear_tab_name()
   local current_tab = vim.fn.tabpagenr()
   _G.tab_names[current_tab] = nil
-  vim.cmd("redrawtabline")
+  vim.cmd.redrawtabline()
   vim.notify("Tab name cleared", vim.log.levels.INFO)
 end
 
@@ -310,7 +310,7 @@ vim.api.nvim_create_autocmd({ "TabNew", "TabEnter" }, {
 -- Auto-refresh clock every minute
 vim.fn.timer_start(60000, function()
   if _G.show_clock then
-    vim.cmd("redrawtabline")
+    vim.cmd.redrawtabline()
   end
 end, { ["repeat"] = -1 })
 
@@ -365,14 +365,6 @@ vim.api.nvim_create_user_command("ToggleStatuslineInfo", function()
 end, {
   desc = "Toggle battery and clock together"
 })
-
--- Keymaps (using <leader>T for tab-specific operations)
-vim.keymap.set("n", "<leader>Tr", function() _G.rename_tab() end, { desc = "Rename tab" })
-vim.keymap.set("n", "<leader>TR", function() _G.clear_tab_name() end, { desc = "Clear tab name" })
-vim.keymap.set("n", "<leader>Tc", function() _G.toggle_clock() end, { desc = "Toggle clock" })
-vim.keymap.set("n", "<leader>Tb", function() _G.toggle_battery() end, { desc = "Toggle battery" })
-vim.keymap.set("n", "<leader>Tn", function() _G.toggle_tab_names() end, { desc = "Toggle tab names" })
-vim.keymap.set("n", "<leader>Ti", function() _G.toggle_statusline_info() end, { desc = "Toggle statusline info" })
 
 -- Return only the actual plugin
 return {

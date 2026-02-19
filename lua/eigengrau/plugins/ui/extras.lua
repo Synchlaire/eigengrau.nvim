@@ -1,28 +1,5 @@
 -- Optional UI enhancements
 return {
-  -- Transparency
-  {
-    "xiyaowong/transparent.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("transparent").setup({
-        groups = {
-          "StatusLine",
-          "StatusLineNC",
-          "FocusBg",
-          "NormalFloat",
-          "Pmenu",
-          "SignColumn",
-          "FoldColumn",
-          "TabLineFill",
-          "TabLine",
-          "WinBar",
-        },
-        exclude_groups = {},
-      })
-    end,
-  },
-
   -- Color highlighting
   {
     "brenoprata10/nvim-highlight-colors",
@@ -60,11 +37,6 @@ return {
     },
     cmd = { "WindowsMaximize", "WindowsMaximizeVertically", "WindowsMaximizeHorizontally", "WindowsEqualize" },
     config = function()
-      vim.o.winwidth = 10      -- Allow true fullscreen (default 20 prevents it)
-      vim.o.winminwidth = 5    -- Minimum width for side windows
-      vim.o.winheight = 1      -- Allow vertical maximize
-      vim.o.winminheight = 1   -- Minimum height for splits
-
       require("windows").setup({
         equalalways = false,
         autowidth = {

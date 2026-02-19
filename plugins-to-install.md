@@ -1,0 +1,8 @@
+- https://github.com/dmtrKovalenko/fff.nvim # should substitute snacks.picker,fzf and telescope
+- https://github.com/folke/neoconf.nvim # writing mode, lua mode, vibecoding mode, etc.
+- https://github.com/ravitemer/mcphub.nvim # y'all need tools constantly lmao
+- https://github.com/xieyonn/spinner.nvim (better than our custom bar module for progress?)
+- https://github.com/TheNoeTrevino/haunt.nvim
+- https://github.com/DrKJeff16/project.nvim (better than possesion?)
+- https://github.com/kungfusheep/mfd.nvim (colorscheme)
+- https://github.com/bngarren/checkmate.nvim (task management)

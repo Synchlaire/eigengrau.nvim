@@ -1,6 +1,6 @@
 return {
   "xiyaowong/transparent.nvim",
-  -- event = "VeryLazy",
+  event = "VeryLazy",
   config = function()
     require("transparent").setup({
       groups = {

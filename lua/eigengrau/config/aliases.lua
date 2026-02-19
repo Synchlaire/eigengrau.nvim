@@ -1,17 +1,12 @@
-vim.cmd([[
-    " Command line aliases
-    cnoreabbrev tr TransparentToggle <cr>
-    cnoreabbrev tb Tabularize /
-    cnoreabbrev ll Lazy load
-    cnoreabbrev lr Lazy reload
-    cnoreabbrev lll Lazy load all <cr>
-    cnoreabbrev tn set rnu! number!<cr>
-    cnoreabbrev ts set laststatus=0<cr>
-    cnoreabbrev tS set laststatus=3<cr>
-    cnoreabbrev git Git
-    cnoreabbrev clt set nocursorline!<cr>
-    cnoreabbrev margin set tw=50
-    " Insert mode aliases
-" ex: inoreabbrev mornign morning
-
-]])
+-- Command line aliases
+vim.cmd.cnoreabbrev("tr TransparentToggle <cr>")
+vim.cmd.cnoreabbrev("tb Tabularize /")
+vim.cmd.cnoreabbrev("ll Lazy load")
+vim.cmd.cnoreabbrev("lr Lazy reload")
+vim.cmd.cnoreabbrev("lll Lazy load all <cr>")
+vim.cmd.cnoreabbrev("tn set rnu! number!<cr>")
+vim.cmd.cnoreabbrev("ts set laststatus=0<cr>")
+vim.cmd.cnoreabbrev("tS set laststatus=3<cr>")
+vim.cmd.cnoreabbrev("git Git")
+vim.cmd.cnoreabbrev("clt set nocursorline!<cr>")
+vim.cmd.cnoreabbrev("margin set tw=50")

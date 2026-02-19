@@ -8,7 +8,6 @@ vim.env.NVIM_TUI_ENABLE_TRUE_COLOR = 1 -- Enable 24-bit RGB color
 opt.termguicolors = true       -- True color support
 opt.ruler = false              -- redundant with modern statuslines
 opt.mousescroll = "ver:3,hor:6"
-opt.syntax = "on"              -- Enable syntax highlighting
 opt.cmdheight = 0              -- Hide command line unless needed
 opt.conceallevel = 2           -- Conceal markdown quotes, etc.
 opt.cursorline = true          -- Highlight current line
@@ -132,7 +131,6 @@ opt.grepprg = "rg --vimgrep" -- Use ripgrep for grep
 opt.swapfile = false             -- No swapfile
 opt.backup = false               -- No backup
 opt.undofile = true              -- Persistent undo
-opt.autochdir = true             -- Change cwd to buffer's path
 g.markdown_recommended_style = 0 -- Disable default markdown formatting
 g.formatprg = "fmt"              -- Use fmt for manual formatting
 
