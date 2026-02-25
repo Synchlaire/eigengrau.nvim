@@ -34,23 +34,22 @@ require("eigengrau.config.autocmds")
 
 -- Plugin imports (organized by load priority)
 local plugins = {
-  { import = "eigengrau.plugins.core" },              -- Startup essentials
-  { import = "eigengrau.plugins.core.colorschemes" }, -- Colorschemes
-  { import = "eigengrau.plugins.early" },             -- Early loading (UI, treesitter)
-  { import = "eigengrau.plugins.ui" },                -- UI enhancements
-  { import = "eigengrau.plugins.editor" },            -- Editor features (LSP, completion)
-  { import = "eigengrau.plugins.editor.writing" },    -- Prose writing tools
-  { import = "eigengrau.plugins.tools" },             -- Utilities & navigation
+  { import = "eigengrau.plugins.core" },           -- Startup essentials
+  { import = "eigengrau.plugins.early" },          -- Early loading (UI, treesitter)
+  { import = "eigengrau.plugins.ui" },             -- UI enhancements
+  { import = "eigengrau.plugins.editor" },         -- Editor features (LSP, completion)
+  { import = "eigengrau.plugins.editor.writing" }, -- Prose writing tools
+  { import = "eigengrau.plugins.tools" },          -- Utilities & navigation
 }
 
 -- Lazy setup
 require("lazy").setup(plugins, {
   checker = {
-    enabled = false,
-    notify = false,
+    enabled = true,
+    notify = true,
   },
   ui = {
-    size = { width = 0.8, height = 0.8 },
+    size = { width = 0.5, height = 0.8 },
     border = "solid",
   },
   change_detection = {

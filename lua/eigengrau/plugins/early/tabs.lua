@@ -60,7 +60,7 @@ _G.show_tab_names = true  -- Default to showing tab names
 -- Get current time
 local function get_clock()
   if not _G.show_clock then return "" end
-  return " 󱑒 " .. os.date("%I:%M %p") .. " "
+  return " 󱑒 " .. os.date("%H:%M") .. " "
 end
 
 -- Get battery status
@@ -86,24 +86,18 @@ local function get_battery()
     local cap = tonumber(capacity)
     if cap >= 90 then
       icon = " "
-    elseif cap >= 80 then
+    elseif cap >= 70 then
       icon = " "
-    elseif cap >= 60 then
+    elseif cap >= 40 then
       icon = " "
-    elseif cap >= 50 then
-      icon = " "
-    elseif cap >= 30 then
+    elseif cap >= 20 then
       icon = " "
-    elseif cap >= 10 then
-      icon = "  uh-oh.."
-    elseif cap >= 5 then
-      icon = "󰯈 i'm tired boss"
     else
-      icon = " "
+      icon = " "
     end
   end
 
-  return icon .. " " .. capacity .. "%% "
+  return icon .. " " .. capacity .. "% "
 end
 
 -- Update showtabline option based on conditions

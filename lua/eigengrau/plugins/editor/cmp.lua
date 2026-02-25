@@ -43,6 +43,7 @@ return {
           "fallback"
         },
 
+
         -- Accept shortcuts
         ["<C-y>"] = { "accept", "fallback" }, -- Quick accept (muscle memory from default preset)
         ["<A-CR>"] = { "select_and_accept" }, -- Accept first if none selected
@@ -131,19 +132,21 @@ return {
           border = "rounded",
           draw = {
             columns = {
-              { "label", "label_description", gap = 1 },
-              { "kind_icon", "kind", gap = 1 },
+              { "kind_icon" },
+              { "label",      "label_description", gap = 1 },
+              { "kind" },
+              { "source_name" },
             },
           },
         },
         list = {
           selection = {
-            preselect = false, -- Don't auto-select first item (good for "enter" preset)
+            preselect = false,  -- Don't auto-select first item (good for "enter" preset)
             auto_insert = true, -- Insert on select (preview as you navigate)
           },
           cycle = {
             from_bottom = true, -- Wrap to top when going down from last
-            from_top = true, -- Wrap to bottom when going up from first
+            from_top = true,    -- Wrap to bottom when going up from first
           },
         },
       },
@@ -156,9 +159,18 @@ return {
           "nerdfont",
         },
 
-        per_filetype = {},
+        per_filetype = {
+          lua = { "lazydev", "lsp", "path", "snippets", "buffer" },
+        },
 
         providers = {
+          lazydev = {
+            name = "lazydev",
+            module = "lazydev.integrations.blink",
+            enabled = true,
+            score_offset = 3000,
+          },
+
           ripgrep = {
             name = "Ripgrep",
             module = "blink-ripgrep",

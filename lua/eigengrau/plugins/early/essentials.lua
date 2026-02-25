@@ -39,12 +39,6 @@ return {
     cmd = "Tabularize",
   },
 
-  -- Sort utility
-  {
-    "sQVe/sort.nvim",
-    cmd = "Sort",
-  },
-
   -- Office file support
   {
     "konfekt/vim-office",

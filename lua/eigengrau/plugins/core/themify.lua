@@ -1,14 +1,12 @@
----@diagnostic disable: unused-local
-
 return {
   "lmantw/themify.nvim",
   dependencies = {
     "rktjmp/lush.nvim",
-    { dir = vim.fn.expand("~/spaces/neovim/wing.nvim"), name = "wing.nvim" },
   },
   lazy = false,
   priority = 999,
   config = function()
+    -- require('eigengrau.config.wing_ui').setup()
     require("themify").setup({
 
       {
@@ -21,7 +19,7 @@ return {
         whitelist = { "wing", "darkwing", "lightwing" },
         before = function()
           require("wing").setup({
-            transparent = false,
+            transparent = true,
             italic_comments = true,
             bold_keywords = true,
             bold_functions = true,
@@ -57,7 +55,7 @@ return {
         },
         before = function(theme)
           require("black-atom").setup({
-            transparent = false,
+            transparent = true,
             contrast = true,
           })
         end,
@@ -92,7 +90,7 @@ return {
             keywordStyle = { italic = true },
             statementStyle = {},
             typeStyle = {},
-            transparent = false,
+            transparent = true,
             dimInactive = false,
             terminalColors = true,
             colors = {
@@ -120,7 +118,7 @@ return {
           g.nightflyItalics = true
           g.nightflyNormalFloat = true
           g.nightflyTerminalColors = true
-          g.nightflyTransparent = false
+          g.nightflyTransparent = true
           g.nightflyUndercurls = true
           g.nightflyUnderlineMatchParen = true
           g.nightflyWinSeparator = 0
@@ -134,7 +132,7 @@ return {
         whitelist = { "solarized-osaka" },
         before = function(theme)
           require("solarized-osaka").setup({
-            transparent = false,
+            transparent = true,
             terminal_colors = true,
             styles = {
               comments = { italic = true },
@@ -166,7 +164,7 @@ return {
         "vague2k/vague.nvim",
         before = function(theme)
           require("vague").setup({
-            transparent = false,
+            transparent = true,
             bold = true,
             italic = true,
             style = {

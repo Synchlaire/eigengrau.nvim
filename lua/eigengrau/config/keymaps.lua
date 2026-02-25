@@ -112,7 +112,12 @@ end, { desc = "Diagnostics" })
 map("n", "  ", "<cmd>nohl<CR>", { desc = "Clear search" })
 map("n", "<leader>lz", "<cmd>Lazy<cr>", { desc = "Lazy" })
 map("n", "<leader>mm", "<cmd>Mason<cr>", { desc = "Mason" })
-map("n", "<leader>hh", "<cmd>lua Snacks.dashboard()<cr>", { desc = "Dashboard" })
+map("n", "<leader>hh", function()
+  Snacks.dashboard({
+    buf = vim.api.nvim_get_current_buf(),
+    win = vim.api.nvim_get_current_win(),
+  })
+end, { desc = "Dashboard" })
 map("n", "s", function() require("flash").jump() end, { silent = true })
 
 ----------

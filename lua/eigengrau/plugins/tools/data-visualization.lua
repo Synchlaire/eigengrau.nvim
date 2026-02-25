@@ -1,13 +1,14 @@
-return{
+return {
   -- json, yaml, toml
   {
     "Owen-Dechow/videre.nvim",
     lazy = true,
     cmd = "Videre",
+    ft = { "yaml", "json", "toml", "xml" },
     dependencies = {
       "Owen-Dechow/graph_view_yaml_parser", -- Optional: add YAML support
       "Owen-Dechow/graph_view_toml_parser", -- Optional: add TOML support
-      "a-usr/xml2lua.nvim", -- Optional | Experimental: add XML support
+      "a-usr/xml2lua.nvim",                 -- Optional | Experimental: add XML support
     },
     opts = {
       simple_statusline = true, -- If you are just starting out with Videre,
@@ -110,48 +111,48 @@ return{
   },
 
   -- csv, tsv
-{
-  "hat0uma/csvview.nvim",
-  lazy = true,
-  ft = { "csv", "tsv" },
-  opts = {
+  {
+    "hat0uma/csvview.nvim",
+    lazy = true,
+    ft = { "csv", "tsv" },
+    opts = {
 
-    parser = {
-      async_chunksize = 50,
-      delimiter = {
-        ft = {
-          csv = ",",
-          tsv = "\t",
+      parser = {
+        async_chunksize = 50,
+        delimiter = {
+          ft = {
+            csv = ",",
+            tsv = "\t",
+          },
+          fallbacks = {
+            ",",
+            "\t",
+            ";",
+            "|",
+            ":",
+            " ",
+          },
         },
-        fallbacks = {
-          ",",
-          "\t",
-          ";",
-          "|",
-          ":",
-          " ",
+        quote_char = '"',
+        comments = {
+          "#",
+          "--",
+          "//",
         },
-      },
-      quote_char = '"',
-      comments = {
-        "#",
-        "--",
-        "//",
-      },
 
-      max_lookahead = 50,
-    },
-    view = {
-      min_column_width = 5,
-      spacing = 2,
-      display_mode = "border",
-      header_lnum = true,
-      sticky_header = {
-        enabled = true,
-        separator = "─",
+        max_lookahead = 50,
+      },
+      view = {
+        min_column_width = 5,
+        spacing = 2,
+        display_mode = "border",
+        header_lnum = true,
+        sticky_header = {
+          enabled = true,
+          separator = "─",
+        },
       },
     },
-  },
-  cmd = { "CsvViewEnable", "CsvViewDisable", "CsvViewToggle" },
-}
+    cmd = { "CsvViewEnable", "CsvViewDisable", "CsvViewToggle" },
+  }
 }

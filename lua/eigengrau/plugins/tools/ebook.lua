@@ -4,7 +4,7 @@ return {
   keys = {
     { "<leader>eL", desc = "Open EPUB library" },
     { "<leader>el", desc = "Open last book" },
-    { "<leader>eo", ":InkOpen ", desc = "Open EPUB file" },
+    { "<leader>eo", ":InkOpen ",               desc = "Open EPUB file" },
   },
   dependencies = {
     -- "nvim-telescope/telescope.nvim",  -- Optional: for search features
@@ -12,19 +12,19 @@ return {
   config = function()
     require("ink").setup({
       -- Display settings
-      focused_mode = true,    -- Enable focused reading mode
-      image_open = true,      -- Allow opening images in external viewer
-      justify_text = true,   -- Enable text justification (adds spaces between words)
-      max_width = 88,        -- Maximum text width (for centering)
-      width_step = 5,        -- How much to change width per keypress
+      focused_mode = true, -- Enable focused reading mode
+      image_open = true,   -- Allow opening images in external viewer
+      justify_text = true, -- Enable text justification (adds spaces between words)
+      max_width = 88,      -- Maximum text width (for centering)
+      width_step = 5,      -- How much to change width per keypress
 
       -- Navigation keymaps
       keymaps = {
-        next_chapter = "]c",            -- Navigate to next chapter
-        prev_chapter = "[c",            -- Navigate to previous chapter
-        toggle_toc = "<leader>/",       -- Toggle table of contents sidebar
-        activate = "<CR>",              -- Preview footnote or open image/TOC entry
-        jump_to_link = "g<CR>",         -- Jump to link target (footnotes, cross-references)
+        next_chapter = "]c",      -- Navigate to next chapter
+        prev_chapter = "[c",      -- Navigate to previous chapter
+        toggle_toc = "<leader>/", -- Toggle table of contents sidebar
+        activate = "<CR>",        -- Preview footnote or open image/TOC entry
+        jump_to_link = "g<CR>",   -- Jump to link target (footnotes, cross-references)
 
         -- Search features (requires telescope.nvim)
         -- search_toc = "<leader>pit",           -- Search/filter chapters by name
@@ -32,13 +32,13 @@ return {
         -- search_mode_toggle = "<C-f>",         -- Toggle between TOC and content search
 
         -- Width adjustment
-        width_increase = "<leader>+",   -- Increase text width
-        width_decrease = "<leader>-",   -- Decrease text width
-        width_reset = "<leader>=",      -- Reset text width to default
+        width_increase = "<leader>+", -- Increase text width
+        width_decrease = "<leader>-", -- Decrease text width
+        width_reset = "<leader>=",    -- Reset text width to default
 
         -- Library (global keymaps)
-        library = "<leader>eL",         -- Open library browser
-        last_book = "<leader>el",       -- Open last read book
+        library = "<leader>eL",   -- Open library browser
+        last_book = "<leader>el", -- Open last read book
       },
 
       -- Highlight colors (customize with any hex colors you want)
@@ -53,11 +53,11 @@ return {
 
       -- Highlight keymaps (visual mode for adding, normal mode for removing)
       highlight_keymaps = {
-        yellow = "<leader>hy",  -- Highlight selection in yellow
-        green = "<leader>hg",   -- Highlight selection in green
-        red = "<leader>hr",     -- Highlight selection in red
-        blue = "<leader>hb",    -- Highlight selection in blue
-        remove = "<leader>hx"   -- Remove highlight under cursor
+        yellow = "<leader>hy", -- Highlight selection in yellow
+        green = "<leader>hg",  -- Highlight selection in green
+        red = "<leader>hr",    -- Highlight selection in red
+        blue = "<leader>hb",   -- Highlight selection in blue
+        remove = "<leader>hx"  -- Remove highlight under cursor
         -- Add more colors: purple, orange, pink, etc.
         -- purple = "<leader>hp",    -- Highlight with your custom highlight
       },
@@ -71,14 +71,14 @@ return {
 
       -- Bookmark keymaps
       bookmark_keymaps = {
-        add = "<leader>ba",           -- Add/edit bookmark at paragraph
-        remove = "<leader>bd",        -- Remove bookmark at paragraph
-        next = "<leader>bn",          -- Go to next bookmark
-        prev = "<leader>bp",          -- Go to previous bookmark
-        list_all = "<leader>bl",      -- List all bookmarks (global)
-        list_book = "<leader>bb",     -- List bookmarks in current book (global)
+        add = "<leader>ba",       -- Add/edit bookmark at paragraph
+        remove = "<leader>bd",    -- Remove bookmark at paragraph
+        next = "<leader>bn",      -- Go to next bookmark
+        prev = "<leader>bp",      -- Go to previous bookmark
+        list_all = "<leader>bl",  -- List all bookmarks (global)
+        list_book = "<leader>bb", -- List bookmarks in current book (global)
       },
-      bookmark_icon = "  "             -- Bookmark icon
+      bookmark_icon = "  "        -- Bookmark icon
     })
   end
 }

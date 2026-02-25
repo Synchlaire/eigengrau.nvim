@@ -3,6 +3,7 @@ local prefix = "<leader>o"
 return {
   {
     "obsidian-nvim/obsidian.nvim",
+    version = "*",
     ft = "markdown",
     cmd = "Obsidian",
     event = "BufReadPre " .. vim.fn.expand("~") .. "/Vaults/Littlewing/**.md",
@@ -113,20 +114,14 @@ return {
         blink = true,
       },
 
-      create_new = true,
-
       picker = {
         name = "snacks.pick",
         note_mappings = {
-          -- Create a new note from your query.
           new = "<C-x>",
-          -- Insert a link to the selected note.
           insert_link = "<C-l>",
         },
         tag_mappings = {
-          -- Add tag(s) to current note.
           tag_note = "<C-x>",
-          -- Insert a tag at the current location.
           insert_tag = "<C-l>",
         },
       },
@@ -136,7 +131,7 @@ return {
       end,
 
       callbacks = {
-        enter_note = function(_, note)
+        enter_note = function(note)
           if not note then
             return
           end
@@ -167,10 +162,8 @@ return {
 
       new_notes_location = "notes_subdir",
 
-      -- Frontmatter configuration (new API for obsidian.nvim 4.0+)
       frontmatter = {
-        enabled = false, -- Disable automatic frontmatter management
-        -- This only applies when YOU explicitly create notes via :Obsidian new
+        enabled = false,
         func = function(note)
           local out = {
             aliases = note.aliases or { note.title },
@@ -185,60 +178,46 @@ return {
 
       daily_notes = {
         folder = "logs",
-        date_format = "%Y-%m-%d",
-        alias_format = "%Y-%m-%d",
+        date_format = "YYYY-MM-DD",
+        alias_format = "YYYY-MM-DD",
         default_tags = { "log" },
         template = "Daily log.md",
       },
 
       templates = {
-        subdir = "templates",
-        date_format = "%Y-%m-%d",
-        time_format = "%H:%M",
+        folder = "templates",
+        date_format = "YYYY-MM-DD",
+        time_format = "HH:mm",
       },
 
       attachments = {
         folder = "resources/assets/",
       },
 
-      image = {
-        resolve = function(path, src)
-          if require("obsidian.api").path_is_note(path) then
-            return require("obsidian.api").resolve_image_path(src)
-          end
-        end,
-      },
-
       ui = {
         enable = true,
-        max_file_length = 5000, -- disable UI features for files with more than this many lines
+        max_file_length = 5000,
         bullets = { char = "•", hl_group = "ObsidianBullet" },
-        external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
+        external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
         reference_text = { hl_group = "ObsidianRefText" },
         highlight_text = { hl_group = "ObsidianHighlightText" },
         tags = { hl_group = "ObsidianTag" },
         block_ids = { hl_group = "ObsidianBlockID" },
         hl_groups = {
-          -- The options are passed directly to `vim.api.nvim_set_hl()`. See `:help nvim_set_hl`.
-          -- Checkboxes & Tasks
           ObsidianTodo = { link = "WarningMsg", bold = true },
           ObsidianDone = { link = "DiagnosticOk", strikethrough = true },
           ObsidianRightArrow = { link = "WarningMsg", bold = true },
           ObsidianTilde = { link = "ErrorMsg" },
           ObsidianImportant = { link = "Error" },
 
-          -- Text & Bullets
           ObsidianBullet = { link = "Identifier", bold = true },
 
-          -- Links & References
           ObsidianRefText = { link = "Function", underline = true },
           ObsidianExtLinkIcon = { link = "Function", bold = true },
 
-          -- Tags & Metadata
           ObsidianTag = { link = "Keyword", bold = true, italic = true },
           ObsidianBlockID = { link = "Constant", italic = true },
 
-          -- Highlighting & Emphasis
           ObsidianHighlightText = { link = "Search" },
         },
       },

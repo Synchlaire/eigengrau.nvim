@@ -1,1 +1,0 @@
-- whenever i'm in my ~/.config/nvim directory, use the appropiate skills from the start
