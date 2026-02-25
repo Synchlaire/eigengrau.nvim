@@ -1,7 +1,7 @@
 return {
   "xiyaowong/transparent.nvim",
   lazy = false,
-  priority = 1000,
+  priority = 9000,
   config = function()
     require("transparent").setup({
       groups = {
