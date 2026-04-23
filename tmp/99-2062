@@ -1,7 +1,0 @@
-      _99.visual()
-    end, { desc = "99: Visual AI" })
-
-    -- Search across project with AI
-    vim.keymap.set("n", "<leader>is", function()
-      _99.search({})
-    end, { desc = "99: Search" })

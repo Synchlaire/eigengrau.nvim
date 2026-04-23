@@ -15,6 +15,12 @@ spell/*.spl
 .DS_Store
 Thumbs.db
 
+# Local-only
+CLAUDE.md
+SESSION-*.md
+tmp/
+lua/eigengrau/plugins/_stash/
+
 # Personal spell dictionaries (optional - uncomment if you want to keep personal dictionaries private)
 # spell/*.add
 # spell/*.add.spl
