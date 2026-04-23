@@ -202,7 +202,7 @@ function _G.folder_picker(opts)
       table.insert(items, { idx = idx, text = folder, file = folder })
     end
 
-    Snacks.picker({
+    require("snacks").picker({
       title = "Folders",
       items = items,
       format = function(item)
@@ -214,7 +214,7 @@ function _G.folder_picker(opts)
           folder_cache.mark_recent(item.text)
           vim.cmd("cd " .. vim.fn.fnameescape(item.text))
           require("oil").open(item.text)
-          vim.notify("Opened: " .. item.text, vim.log.levels.INFO)
+          vim.notify("Opened " .. item.text, vim.log.levels.INFO)
         end
       end,
     })

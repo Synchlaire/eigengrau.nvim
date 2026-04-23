@@ -13,7 +13,7 @@ cmd("TextYankPost", {
 	desc = "Highlight while yanking",
 	group = "_buffer",
 	callback = function()
-		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 300 })
+		vim.hl.on_yank({ higroup = "IncSearch", timeout = 300 })
 	end,
 })
 
@@ -50,6 +50,31 @@ cmd("BufWritePre", {
 		end
 		local file = vim.uv.fs_realpath(args.match) or args.match
 		vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+	end,
+})
+
+-- Auto-reload buffers when the underlying file changes on disk.
+-- `autoread` lets nvim swap in the new content for unmodified buffers without
+-- prompting. But nvim only *notices* the change when it runs `checktime`, so
+-- the autocmds below trigger that check on focus/cursor events. The
+-- FileChangedShellPost hook surfaces a notification so reloads aren't silent.
+vim.opt.autoread = true
+local autoreload = augroup("auto_reload", { clear = true })
+cmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+	group = autoreload,
+	pattern = "*",
+	callback = function()
+		-- Skip special buffers (terminal, help, quickfix, etc.) and the command-line window.
+		if vim.fn.mode() == "c" or vim.bo.buftype ~= "" then return end
+		vim.cmd("checktime")
+	end,
+	desc = "Trigger checktime to detect external file changes",
+})
+cmd("FileChangedShellPost", {
+	group = autoreload,
+	pattern = "*",
+	callback = function()
+		vim.notify("File changed on disk — buffer reloaded", vim.log.levels.INFO, { title = "autoread" })
 	end,
 })
 

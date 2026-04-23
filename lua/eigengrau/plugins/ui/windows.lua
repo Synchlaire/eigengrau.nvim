@@ -1,74 +1,73 @@
 return {
-  -- Window management
-  {
-    "anuvyklack/windows.nvim",
-    dependencies = {
-      "anuvyklack/middleclass",
-      "anuvyklack/animation.nvim",
-    },
-    cmd = { "WindowsMaximize", "WindowsMaximizeVertically", "WindowsMaximizeHorizontally", "WindowsEqualize" },
-    config = function()
-      require("windows").setup({
-        equalalways = false,
-        autowidth = {
-          enable = false,
-          filetype = {},
-        },
-        ignore = {
-          buftype = { "quickfix", "oil" },
-          filetype = { "NvimTree", "neo-tree", "undotree", "gundo" },
-        },
-        animation = {
-          enable = true,
-          duration = 0,
-          fps = 60,
-          easing = "in_out_sine",
-        },
-      })
-    end,
-  },
-
-  -- Window rearrangement
-  {
-    "sindrets/winshift.nvim",
-    cmd = "WinShift",
-    config = function()
-      require("winshift").setup({
-        highlight_moving_win = true,
-        focused_hl_group = "Visual",
-        moving_win_options = {
-          wrap = true,
-          cursorline = true,
-          cursorcolumn = true,
-          colorcolumn = "",
-        },
-        keymaps = {
-          disable_defaults = false,
-          win_move_mode = {
-            ["h"] = "left",
-            ["j"] = "down",
-            ["k"] = "up",
-            ["l"] = "right",
-            ["H"] = "far_left",
-            ["J"] = "far_down",
-            ["K"] = "far_up",
-            ["L"] = "far_right",
+    {
+      "anuvyklack/windows.nvim",
+      dependencies = {
+        "anuvyklack/middleclass",
+        "anuvyklack/animation.nvim",
+      },
+      cmd = { "WindowsMaximize", "WindowsMaximizeVertically", "WindowsMaximizeHorizontally", "WindowsEqualize" },
+      config = function()
+        require("windows").setup({
+          equalalways = false,
+          autowidth = {
+            enable = false,
+            filetype = {},
           },
-        },
-        window_picker = function()
-          return require("winshift.lib").pick_window({
-            picker_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
-            filter_rules = {
-              cur_win = true,
-              floats = true,
-              filetype = {},
-              buftype = {},
-              bufname = {},
+          ignore = {
+            buftype = { "quickfix", "oil" },
+            filetype = { "NvimTree", "neo-tree", "undotree", "gundo" },
+          },
+          animation = {
+            enable = true,
+            duration = 120,
+            fps = 60,
+            easing = "in_out_sine",
+          },
+        })
+      end,
+    },
+
+    -- Window rearrangement
+    {
+      "sindrets/winshift.nvim",
+      cmd = "WinShift",
+      config = function()
+        require("winshift").setup({
+          highlight_moving_win = true,
+          focused_hl_group = "Visual",
+          moving_win_options = {
+            wrap = true,
+            cursorline = true,
+            cursorcolumn = true,
+            colorcolumn = "",
+          },
+          keymaps = {
+            disable_defaults = false,
+            win_move_mode = {
+              ["h"] = "left",
+              ["j"] = "down",
+              ["k"] = "up",
+              ["l"] = "right",
+              ["H"] = "far_left",
+              ["J"] = "far_down",
+              ["K"] = "far_up",
+              ["L"] = "far_right",
             },
-            filter_func = nil,
-          })
-        end,
-      })
-    end,
-  },
+          },
+          window_picker = function()
+            return require("winshift.lib").pick_window({
+              picker_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+              filter_rules = {
+                cur_win = true,
+                floats = true,
+                filetype = {},
+                buftype = {},
+                bufname = {},
+              },
+              filter_func = nil,
+            })
+          end,
+        })
+      end,
+    },
 }

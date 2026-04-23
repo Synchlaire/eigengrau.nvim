@@ -9,7 +9,7 @@ map("x", "r", "r", { noremap = true })
 -- Save/Exit
 map("n", "<leader>Qs", "<cmd>x<cr>", { desc = "Save and exit" })
 map("n", "<leader>QQ", "<cmd>qall<cr>", { desc = "Exit without saving" })
-map("n", "<leader><Enter>", '<cmd>write | echo "saved changes."<cr>', { desc = "Save" })
+map("n", "<leader><Enter>", '<cmd>write | echo "saved"<cr>', { desc = "Save" })
 
 -- Editing enhancements
 map("v", "<TAB>", "=", { silent = true }) -- Autoindent in visual
@@ -45,8 +45,18 @@ map("n", "[p", "O<Esc>p", { desc = "Paste above" })
 
 -- Window maximization
 map("n", "<A-f>", "<cmd>WindowsMaximize<cr>", { desc = "Maximize window" })
-map("n", "<A-t>", "<cmd>WindowsMaximizeVertically<cr>", { desc = "Maximize vertically" })
-map("n", "<A-w>", "<cmd>WindowsMaximizeHorizontally<cr>", { desc = "Maximize horizontally" })
+map(
+	"n",
+	"<A-t>",
+	"<cmd>WindowsMaximizeVertically<cr>",
+	{ desc = "Maximize vertically" }
+)
+map(
+	"n",
+	"<A-w>",
+	"<cmd>WindowsMaximizeHorizontally<cr>",
+	{ desc = "Maximize horizontally" }
+)
 map("n", "<A-0>", "<cmd>WindowsEqualize<cr>", { desc = "Equalize windows" })
 
 -- Window resizing (Ctrl+hjkl)
@@ -63,9 +73,9 @@ map("n", "<A-k>", "<C-w>k", { desc = "Focus up" })
 map("n", "<A-l>", "<C-w>l", { desc = "Focus right" })
 
 -- Splits
-map("n", "<leader>sv", '<cmd>vs| echo "split |  "<CR>', { desc = "Vertical split" })
-map("n", "<leader>sh", '<cmd>split | echo "split -- "<CR>', { desc = "Horizontal split" })
-map("n", "<leader>ds", '<cmd>close| echo "killed window 󰚌 "<CR>', { desc = "Close split" })
+map("n", "<leader>sv", "<cmd>vs<CR>", { desc = "Vertical split" })
+map("n", "<leader>sh", "<cmd>split<CR>", { desc = "Horizontal split" })
+map("n", "<leader>ds", "<cmd>close<CR>", { desc = "Close split" })
 
 -- Tabs (Alt+np for quick navigation, <leader><Tab> for management)
 map("n", "<A-n>", "<cmd>tabn<CR>", { desc = "Next tab" })
@@ -75,35 +85,39 @@ map("n", "<leader><Tab>d", "<cmd>tabclose<CR>", { desc = "Close tab" })
 map("n", "<leader><Tab>f", "<cmd>tabnew %<CR>", { desc = "Buffer in new tab" })
 
 -- Tabline customization (<leader><Tab> + modifier)
-map("n", "<leader><Tab>r", function() _G.rename_tab() end, { desc = "Rename tab" })
-map("n", "<leader><Tab>R", function() _G.clear_tab_name() end, { desc = "Clear tab name" })
-map("n", "<leader><Tab>c", function() _G.toggle_clock() end, { desc = "Toggle clock" })
-map("n", "<leader><Tab>b", function() _G.toggle_battery() end, { desc = "Toggle battery" })
-map("n", "<leader><Tab>t", function() _G.toggle_tab_names() end, { desc = "Toggle tab names" })
-map("n", "<leader><Tab>i", function() _G.toggle_statusline_info() end, { desc = "Toggle info" })
+map("n", "<leader><Tab>r", function()
+	if _G.rename_tab then
+		_G.rename_tab()
+	end
+end, { desc = "Rename tab" })
+map("n", "<leader><Tab>R", function()
+	if _G.clear_tab_name then
+		_G.clear_tab_name()
+	end
+end, { desc = "Clear tab name" })
+map("n", "<leader><Tab>c", function()
+	if _G.toggle_clock then
+		_G.toggle_clock()
+	end
+end, { desc = "Clock" })
+map("n", "<leader><Tab>b", function()
+	if _G.toggle_battery then
+		_G.toggle_battery()
+	end
+end, { desc = "Battery" })
+map("n", "<leader><Tab>t", function()
+	if _G.toggle_tab_names then
+		_G.toggle_tab_names()
+	end
+end, { desc = "Tab names" })
+map("n", "<leader><Tab>i", function()
+	if _G.toggle_statusline_info then
+		_G.toggle_statusline_info()
+	end
+end, { desc = "Info" })
 
-----------
--- Toggles (<leader>t)
-----------
-
-map("n", "<leader>ts", "<cmd>set spell!<CR>", { desc = "Spellcheck" })
-map("n", "<leader>tn", "<cmd>set rnu! number!<CR>", { desc = "Line numbers" })
-map("n", "<leader>tb", function()
-  require("eigengrau.config.functions.toggle-night").toggle()
-end, { desc = "Background" })
-map("n", "<leader>tr", "<cmd>TransparentToggle<CR>", { desc = "Transparency" })
-map("n", "<leader>tp", "<cmd>PlayerOneToggle<cr>", { desc = "UI sounds" })
-map("n", "<leader>tw", "<cmd>set wrap!<CR>", { desc = "Word wrap" })
-
-map("n", "<leader>tc", function()
-  vim.o.conceallevel = (vim.o.conceallevel == 0) and 2 or 0
-  vim.notify("Conceal: " .. (vim.o.conceallevel == 0 and "OFF" or "ON"), vim.log.levels.INFO)
-end, { desc = "Conceal" })
-
-map("n", "<leader>td", function()
-  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-  vim.notify("Diagnostics: " .. (vim.diagnostic.is_enabled() and "ON" or "OFF"), vim.log.levels.INFO)
-end, { desc = "Diagnostics" })
+-- Toggles (<leader>t) — defined in snacks.lua via Snacks.toggle
+-- Panel: <leader>tt (megatoggler in extras.lua)
 
 ----------
 -- Utilities
@@ -113,35 +127,49 @@ map("n", "  ", "<cmd>nohl<CR>", { desc = "Clear search" })
 map("n", "<leader>lz", "<cmd>Lazy<cr>", { desc = "Lazy" })
 map("n", "<leader>mm", "<cmd>Mason<cr>", { desc = "Mason" })
 map("n", "<leader>hh", function()
-  Snacks.dashboard({
-    buf = vim.api.nvim_get_current_buf(),
-    win = vim.api.nvim_get_current_win(),
-  })
+	require("snacks").dashboard({
+		buf = vim.api.nvim_get_current_buf(),
+		win = vim.api.nvim_get_current_win(),
+	})
 end, { desc = "Dashboard" })
-map("n", "s", function() require("flash").jump() end, { silent = true })
+map("n", "s", function()
+	require("flash").jump()
+end, { silent = true })
 
 ----------
 -- Git (<leader>g)
 ----------
 
-map("n", "<leader>gl", function() Snacks.lazygit() end, { desc = "LazyGit" })
-map("n", "<leader>gL", function() Snacks.lazygit.log() end, { desc = "LazyGit log" })
-map("n", "<leader>gB", function() Snacks.gitbrowse() end, { desc = "Git browse" })
+map("n", "<leader>gl", function()
+	require("snacks").lazygit()
+end, { desc = "LazyGit" })
+map("n", "<leader>gL", function()
+	require("snacks").lazygit.log()
+end, { desc = "LazyGit log" })
+map("n", "<leader>gB", function()
+	require("snacks").gitbrowse()
+end, { desc = "Git browse" })
 
 ----------
 -- Fuzzy Finding (<leader>f)
 ----------
-map("n", "<leader>fc", "<cmd>Themify<cr>", { desc = "Colorscheme" })
+map("n", "<leader>fc", "<cmd>Atelier<cr>", { desc = "Colorscheme" })
+map("n", "<leader>fu", "<cmd>Undotree<cr>", { desc = "Undo tree" })
 
 ----------
--- Terminal & Buffers
+-- Buffers
+-- (Terminal bindings live in plugins/tools/terminal.lua under <A-*>)
 ----------
 
-map("n", "<A-.>", "<cmd>Vterm<CR>", { desc = "Terminal (vsplit)" })
-map("n", "<A-,>", "<cmd>Sterm<CR>", { desc = "Terminal (hsplit)" })
-map("n", "<leader>uh", function() require("snacks").notifier.show_history() end, { desc = "Notifications" })
-map("n", "<leader>rn", function() require("snacks").rename.rename_file() end, { desc = "Rename file" })
-map("n", "<leader>dd", function() require("snacks").bufdelete() end, { desc = "Delete buffer" })
+map("n", "<leader>uh", function()
+	require("snacks").notifier.show_history()
+end, { desc = "Notifications" })
+map("n", "<leader>rn", function()
+	require("snacks").rename.rename_file()
+end, { desc = "Rename file" })
+map("n", "<leader>dd", function()
+	require("snacks").bufdelete()
+end, { desc = "Delete buffer" })
 
 ----------
 -- Namespaces

@@ -1,5 +1,9 @@
+-- Replaced by atelier.nvim (see ./atelier.lua). Kept here for reference and
+-- easy rollback: flip `enabled` back to true (and disable atelier) to restore
+-- the previous behavior.
 return {
   "lmantw/themify.nvim",
+  enabled = false,
   dependencies = {
     "rktjmp/lush.nvim",
   },
@@ -16,7 +20,7 @@ return {
 
       {
         "Synchlaire/wing.nvim",
-        whitelist = { "wing", "darkwing", "lightwing" },
+        whitelist = { "wing", "joe", "voodoo", "little-wing" },
         before = function()
           require("wing").setup({
             transparent = true,
@@ -28,6 +32,25 @@ return {
         end,
       },
 
+      {
+        "zootedb0t/citruszest.nvim",
+        before = function()
+          -- For using default config leave this empty.
+          require("citruszest").setup({
+            option = {
+              transparent = true, -- Enable/Disable transparency
+              bold = false,
+              italic = true,
+            },
+            -- Override default highlight style in this table
+            -- E.g If you want to override `Constant` highlight style
+            style = {
+              -- This will change Constant foreground color and make it bold.
+              Constant = { fg = "#FFFFFF", bold = true }
+            },
+          })
+        end
+      },
       -- {
       --   "kungfusheep/mfd.nvim",
       -- },
@@ -38,28 +61,47 @@ return {
 
       { "sontungexpt/witch" },
 
-      -- black-atom
+      -- oscura
       {
-        "black-atom-industries/nvim",
-        name = "black-atom",
-        whitelist = {
-          "black-atom-mnml-mikado-dark",
-          "black-atom-mnml-47-dark",
-          "black-atom-mnml-47-light",
-          "black-atom-mnml-mono-dark",
-          "black-atom-mnml-mono-light",
-          "black-atom-mnml-jpn-tsuki-yoru",
-          "black-atom-stations-engineering",
-          "black-atom-stations-medical",
-          "black-atom-stations-operations",
-        },
+        "Synchlaire/oscura.nvim",
+        whitelist = { "oscura-midnight", "oscura-dusk", "oscura-dawn" },
         before = function(theme)
-          require("black-atom").setup({
-            transparent = true,
-            contrast = true,
+          require("oscura").setup({
+            variant = "midnight", -- "midnight" | "dusk" | "dawn"
+            styles = {
+              comments   = { italic = true },
+              keywords   = { bold = true },
+              functions  = { bold = true },
+              variables  = {},
+              parameters = { italic = true },
+            },
+            on_highlights = nil,
           })
         end,
       },
+
+      -- black-atom
+      -- {
+      --   "black-atom-industries/nvim",
+      --   name = "black-atom",
+      --   whitelist = {
+      --     "black-atom-mnml-mikado-dark",
+      --     "black-atom-mnml-47-dark",
+      --     "black-atom-mnml-47-light",
+      --     "black-atom-mnml-mono-dark",
+      --     "black-atom-mnml-mono-light",
+      --     "black-atom-mnml-jpn-tsuki-yoru",
+      --     "black-atom-stations-engineering",
+      --     "black-atom-stations-medical",
+      --     "black-atom-stations-operations",
+      --   },
+      --   before = function(theme)
+      --     require("black-atom").setup({
+      --       transparent = true,
+      --       contrast = true,
+      --     })
+      --   end,
+      -- },
 
       -- Lackluster
       {
@@ -118,7 +160,7 @@ return {
           g.nightflyItalics = true
           g.nightflyNormalFloat = true
           g.nightflyTerminalColors = true
-          g.nightflyTransparent = true
+          g.nightflyTransparent = false
           g.nightflyUndercurls = true
           g.nightflyUnderlineMatchParen = true
           g.nightflyWinSeparator = 0

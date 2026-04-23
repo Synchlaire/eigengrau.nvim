@@ -1,11 +1,6 @@
--- System utilities - terminal and buffer management
+-- System utilities - buffer management
+-- Terminal management lives in plugins/tools/terminal.lua (termite.nvim).
 return {
-  -- Terminal management
-  {
-    "2kabhishek/termim.nvim",
-    cmd = { "Fterm", "FTerm", "Sterm", "STerm", "Vterm", "VTerm" },
-  },
-
   -- Buffer picker
   {
     "leath-dub/snipe.nvim",

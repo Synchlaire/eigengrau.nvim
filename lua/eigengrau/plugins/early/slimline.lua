@@ -68,7 +68,7 @@ return {
       },
       diagnostics = {
         workspace = true,
-        icons = { error = "", warn = "", hint = "", info = "" },
+        icons = { error = " ", warn = " ", hint = " ", info = " " },
       },
       filetype_lsp = {},
       recording = { icon = "  " },

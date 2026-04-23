@@ -75,8 +75,13 @@ local function get_battery()
     return ""
   end
 
-  local capacity = vim.fn.readfile(battery_file)[1]
-  local status = vim.fn.readfile(status_file)[1]
+  local ok_cap, cap_lines = pcall(vim.fn.readfile, battery_file)
+  local ok_stat, stat_lines = pcall(vim.fn.readfile, status_file)
+  if not ok_cap or not ok_stat then
+    return ""
+  end
+  local capacity = cap_lines[1]
+  local status = stat_lines[1]
 
   -- Choose icon based on status and capacity
   local icon = ""
@@ -114,7 +119,7 @@ local function toggle_clock()
   _G.show_clock = not _G.show_clock
   update_showtabline()
   vim.cmd.redrawtabline()
-  vim.notify("Clock " .. (_G.show_clock and "enabled" or "disabled"), vim.log.levels.INFO)
+  vim.notify("Clock " .. (_G.show_clock and "on" or "off"), vim.log.levels.INFO)
 end
 
 -- Toggle battery display
@@ -122,14 +127,14 @@ local function toggle_battery()
   _G.show_battery = not _G.show_battery
   update_showtabline()
   vim.cmd.redrawtabline()
-  vim.notify("Battery " .. (_G.show_battery and "enabled" or "disabled"), vim.log.levels.INFO)
+  vim.notify("Battery " .. (_G.show_battery and "on" or "off"), vim.log.levels.INFO)
 end
 
 -- Toggle tab names display
 local function toggle_tab_names()
   _G.show_tab_names = not _G.show_tab_names
   vim.cmd.redrawtabline()
-  vim.notify("Tab names " .. (_G.show_tab_names and "enabled" or "disabled"), vim.log.levels.INFO)
+  vim.notify("Tab names " .. (_G.show_tab_names and "on" or "off"), vim.log.levels.INFO)
 end
 
 -- Unified toggle for both battery and clock
@@ -139,7 +144,7 @@ local function toggle_statusline_info()
   _G.show_clock = new_state
   update_showtabline()
   vim.cmd.redrawtabline()
-  vim.notify("Statusline info " .. (new_state and "enabled" or "disabled"), vim.log.levels.INFO)
+  vim.notify("Tabline info " .. (new_state and "on" or "off"), vim.log.levels.INFO)
 end
 
 -- Get tab name or fallback to buffer name
@@ -263,7 +268,7 @@ local function rename_tab()
     if input and input ~= "" then
       _G.tab_names[current_tab] = input
       vim.cmd.redrawtabline()
-      vim.notify("Tab renamed to: " .. input, vim.log.levels.INFO)
+      vim.notify("Tab: " .. input, vim.log.levels.INFO)
     end
   end)
 end
@@ -273,7 +278,7 @@ local function clear_tab_name()
   local current_tab = vim.fn.tabpagenr()
   _G.tab_names[current_tab] = nil
   vim.cmd.redrawtabline()
-  vim.notify("Tab name cleared", vim.log.levels.INFO)
+  vim.notify("Tab name reset", vim.log.levels.INFO)
 end
 
 -- Auto-cleanup tab names when tabs are closed
@@ -301,12 +306,19 @@ vim.api.nvim_create_autocmd({ "TabNew", "TabEnter" }, {
   end,
 })
 
--- Auto-refresh clock every minute
-vim.fn.timer_start(60000, function()
+-- Auto-refresh clock every minute (with cleanup)
+local clock_timer = vim.fn.timer_start(60000, function()
   if _G.show_clock then
     vim.cmd.redrawtabline()
   end
 end, { ["repeat"] = -1 })
+
+vim.api.nvim_create_autocmd("VimLeavePre", {
+  callback = function()
+    vim.fn.timer_stop(clock_timer)
+  end,
+  desc = "Stop clock timer on exit",
+})
 
 -- Export functions for use
 _G.custom_tabline = custom_tabline

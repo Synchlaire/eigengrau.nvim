@@ -20,6 +20,9 @@ return {
       -- { 'R-nvim/cmp-r' },
     },
     opts = {
+      enabled = function()
+        return vim.g.cmp_enabled ~= false
+      end,
       keymap = {
         preset = "enter",
 
@@ -117,19 +120,21 @@ return {
       completion = {
         documentation = {
           auto_show = true,
-          auto_show_delay_ms = 200, -- Slight delay to avoid distraction
+          auto_show_delay_ms = 100,
           window = {
             max_width = 60,
             max_height = 20,
-            border = "rounded",
+            border = "single",
           },
         },
         ghost_text = {
-          enabled = true,
+          enabled = function()
+            return vim.g.blink_ghost_text ~= false
+          end,
         },
         menu = {
           max_height = 15, -- Don't let completion menu dominate screen
-          border = "rounded",
+          border = "single",
           draw = {
             columns = {
               { "kind_icon" },

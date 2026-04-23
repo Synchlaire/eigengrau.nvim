@@ -23,6 +23,17 @@ vim.opt.rtp:prepend(lazypath)
 -- Leader keys
 vim.g.mapleader = " "
 
+-- Disable unused language providers (silences checkhealth warnings, faster startup)
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+
+-- Force Ghostty detection for Snacks.image (TERM=xterm-ghostty misdetects)
+if vim.env.GHOSTTY_RESOURCES_DIR or (vim.env.TERM or ""):find("ghostty") then
+  vim.env.SNACKS_GHOSTTY = "1"
+end
+
 -- Core settings
 --require("eigengrau.components.init")
 require("eigengrau.config.neovide")
@@ -44,6 +55,7 @@ local plugins = {
 
 -- Lazy setup
 require("lazy").setup(plugins, {
+  rocks = { enabled = false }, -- No plugins need luarocks; silences hererocks warnings
   checker = {
     enabled = true,
     notify = true,

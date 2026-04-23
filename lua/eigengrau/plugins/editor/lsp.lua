@@ -46,7 +46,7 @@ return {
         },
         severity_sort = true,
         update_in_insert = false,
-        float = { border = "rounded", source = "if_many" },
+        float = { border = "single", source = "if_many" },
       })
 
       -- Server configurations using NEW vim.lsp.config API (0.11+)
@@ -105,7 +105,7 @@ return {
       -- Inlay hints toggle (global)
       vim.keymap.set("n", "<leader>th", function()
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-      end, { desc = "Toggle inlay hints" })
+      end, { desc = "Inlay hints" })
 
       -- LSP restart
       vim.keymap.set("n", "<leader>lR", "<cmd>LspRestart<cr>", {
@@ -149,12 +149,12 @@ return {
           map("<leader>ld", vim.diagnostic.open_float, "Show diagnostics")
 
           -- Inlay hints (per-buffer)
-          if client and client.supports_method("textDocument/inlayHint") then
+          if client and client:supports_method("textDocument/inlayHint") then
             vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
           end
 
           -- Document highlight (highlight word under cursor)
-          if client and client.supports_method("textDocument/documentHighlight") then
+          if client and client:supports_method("textDocument/documentHighlight") then
             local hl_group = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = false })
             vim.api.nvim_clear_autocmds({ buffer = ev.buf, group = hl_group })
             vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {

@@ -6,7 +6,9 @@ return {
   event = { "BufReadPre", "BufNewFile" },
   config = function()
     local conform = require("conform")
-    local format_on_save_enabled = true
+    if vim.g.format_on_save_enabled == nil then
+      vim.g.format_on_save_enabled = true
+    end
 
     conform.setup({
       formatters_by_ft = {
@@ -32,7 +34,7 @@ return {
       -- Format on save (can toggle with <leader>tf)
       format_on_save = function(bufnr)
         -- Check if format on save is disabled globally
-        if not format_on_save_enabled then
+        if not vim.g.format_on_save_enabled then
           return
         end
         -- Disable for certain filetypes if needed
@@ -56,14 +58,6 @@ return {
       })
     end, { desc = "Format buffer/selection" })
 
-    -- Toggle format on save
-    vim.keymap.set("n", "<leader>tf", function()
-      format_on_save_enabled = not format_on_save_enabled
-      if format_on_save_enabled then
-        vim.notify("Format on save: ENABLED", vim.log.levels.INFO)
-      else
-        vim.notify("Format on save: DISABLED", vim.log.levels.INFO)
-      end
-    end, { desc = "Toggle format on save" })
+    -- Toggle for format on save is in snacks.lua via Snacks.toggle
   end,
 }

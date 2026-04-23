@@ -67,7 +67,7 @@ return {
         },
         ["<leader><leader>"] = {
           function()
-            Snacks.picker.files({
+            require("snacks").picker.files({
               cwd = require("oil").get_current_dir()
             })
           end,
@@ -98,9 +98,9 @@ return {
         padding = 2,
         max_width = 0,
         max_height = 0,
-        border = "rounded",
+        border = "single",
         win_options = {
-          winblend = 10,
+          winblend = 5,
         },
       },
       -- Configuration for the actions floating preview window
@@ -113,7 +113,7 @@ return {
         max_height = 0.9,
         min_height = { 5, 0.1 },
         height = nil,
-        border = "rounded",
+        border = "single",
         win_options = {
           winblend = 0,
         },
@@ -126,7 +126,7 @@ return {
         max_height = { 10, 0.9 },
         min_height = { 5, 0.1 },
         height = nil,
-        border = "rounded",
+        border = "single",
         minimized_border = "none",
         win_options = {
           winblend = 0,
@@ -135,5 +135,89 @@ return {
     })
 
     vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
+
+    -- Image preview on cursor-hover in oil buffers (uses Snacks.image).
+    -- Replaces focal.nvim + image.nvim with the single Snacks backend, so we
+    -- get Ghostty's native graphics protocol with no extra plugins.
+    local hover ---@type { win: table, img: table, src: string } | nil
+
+    local function close_hover()
+      if hover then
+        pcall(function() hover.img:close() end)
+        pcall(function() hover.win:close() end)
+        hover = nil
+      end
+    end
+
+    local function show_hover()
+      local ok_snacks = type(_G.Snacks) == "table"
+          and type(Snacks.image) == "table"
+      if not ok_snacks then return end
+      if not Snacks.image.supports_terminal() then return end
+
+      local ok_oil, oil = pcall(require, "oil")
+      if not ok_oil then return end
+      local entry = oil.get_cursor_entry()
+      local dir = oil.get_current_dir()
+      if not (entry and dir) or entry.type ~= "file" then
+        return close_hover()
+      end
+
+      local path = dir .. entry.name
+      if not Snacks.image.supports_file(path) then
+        return close_hover()
+      end
+
+      -- Same image already shown — nothing to do.
+      if hover and hover.src == path then return end
+      close_hover()
+
+      local win = Snacks.win(Snacks.win.resolve("snacks_image", {
+        show = false,
+        enter = false,
+        relative = "cursor",
+        row = 1,
+        col = 4,
+        border = "rounded",
+        backdrop = false,
+        focusable = false,
+        wo = {
+          winblend = Snacks.image.terminal.env().placeholders and 0 or nil,
+        },
+      }))
+      win:open_buf()
+      local img = Snacks.image.placement.new(win.buf, path, {
+        auto_resize = true,
+        max_width = 60,
+        max_height = 30,
+        on_update_pre = function(placement)
+          local loc = placement:state().loc
+          win.opts.width = loc.width
+          win.opts.height = loc.height
+          if not win:valid() then win:show() end
+        end,
+        on_update = function() if win:valid() then win:update() end end,
+      })
+      hover = { win = win, img = img, src = path }
+    end
+
+    local group = vim.api.nvim_create_augroup("EigengrauOilImagePreview", { clear = true })
+    vim.api.nvim_create_autocmd("FileType", {
+      group = group,
+      pattern = "oil",
+      callback = function(ev)
+        vim.api.nvim_create_autocmd({ "CursorMoved", "BufLeave", "WinLeave" }, {
+          group = group,
+          buffer = ev.buf,
+          callback = function(e)
+            if e.event == "CursorMoved" then
+              vim.schedule(show_hover)
+            else
+              close_hover()
+            end
+          end,
+        })
+      end,
+    })
   end,
 }
